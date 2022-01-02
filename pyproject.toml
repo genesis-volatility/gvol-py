@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "gvol"
+version = "0.1.0"
+description = ""
+authors = ["Denys Halenok <denys.halenok@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+gql = {version = "3.0.0rc0", extras = ["requests"]}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^21.12b0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+mypy = "^0.930"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
