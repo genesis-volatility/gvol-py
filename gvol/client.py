@@ -1,3 +1,5 @@
+from typing import Dict
+
 from gql import Client, gql
 from gql.transport.requests import RequestsHTTPTransport
 
@@ -27,7 +29,7 @@ class GVol:
 
     def CurrentOrderbookSkewStrike(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> dict:
+    ) -> Dict:
         """The volatility skew, also known as the smile, represents an option’s implied volatility given different strike prices or delta.
 
         The Black-Scholes model assumes a constant volatility throughout the life of the option, yet, the underlying may behave differently depending on where it’s trading.
@@ -69,7 +71,7 @@ class GVol:
 
     def Shadow25Skews(
         self, dateTime: types.String, symbol: types.SymbolEnumType
-    ) -> dict:
+    ) -> Dict:
         """This end-point represents the 20/30 skew (~∆25) for various expirations at the given timestamp parameter.
 
         Data goes back to mid-February 2020.
@@ -107,7 +109,7 @@ class GVol:
         expiration: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """The volatility skew, also known as the smile, represents an option’s implied volatility given a different strike prices or delta.
 
         The Black-Scholes model assumes a constant volatility throughout the life of the option, yet, the underlying may behave differently depending on where it’s trading.
@@ -143,7 +145,7 @@ class GVol:
 
     def CurrentOrderbookTermStructure(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> dict:
+    ) -> Dict:
         """The volatility term structure represents the implied volatility given different expiration dates.
 
         ```
@@ -178,7 +180,7 @@ class GVol:
         rangeEnd: types.Float,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """This data displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
 
         This data is useful to gauge how expensive calls are versus puts.
@@ -233,7 +235,7 @@ class GVol:
         rangeEnd: types.Float,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """This data shows the average ATM volatility for each hour during the given time period.. This gives a good idea regarding how volatility has changed throughout time.
 
         Using rangesStart / rangeEnd , we can view how volatility has changed for options within the given expiration window.
@@ -276,7 +278,7 @@ class GVol:
             },
         )
 
-    def ConstantMaturityATMIV(self, symbol: types.SymbolEnumType) -> dict:
+    def ConstantMaturityATMIV(self, symbol: types.SymbolEnumType) -> Dict:
         """This returns Constanct Maturity ATM IV for Deribit.
 
         ```
@@ -305,7 +307,7 @@ class GVol:
             gql(queries.ConstantMaturityATMIV), variable_values={"symbol": symbol}
         )
 
-    def ConstantMaturity30to20DeltaSkew(self, symbol: types.SymbolEnumType) -> dict:
+    def ConstantMaturity30to20DeltaSkew(self, symbol: types.SymbolEnumType) -> Dict:
         """This returns Constant maturity 20/30 skew for Deribit only.
 
         ```
@@ -340,7 +342,7 @@ class GVol:
         dateTime: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Using our shadow features allows traders to compare current skew and term structure quotes to past market quotes.
 
         This is different from historical trade data. Quotes represent a complete picture of potential trades, as opposed to actual trades, and therefore are more indicative of where the market was priced at a given point in time.
@@ -386,7 +388,7 @@ class GVol:
         dateTimeTwo: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Using our shadow features allows traders to compare current skew and term-structure quotes to past market quotes.
 
         This is different from historical trade data. Quotes represent a complete picture of potential trades, as opposed to actual trades, and therefore are more indicative of where the market was priced at a given point in time.
@@ -434,7 +436,7 @@ class GVol:
         date: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """The volatility skew, also known as the smile, represents an option’s implied volatility given a different strike prices or delta.
 
         The Black-Scholes model assumes a constant volatility throughout the life of the option, yet, the underlying may behave differently depending on where it’s trading.
@@ -477,7 +479,7 @@ class GVol:
         date: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """The volatility term structure represents the implied volatility given different expiration dates.
 
         ```
@@ -511,7 +513,7 @@ class GVol:
 
     def HistoricalConstantSkew(
         self, exchange: types.ExchangeEnumType, days: types.Float
-    ) -> dict:
+    ) -> Dict:
         """This chart displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
 
         This chart is useful to gauge how expensive calls are versus puts.
@@ -550,7 +552,7 @@ class GVol:
 
     def HistoricalConstantATM(
         self, exchange: types.ExchangeEnumType, days: types.Float
-    ) -> dict:
+    ) -> Dict:
         """The at-the-money (ATM) volatility chart shows the average ATM volatility for each hour for the given time period. This gives a good idea regarding how volatility has changed throughout time given 1hr granularity.
 
         ```
@@ -584,7 +586,7 @@ class GVol:
 
     def HistoricalConstantWings(
         self, exchange: types.ExchangeEnumType, days: types.Float
-    ) -> dict:
+    ) -> Dict:
         """This data compares the relative elevation of implied volatility for “wing” options, defined as options with .30 to .20 delta for calls and -.20 to -.30 delta for puts, versus ATM volatility.
 
         This gives traders insight into the relative cost of lower probability options versus high probability options.
@@ -627,7 +629,7 @@ class GVol:
         interval: types.String,
         dateStart: types.String,
         dateEnd: types.String,
-    ) -> dict:
+    ) -> Dict:
         """```
         Parameters:
         Symbols: BTC / ETH
@@ -677,7 +679,7 @@ class GVol:
         date: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """This endpoint looks only at ATM options.
         It returns the average Bid/Ask size for the top 5 levels of the orderbook.
 
@@ -724,7 +726,7 @@ class GVol:
         rangeEnd: types.Float,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Coin OI represents open interest normalized for 1x multiplier.
         Otherwise raw open interest is not consistent between the various exchanges.
 
@@ -781,7 +783,7 @@ class GVol:
         rangeEnd: types.Float,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Coin OI represents open interest normalized for 1x multiplier.
         Otherwise raw open interest is not consistent between the various exchanges.
 
@@ -837,7 +839,7 @@ class GVol:
         rangeEnd: types.Float,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Coin OI represents open interest normalized for 1x multiplier.
         Otherwise raw open interest is not consistent between the various exchanges.
 
@@ -889,7 +891,7 @@ class GVol:
 
     def GlobalOpenInterestByStrikeExpirationPutCall(
         self, symbol: types.SymbolEnumType
-    ) -> dict:
+    ) -> Dict:
         """All OI is adjusted to reflect a 1 coin multiplier.
         This is the Deribit standard, other exchanges are adjusted to match it.
 
@@ -929,7 +931,7 @@ class GVol:
 
     def CurrentOiChangeByStrikeandExpiration(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> dict:
+    ) -> Dict:
         """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
 
         Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
@@ -968,7 +970,7 @@ class GVol:
 
     def CurrentVolumebyExpiration(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> dict:
+    ) -> Dict:
         """Contracts traded reflects the current volume seen today, starting at midnight UTC.
 
         Contracts traded further breaks down the volume by the various strikes and expirations.
@@ -1005,7 +1007,7 @@ class GVol:
 
     def CurrentVolumebyStrike(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> dict:
+    ) -> Dict:
         """Contracts traded reflects the current volume seen today, starting at midnight UTC.
 
         Contracts traded further breaks down the volume by the various strikes and expirations.
@@ -1041,7 +1043,7 @@ class GVol:
 
     def CurrentVolumebyPutCall(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> dict:
+    ) -> Dict:
         """Contracts traded reflects the current volume seen today, starting at midnight UTC.
 
         Contracts traded further breaks down the volume by the various strikes and expirations.
@@ -1079,7 +1081,7 @@ class GVol:
         direction2: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """The activity reflects the selected days’ traded options (UTC timezone).
 
         Trading activity is broken up into four types of activity: calls bought, calls sold, puts bought, puts sold.
@@ -1151,7 +1153,7 @@ class GVol:
         direction2: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Trading activity is broken up into four types of activity: calls bought, calls sold, puts bought, puts sold.
 
 
@@ -1205,7 +1207,7 @@ class GVol:
         dateEnd: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
 
         Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
@@ -1256,7 +1258,7 @@ class GVol:
         dateEnd: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
 
         Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
@@ -1306,7 +1308,7 @@ class GVol:
         dateRangeStart: types.String,
         dateRangeEnd: types.String,
         symbol: types.SymbolEnumType,
-    ) -> dict:
+    ) -> Dict:
         """This end-point accepts a date range and BTC/ETH as arguments.
 
         The results reflect the percentage of call spreads, that have been block-traded and settled on Deribit, as a percentage of trade count (not contract/premium volume).
@@ -1349,7 +1351,7 @@ class GVol:
         dateRangeStart: types.String,
         dateRangeEnd: types.String,
         symbol: types.SymbolEnumType,
-    ) -> dict:
+    ) -> Dict:
         """This end-point accepts a date range and BTC/ETH as arguments.
 
         The results reflect the percentage of put spreads, that have been block-traded and settled on Deribit, as a percentage of trade count (not contract/premium volume).
@@ -1388,7 +1390,7 @@ class GVol:
 
     def ParadigmBlockSnifferSingleLegBlockTrades(
         self, date: types.String, symbol: types.SymbolEnumType
-    ) -> dict:
+    ) -> Dict:
         """This end-point accepts a date and BTC/ETH as arguments.
 
         The result returns times and sales data for all block-trades settled on Deribit that have ONLY one leg associated with the block-trade.
@@ -1436,7 +1438,7 @@ class GVol:
         date: types.String,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Block Trade Count: represents the number of legs the given trade incorporates.
 
         Direction: Because block trades are pre-negotiated there is no “aggressor”. Here buy/sell is an accounting feature allowing us to see which side of the trade different legs go on.
@@ -1482,7 +1484,7 @@ class GVol:
         dateRangeStart: types.String,
         dateRangeEnd: types.String,
         symbol: types.SymbolEnumType,
-    ) -> dict:
+    ) -> Dict:
         """This end-point accepts a date range and BTC/ETH as arguments.
 
         The result returns times and sales data for all block-trades settled on Deribit broken down by category: Puts Vs Calls, Expirations and Strike Prices.
@@ -1527,7 +1529,7 @@ class GVol:
 
     def TimesandSales(
         self, date: types.String, exchange: types.ExchangeEnumType
-    ) -> dict:
+    ) -> Dict:
         """This query will return all the options times and sales data for a given exchange on a given day.
 
         ```
@@ -1572,7 +1574,7 @@ class GVol:
 
     def VolatilityCone(
         self, symbol: types.SymbolEnumType, date1: types.String, date2: types.String
-    ) -> dict:
+    ) -> Dict:
         """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
 
         Given selected rolling windows, the volatility cone displays where current volatilities reside compared to a quartile range.
@@ -1658,7 +1660,7 @@ class GVol:
         deltaRangeEnd: types.Float,
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
 
         Given selected rolling windows, the Parkinson IV reflects a rolling average, which can then be compared to the appropriate expiration cycle.
@@ -1721,7 +1723,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
         symbol: types.SymbolEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
 
         Intraday Realized Volatility uses hourly data and then annualizes the volatility.
@@ -1765,7 +1767,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
         symbol: types.SymbolEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
 
         Intraday Realized Volatility uses hourly data and then annualizes the volatility.
@@ -1809,7 +1811,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
         symbol: types.SymbolEnumType,
-    ) -> dict:
+    ) -> Dict:
         """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
 
         Intraday Realized Volatility uses hourly data and then annualizes the volatility.
@@ -1857,7 +1859,7 @@ class GVol:
         dateEnd: types.String,
         range1: types.Float,
         range2: types.Float,
-    ) -> dict:
+    ) -> Dict:
         """Intraday Realized Volatility uses hourly data and then annualizes the volatility.
 
         Since we are dealing with hourly data here, 10-day volatility requires a 240 input (24hrs * 10 days)
@@ -1901,7 +1903,7 @@ class GVol:
 
     def ClosetoCloseHistoricalVol(
         self, symbol: types.String, dateStart: types.String, dateEnd: types.String
-    ) -> dict:
+    ) -> Dict:
         """Returns a list of all active options.
         These are the latest option bids/asks and associated implied volatilities.
         Mark prices and mark volatilities are provided from the exchanges.
@@ -1945,7 +1947,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
         parkinsonRange: types.Float,
-    ) -> dict:
+    ) -> Dict:
         """Returns a list of all active options.
         These are the latest option bids/asks and associated implied volatilities.
         Mark prices and mark volatilities are provided from the exchanges.
@@ -1984,7 +1986,7 @@ class GVol:
 
     def OHLC(
         self, symbol: types.String, dateStart: types.String, dateEnd: types.String
-    ) -> dict:
+    ) -> Dict:
         """Returns a list of all active options.
         These are the latest option bids/asks and associated implied volatilities.
         Mark prices and mark volatilities are provided from the exchanges.
@@ -2023,7 +2025,7 @@ class GVol:
             },
         )
 
-    def CoveredCall(self, symbol: types.SymbolEnumType) -> dict:
+    def CoveredCall(self, symbol: types.SymbolEnumType) -> Dict:
         """DESCRIPTION:
         The “Covered Call” is constructed by holding a long position in the underlying asset.
         There is a 1-to-1 relationship between holding the long asset and the short call options.
@@ -2087,7 +2089,7 @@ class GVol:
             gql(queries.CoveredCall), variable_values={"symbol": symbol}
         )
 
-    def CashSecuredPuts(self, symbol: types.SymbolEnumType) -> dict:
+    def CashSecuredPuts(self, symbol: types.SymbolEnumType) -> Dict:
         """DESCRIPTION:
         The “Cash Secured Put” is a low-risk strategy with a similar payout profile to the “Covered Call”.
         Traders will sell a naked put but maintain enough cash to purchase the underlying asset at the predetermined strike price.
@@ -2140,7 +2142,7 @@ class GVol:
             gql(queries.CashSecuredPuts), variable_values={"symbol": symbol}
         )
 
-    def StraddleRun(self, symbol: types.SymbolEnumType) -> dict:
+    def StraddleRun(self, symbol: types.SymbolEnumType) -> Dict:
         """DESCRIPTION:
         Straddles are a classic volatility trade.
         Buyers of the straddle hope that the underlying moves enough to either exceed the straddle price by expiration or that the underlying moves enough to profitably “gamma scalp” the underlying.
@@ -2193,7 +2195,7 @@ class GVol:
             gql(queries.StraddleRun), variable_values={"symbol": symbol}
         )
 
-    def GlobalAllOrderBooksOptionPricing(self) -> dict:
+    def GlobalAllOrderBooksOptionPricing(self) -> Dict:
         """Returns a list of all active option instruments for every exchange.
         Args:
 
@@ -2207,7 +2209,7 @@ class GVol:
 
     def VolatilitySurfaceDelta(
         self, symbol: types.BTCOrETHEnumType, date: types.String
-    ) -> dict:
+    ) -> Dict:
         """This query returns the "delta volatility surface" along with spot prices in 1 minute increments.
 
         This data reflects option quotes throughout the day found on Deribit.
@@ -2260,7 +2262,7 @@ class GVol:
 
     def ShadowTermStructureand25Skew(
         self, date: types.String, symbol: types.SymbolEnumType
-    ) -> dict:
+    ) -> Dict:
         """Allows users to look at the Term Structure and 25∆ Skew for like expirations.
 
         There is 1hour intraday granularity.
@@ -2298,7 +2300,7 @@ class GVol:
         strike: types.String,
         putCall: types.PutCallEnumType,
         expiration: types.String,
-    ) -> dict:
+    ) -> Dict:
         """This query returns the open interest, bid iv, mark iv and ask iv for a specific instrument input.
 
         This data reflects option quotes found on Deribit for the given date range of interest.
@@ -2352,7 +2354,7 @@ class GVol:
 
     def SpotPrices(
         self, symbol: types.String, dateStart: types.String, dateEnd: types.String
-    ) -> dict:
+    ) -> Dict:
         """This query returns spot price daily open, high, low, close
 
         ```
@@ -2486,7 +2488,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
         interval: types.String,
-    ) -> dict:
+    ) -> Dict:
         """This query will return the option skews (∆35, ∆25, ∆15, ∆5) for constant maturities (7-day, 30-day, 60-day, 90-day, 180-day).
 
         Users can pass the desired coin, time interval and date of interest.
@@ -2556,7 +2558,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
         interval: types.String,
-    ) -> dict:
+    ) -> Dict:
         """This query will return the option at-the-money implied volatility for constant maturities (7-day, 30-day, 60-day, 90-day, 180-day).
 
         Users can pass the desired coin, time interval and date of interest.
@@ -2603,7 +2605,7 @@ class GVol:
 
     def CustomMaturityDeltaSurface(
         self, symbol: types.BTCOrETHEnumType, date: types.String, days: types.Float
-    ) -> dict:
+    ) -> Dict:
         """This endpoint returns hourly intervals for desired "Constant Maturity Input".
 
         Users can input desired maturity for both BTC or ETH.
@@ -2627,7 +2629,7 @@ class GVol:
         exchange: types.ExchangeEnumType,
         symbol: types.SymbolEnumType,
         expiration: types.String,
-    ) -> dict:
+    ) -> Dict:
         """
 
         Parameters:
@@ -2653,7 +2655,7 @@ class GVol:
 
     def OrderbookBasisVolumeandOpenInterest(
         self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType
-    ) -> dict:
+    ) -> Dict:
         """
 
         Parameters:
@@ -2677,7 +2679,7 @@ class GVol:
         exchange: types.ExchangeEnumType,
         symbol: types.SymbolEnumType,
         expiration: types.String,
-    ) -> dict:
+    ) -> Dict:
         """
 
         Parameters:
@@ -2706,7 +2708,7 @@ class GVol:
         exchange: types.ExchangeEnumType,
         symbol: types.SymbolEnumType,
         excludeExpiration: types.Boolean,
-    ) -> dict:
+    ) -> Dict:
         """
 
 
@@ -2734,7 +2736,7 @@ class GVol:
         expiration: types.String,
         dateStart: types.String,
         dateEnd: types.String,
-    ) -> dict:
+    ) -> Dict:
         """
 
         Parameters:
@@ -2769,7 +2771,7 @@ class GVol:
         expiration: types.String,
         dateStart: types.String,
         dateEnd: types.String,
-    ) -> dict:
+    ) -> Dict:
         """
 
         Parameters:
