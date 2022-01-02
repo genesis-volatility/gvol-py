@@ -5,7 +5,7 @@ description = ""
 authors = ["Denys Halenok <denys.halenok@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 gql = {version = "3.0.0rc0", extras = ["requests"]}
 
 [tool.poetry.dev-dependencies]
