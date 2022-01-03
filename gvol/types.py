@@ -1,6 +1,8 @@
-try:
+import sys
+
+if sys.version_info >= (3, 8):
     from typing import Literal
-except ImportError:
+else:
     from typing_extensions import Literal
 
 BTCOrETHEnumType = Literal["BCH", "BTC", "ETH"]
