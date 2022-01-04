@@ -7,7 +7,7 @@ from gvol import queries, types
 
 
 class GVol:
-    url = "https://app.pinkswantrading.com/graphql"
+    _url = "https://app.pinkswantrading.com/graphql"
 
     def __init__(self, gvol_api_key: str) -> None:
         """GVol API Client
@@ -24,8 +24,8 @@ class GVol:
             "Accept-Language": "en-US,en;q=0.9",
         }
 
-        _transport = RequestsHTTPTransport(url=self.url, headers=headers)
-        self._client = Client(transport=_transport, fetch_schema_from_transport=True)
+        transport = RequestsHTTPTransport(url=self._url, headers=headers)
+        self._client = Client(transport=transport, fetch_schema_from_transport=True)
 
     def CurrentOrderbookSkewStrike(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
