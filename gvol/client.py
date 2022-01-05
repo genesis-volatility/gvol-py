@@ -38,31 +38,14 @@ class GVol:
 
         A good way of measuring skew is by calculating the ratio of an out-of-money option versus an at-the-money option. This relationship typically changes in low volatility environments versus high volatility environments.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex / ledgerx
-        ```
-
-        Example Response:
-        ```
-            {
-                        "ts": "1637677441586",
-                        "instrumentName": "BTC-24NOV21-59000-C",
-                        "strike": 59000,
-                        "expiration": "1637712000000",
-                        "bidIv": 59.4,
-                        "markIv": 66.33,
-                        "askIv": 71.68,
-                        "delta": 0.10811
-                    }
-        ```
+        Example Response: ``{"ts": "1637677441586", "instrumentName": "BTC-24NOV21-59000-C", "strike": 59000, "expiration": "1637712000000", "bidIv": 59.4, "markIv": 66.33, "askIv": 71.68, "delta": 0.10811}``
         Args:
             symbol: (types.SymbolEnumType)
             exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
+
         """
         return self._client.execute(
             gql(queries.CurrentOrderbookSkewStrike),
@@ -78,20 +61,8 @@ class GVol:
 
         The end-point supports 1hr timestamp granularity.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Timestamp: '2021-04-14 05:00:00'
-        ```
+        Example Response: ``{"date": "1613930400000", "twentyThirtyCallIvMinusPutIv": -2.19, "daysUntilExpiration": 1 }``
 
-        Example Response:
-        ```
-        {
-        "date": "1613930400000",
-        "twentyThirtyCallIvMinusPutIv": -2.19,
-         "daysUntilExpiration": 1
-         },
-        ```
         Args:
             dateTime: (types.String)
             symbol: (types.SymbolEnumType)
@@ -118,13 +89,6 @@ class GVol:
 
         A good way of measuring skew is by calculating the ratio of an out-of-money option versus an at-the-money option. This relationship typically changes in low volatility environments versus high volatility environments.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        expiration: "2021-12-31"   (format YYYY-MM-dd)
-        ```
-
 
         Args:
             expiration: (types.String)
@@ -148,20 +112,8 @@ class GVol:
     ) -> Dict:
         """The volatility term structure represents the implied volatility given different expiration dates.
 
-        ```
-        Parameters:
-        symbols: BTC / ETH
-        exchange: deribit / bitcom / okex / ledgerx
-        ```
+        Example Response: ``{"expiration": "1637740800000", "markIv": 72.305, "forwardVolatility": 72.3 }``
 
-        Example Response:
-        ```
-        {
-        "expiration": "1637740800000",
-        "markIv": 72.305,
-        "forwardVolatility": 72.3
-        },
-        ```
         Args:
             symbol: (types.SymbolEnumType)
             exchange: (types.ExchangeEnumType)
@@ -190,26 +142,6 @@ class GVol:
         RangeStart / rangeEnd, we can view how skew symmetry has changed for options within the given expiration window.
 
 
-        ```
-        Parameters:
-        Symbol: btc / eth
-        RangeStart: 0 - 999
-        RangeEnd: 0 - 999
-        Exchange: deribit, bitcom, ledgerx, okex
-        ```
-        RangeStart / RangeEnd is used to filter expirations dates with a certain number of days until expiration.
-
-        Example Response:
-        ```
-        {
-        "date": "1635084000000",
-        "callIvMinusPutIv": 1.28
-        },
-        {
-        "date": "1635087600000",
-        "callIvMinusPutIv": 0.75
-        },
-        ```
         Args:
             rangeStart: (types.Float)
             rangeEnd: (types.Float)
@@ -240,25 +172,8 @@ class GVol:
 
         Using rangesStart / rangeEnd , we can view how volatility has changed for options within the given expiration window.
 
-        ```
-        Parameters:
-        Symbol: btc / eth
-        RangeStart: 0 - 999
-        RangeEnd: 0 - 999
-        Exchange: deribit / bitcom / ledgerx / okex
-        ```
+        Example Response: ``{"date": "1635084000000", "avgMarkIv": 83.98 }, { "date": "1635087600000", "avgMarkIv": 84.13 }``
 
-        Example Response:
-        ```
-        {
-        "date": "1635084000000",
-        "avgMarkIv": 83.98
-         },
-         {
-        "date": "1635087600000",
-        "avgMarkIv": 84.13
-        },
-        ```
         Args:
             rangeStart: (types.Float)
             rangeEnd: (types.Float)
@@ -281,22 +196,8 @@ class GVol:
     def ConstantMaturityATMIV(self, symbol: types.SymbolEnumType) -> Dict:
         """This returns Constanct Maturity ATM IV for Deribit.
 
-        ```
-        Parameters:
-        Symbol: btc / eth
-        ```
+        Example Response: ``{"date": "1606089600000", "seven": 76.22, "thirty": 73.69, "sixty": 73.81, "ninty": 73.96, "onehundredeighty": 74.35}``
 
-        Example Response:
-        ```
-        {
-        "date": "1606089600000",
-        "seven": 76.22,
-        "thirty": 73.69,
-        "sixty": 73.81,
-        "ninty": 73.96,
-        "onehundredeighty": 74.35
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
 
@@ -310,22 +211,9 @@ class GVol:
     def ConstantMaturity30to20DeltaSkew(self, symbol: types.SymbolEnumType) -> Dict:
         """This returns Constant maturity 20/30 skew for Deribit only.
 
-        ```
-        Parameters:
-        Symbol: btc / eth
-        ```
+        Example Response
+         ``{"date": "1606089600000", "seven": 6.66, "thirty": 10.69, "sixty": 12.71, "ninty": 13.45, "onehundredeighty": 14.77}``
 
-        Example Response:
-         ```
-         {
-        "date": "1606089600000",
-        "seven": 6.66,
-        "thirty": 10.69,
-        "sixty": 12.71,
-        "ninty": 13.45,
-        "onehundredeighty": 14.77
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
 
@@ -347,24 +235,8 @@ class GVol:
 
         This is different from historical trade data. Quotes represent a complete picture of potential trades, as opposed to actual trades, and therefore are more indicative of where the market was priced at a given point in time.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        dateTime: "2021-02-02 17:00:00". Format (YYYY-MM-DD HH:MM:SS)
-        ```
+        Example Response: ``{"sequenceDays2Exp": 0, "tsHourShadow": "1609502400000", "tsHourCurrent": null, "daysUntilExpiration": "0", "markIvCurrent": 73.02, "markIvShadow": 66.9 }``
 
-        Example Response:
-        ```
-          {
-        "sequenceDays2Exp": 0,
-        "tsHourShadow": "1609502400000",
-        "tsHourCurrent": null,
-        "daysUntilExpiration": "0",
-        "markIvCurrent": 73.02,
-        "markIvShadow": 66.9
-        },
-        ```
         Args:
             dateTime: (types.String)
             symbol: (types.SymbolEnumType)
@@ -393,25 +265,8 @@ class GVol:
 
         This is different from historical trade data. Quotes represent a complete picture of potential trades, as opposed to actual trades, and therefore are more indicative of where the market was priced at a given point in time.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        dateTimeOne: "2021-02-02 17:00:00". Format (YYYY-MM-DD HH:MM:SS)
-        dateTimeTwo: "2021-02-05 13:00:00". Format (YYYY-MM-DD HH:MM:SS)
-        ```
+        Example Response: ``{"sequenceDays2Exp": 1, "tsHourShadow": "1614690000000", "tsHourCurrent": "1609502400000", "daysUntilExpiration": "1", "markIvCurrent": 66.9, "markIvShadow": 81.77}``
 
-        Example Response:
-        ```
-         {
-        "sequenceDays2Exp": 1,
-        "tsHourShadow": "1614690000000",
-        "tsHourCurrent": "1609502400000",
-        "daysUntilExpiration": "1",
-        "markIvCurrent": 66.9,
-        "markIvShadow": 81.77
-        }
-        ```
         Args:
             dateTimeOne: (types.String)
             dateTimeTwo: (types.String)
@@ -445,22 +300,8 @@ class GVol:
 
         A good way of measuring skew is by calculating the ratio of an out-of-money option versus an at-the-money option. This relationship typically changes in low volatility environments versus high volatility environments.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        date: "2021-02-02". Format (YYYY-MM-DD)
-        ```
+        Example Response: ``{"expirationDate": "1609459200000", "weightedIv": 111.04, "strike": 30000, "premiumValue": 1037.58}``
 
-        Example Response:
-        ```
-        {
-        "expirationDate": "1609459200000",
-        "weightedIv": 111.04,
-        "strike": 30000,
-        "premiumValue": 1037.58
-        }
-        ```
         Args:
             date: (types.String)
             symbol: (types.SymbolEnumType)
@@ -482,22 +323,8 @@ class GVol:
     ) -> Dict:
         """The volatility term structure represents the implied volatility given different expiration dates.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        date: "2021-02-02". Format (YYYY-MM-DD)
-        ```
+        Example Response: ``{"expirationDate": "1609459200000", "weightedIv": 61.99, "fwdIv": 61.99, "totalUsdTraded": 23831.01}``
 
-        Example Response:
-        ```
-        {
-        "expirationDate": "1609459200000",
-        "weightedIv": 61.99,
-        "fwdIv": 61.99,
-        "totalUsdTraded": 23831.01
-        }
-        ```
         Args:
             date: (types.String)
             symbol: (types.SymbolEnumType)
@@ -520,24 +347,8 @@ class GVol:
 
         This displays the symmetry (or asymmetry) of the volatility skews.
 
-        ```
-        Parameters:
-        Exchange: deribit
-        Days: 365
-        ```
+        Example Response: ``{"date": "1606089600000", "btcSkewShort": 10.52, "btcSkewMed": 11.69, "btcSkewLong": 14.85, "ethSkewShort": 15.54, "ethSkewMed": 13.65, "ethSkewLong": 15.81}``
 
-        Example Response:
-        ```
-        {
-        "date": "1606089600000",
-        "btcSkewShort": 10.52,
-        "btcSkewMed": 11.69,
-        "btcSkewLong": 14.85,
-        "ethSkewShort": 15.54,
-        "ethSkewMed": 13.65,
-        "ethSkewLong": 15.81
-        }
-        ```
         Args:
             exchange: (types.ExchangeEnumType)
             days: (types.Float)
@@ -554,30 +365,14 @@ class GVol:
         self, exchange: types.ExchangeEnumType, days: types.Float
     ) -> Dict:
         """The at-the-money (ATM) volatility chart shows the average ATM volatility for each hour for the given time period. This gives a good idea regarding how volatility has changed throughout time given 1hr granularity.
+        : ``{"date": "1606089600000", "btcAtmShort": 72.94, "btcAtmMed": 73.84, "btcAtmLong": 74.33, "ethAtmShort": 96.77, "ethAtmMed": 94.41, "ethAtmLong": 80.92}``
 
-        ```
-        Parameters:
-        Exchange: deribit
-        Days: 365
-        ```
+                Args:
+                    exchange: (types.ExchangeEnumType)
+                    days: (types.Float)
 
-        ```
-        {
-        "date": "1606089600000",
-        "btcAtmShort": 72.94,
-        "btcAtmMed": 73.84,
-        "btcAtmLong": 74.33,
-        "ethAtmShort": 96.77,
-        "ethAtmMed": 94.41,
-        "ethAtmLong": 80.92
-        }
-        ```
-        Args:
-            exchange: (types.ExchangeEnumType)
-            days: (types.Float)
-
-        Returns:
-            dict
+                Returns:
+                    dict
         """
         return self._client.execute(
             gql(queries.HistoricalConstantATM),
@@ -593,23 +388,6 @@ class GVol:
 
         This measure is linked to the “Kurtosis” of the distribution of returns.
 
-        ```
-        Parameters:
-        Exchange: deribit
-        Days: 365
-        ```
-        Example Response:
-        ```
-        {
-        "date": "1606176000000",
-        "btcShort": 1.09,
-        "btcMed": 1.09,
-        "btcLong": 1.09,
-        "ethShort": 1.07,
-        "ethMed": 1.06,
-        "ethLong": 1.11
-        }
-        ```
         Args:
             exchange: (types.ExchangeEnumType)
             days: (types.Float)
@@ -630,38 +408,19 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
     ) -> Dict:
-        """```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        Interval: 1 minute / hour / days / weeks / months
-        dateStart: 2021-12-01
-        dateEnd: 2021-12-15
+        """DVolIndex query
 
-        ```
+        Example Response: ``{"timerange": "1635084000000", "instrument": "BTC", "open": 88.33, "high": 88.6, "low": 88.07, "close": 88.54}``
 
-        Example Response:
+                Args:
+                    exchange: (types.ExchangeEnumType)
+                    symbol: (types.SymbolEnumType)
+                    interval: (types.String)
+                    dateStart: (types.String)
+                    dateEnd: (types.String)
 
-        ```
-         {
-        "timerange": "1635084000000",
-        "instrument": "BTC",
-        "open": 88.33,
-        "high": 88.6,
-        "low": 88.07,
-        "close": 88.54
-        }
-
-        ```
-        Args:
-            exchange: (types.ExchangeEnumType)
-            symbol: (types.SymbolEnumType)
-            interval: (types.String)
-            dateStart: (types.String)
-            dateEnd: (types.String)
-
-        Returns:
-            dict
+                Returns:
+                    dict
         """
         return self._client.execute(
             gql(queries.DVolIndex),
@@ -687,26 +446,8 @@ class GVol:
 
         The data returns 24 hours of data for the given date passed.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit
-        Date: 2021-08-12
-        ```
+        Example Response: ``{"date": "1628726400000", "instrumentName": "BTC-12AUG21-46000-C", "baseCurrency": "BTC", "expiration": "1628755200000", "bidSize5LevelsDeep": 124.57, "avgBidPrice5LevelsDeep": 0, "askSize5LevelsDeep": 125.47, "avgAskPrice5LevelsDeep": 0}``
 
-        Example Response:
-        ```
-        {
-        "date": "1628726400000",
-        "instrumentName": "BTC-12AUG21-46000-C",
-        "baseCurrency": "BTC",
-        "expiration": "1628755200000",
-        "bidSize5LevelsDeep": 124.57,
-        "avgBidPrice5LevelsDeep": 0,
-        "askSize5LevelsDeep": 125.47,
-        "avgAskPrice5LevelsDeep": 0
-         }
-        ```
         Args:
             date: (types.String)
             symbol: (types.SymbolEnumType)
@@ -738,26 +479,8 @@ class GVol:
         RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
 
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH / BCH
-        Exchange: deribit / bitcom / okex / ledgerx
-        rangeStart: 0
-        rangeEnd: 999
-        ```
+        Example Response: ``{"strike": 30000, "openInterest": 981.6, "notionalOpenInterest": 55800249, "coinPremium": 1.32, "dollarPremium": 75663.21, "netDeltaExposure": 2.3, "coinOi": null}``
 
-        Example Response:
-        ```
-        {
-        "strike": 30000,
-        "openInterest": 981.6,
-        "notionalOpenInterest": 55800249,
-        "coinPremium": 1.32,
-        "dollarPremium": 75663.21,
-        "netDeltaExposure": 2.3,
-        "coinOi": null
-        }
-        ```
         Args:
             rangeStart: (types.Float)
             rangeEnd: (types.Float)
@@ -794,26 +517,8 @@ class GVol:
 
         RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
 
-        ```
-        Parameters:
-        symbols: BTC / ETH / BCH
-        exchange: deribit / bitcom / okex / ledgerx
-        rangeStart: 0 - 999
-        rangeEnd: 0 - 999
-        ```
+        Example Response: ``{"putCall": "C", "openInterest": 138186, "notionalOpenInterest": 7850170985, "coinPremium": 8877.73, "dollarPremium": 504368053.53, "netDeltaExposure": 31323.0906, "coinOi": null}``
 
-        Example Response:
-        ```
-        {
-        "putCall": "C",
-        "openInterest": 138186,
-        "notionalOpenInterest": 7850170985,
-        "coinPremium": 8877.73,
-        "dollarPremium": 504368053.53,
-        "netDeltaExposure": 31323.0906,
-        "coinOi": null
-        }
-        ```
         Args:
             rangeStart: (types.Float)
             rangeEnd: (types.Float)
@@ -850,26 +555,8 @@ class GVol:
 
         RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH / BCH
-        Exchange: deribit / bitcom / okex / ledgerx
-        RangeStart: 0 - 999
-        RangeEnd: 0 - 999
-        ```
+        Example Response: ``{"expiration": "1637740800000", "openInterest": 1401, "notionalOpenInterest": 79624399, "coinPremium": 6.26, "dollarPremium": 360248.45, "netDeltaExposure": -34.6894, "coinOi": null}``
 
-        Example Response:
-        ```
-        {
-        "expiration": "1637740800000",
-        "openInterest": 1401,
-        "notionalOpenInterest": 79624399,
-        "coinPremium": 6.26,
-        "dollarPremium": 360248.45,
-        "netDeltaExposure": -34.6894,
-        "coinOi": null
-        }
-        ```
         Args:
             rangeStart: (types.Float)
             rangeEnd: (types.Float)
@@ -895,29 +582,8 @@ class GVol:
         """All OI is adjusted to reflect a 1 coin multiplier.
         This is the Deribit standard, other exchanges are adjusted to match it.
 
+        Example Response: ``{"strike": "30000", "putCall": "P", "expiration": "1637884800000", "deribitContractOi": 979.3, "deribitNotionalOi": 55654226.166, "bitcomContractOi": 300, "bitcomNotionalOi": 17049186, "okexContractOi": 34.6, "okexNotionalOi": 1966339.452, "ledgerXContractOi": 8, "ledgerXNotionalOi": 454644.96}``
 
-
-        ```
-        Parameters:
-        symbols: BTC / ETH
-        ```
-
-        Example Response:
-        ```
-        {
-        "strike": "30000",
-        "putCall": "P",
-        "expiration": "1637884800000",
-        "deribitContractOi": 979.3,
-        "deribitNotionalOi": 55654226.166,
-        "bitcomContractOi": 300,
-        "bitcomNotionalOi": 17049186,
-        "okexContractOi": 34.6,
-        "okexNotionalOi": 1966339.452,
-        "ledgerXContractOi": 8,
-         "ledgerXNotionalOi": 454644.96
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
 
@@ -940,22 +606,8 @@ class GVol:
 
         Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
 
-        ```
-        Parameters:
-        symbol: BTC,
-        dateStart: "2020-01-02",
-        dateEnd: "2020-02-02",
-        exchange: deribit (only valid exchange is deribit)
-        ```
+        Example Response: ``{"expiration": "1637654400000", "strike": 54000, "oiChange": 78.4}``
 
-        Example Response:
-        ```
-        {
-        "expiration": "1637654400000",
-        "strike": 54000,
-        "oiChange": 78.4
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
             exchange: (types.ExchangeEnumType)
@@ -977,22 +629,8 @@ class GVol:
 
         This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH / BCH
-        Exchange: deribit / bitcom / okex / ledgerx
-        ```
+        Example Response: ``{"date": "1637625600000", "expiration": "1638518400000", "contractsTraded": 748.3, "coin1Volume": null, "premiumTraded": null}``
 
-        Example Response:
-        ```
-        {
-        "date": "1637625600000",
-        "expiration": "1638518400000",
-        "contractsTraded": 748.3,
-        "coin1Volume": null,
-        "premiumTraded": null
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
             exchange: (types.ExchangeEnumType)
@@ -1014,21 +652,6 @@ class GVol:
 
         This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH / BCH
-        Exchange: deribit / bitcom / okex / ledgerx
-        ```
-        Example Response:
-        ```
-        {
-        "date": "1637625600000",
-        "strike": 100000,
-        "contractsTraded": 311.3,
-        "premiumTraded": null,
-        "coin1Volume": null
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
             exchange: (types.ExchangeEnumType)
@@ -1049,12 +672,6 @@ class GVol:
         Contracts traded further breaks down the volume by the various strikes and expirations.
 
         This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
-
-        ```
-        Parameters:
-        Symbols: BTC / ETH / BCH
-        Exchange: deribit / bitcom / okex / ledgerx
-        ```
 
 
 
@@ -1090,32 +707,8 @@ class GVol:
 
         For example, 100 cheap out-of-the money options traded versus one deep in-the-money option, will affect these measures quite differently.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH / BCH (bitcom only)
-        Exchange: deribit / bitcom / okex
-        date1: date start. Format (YYYY-MM-DD)
-        date2: date end. Format (YYYY-MM-DD)
-        direction1: buy / sell
-        direction2: buy / sell
-        rangeStart: days until expiration
-        rangeEnd: days until expiration
-        ```
+        Example Responses: ``{"date": "1585699200000", "callContracts": 0.49, "putContracts": 0.51, "callPremium": 0.38, "putPremium": 0.62, "callsBlockTraded": 0, "putsBlocktraded": 1, "callPremiumBlockTraded": 0, "putPremiumBlockTraded": 1}``
 
-        Example Responses:
-        ```
-        {
-        "date": "1585699200000",
-        "callContracts": 0.49,
-        "putContracts": 0.51,
-        "callPremium": 0.38,
-        "putPremium": 0.62,
-        "callsBlockTraded": 0,
-        "putsBlocktraded": 1,
-        "callPremiumBlockTraded": 0,
-        "putPremiumBlockTraded": 1
-        }
-        ```
         Args:
             date1: (types.String)
             date2: (types.String)
@@ -1157,23 +750,8 @@ class GVol:
         """Trading activity is broken up into four types of activity: calls bought, calls sold, puts bought, puts sold.
 
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        date: "2021-02-02". Format (YYYY-MM-DD)
-        ```
+        Example Response: ``{"date": "1609459200000", "contractsTraded": 24890.3, "contractsBlockTraded": 1468, "premiumValue": 21488127.95, "premiumBlockTraded": 2587069.25}``
 
-        Example Response:
-        ```
-        {
-        "date": "1609459200000",
-        "contractsTraded": 24890.3,
-        "contractsBlockTraded": 1468,
-        "premiumValue": 21488127.95,
-        "premiumBlockTraded": 2587069.25
-        }
-        ```
         Args:
             date1: (types.String)
             date2: (types.String)
@@ -1216,23 +794,8 @@ class GVol:
 
         Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
 
-        ```
-        Parameters:
-        symbol: BTC,
-        dateStart: "2020-01-02",
-        dateEnd: "2020-02-02",
-        exchange: deribit (only valid exchange is deribit)
-        ```
+        Example Response: ``{"expiration": "1614326400000", "callOiChange": 11911.9, "putOiChange": 9936.7, "totalOiChange": 21848.6}``
 
-        Example Response:
-        ```
-        {
-        "expiration": "1614326400000",
-        "callOiChange": 11911.9,
-        "putOiChange": 9936.7,
-        "totalOiChange": 21848.6
-        }
-        ```
         Args:
             dateStart: (types.String)
             dateEnd: (types.String)
@@ -1267,23 +830,8 @@ class GVol:
 
         Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
 
-        ```
-        Parameters:
-        symbol: BTC,
-        dateStart: "2020-01-02",
-        dateEnd: "2020-02-02",
-        exchange: deribit (only valid exchange is deribit)
-        ```
+        Example Response: ``{"strike": 160000, "totalOiChange": 500.3, "callOiChange": 500.3, "putOiChange": 0}``
 
-        Example Response:
-        ```
-        {
-        "strike": 160000,
-        "totalOiChange": 500.3,
-        "callOiChange": 500.3,
-        "putOiChange": 0
-        }
-        ```
         Args:
             dateStart: (types.String)
             dateEnd: (types.String)
@@ -1317,18 +865,8 @@ class GVol:
 
 
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit
-        ```
+        Example Response: ``{"percentageOfTrades": 0.182}``
 
-        Example Response:
-        ```
-        {
-        "percentageOfTrades": 0.182
-        }
-        ```
         Args:
             dateRangeStart: (types.String)
             dateRangeEnd: (types.String)
@@ -1360,17 +898,6 @@ class GVol:
 
 
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit
-        ```
-        Example Response:
-        ```
-        {
-        "percentageOfTrades": 0.134
-        }
-        ```
         Args:
             dateRangeStart: (types.String)
             dateRangeEnd: (types.String)
@@ -1399,28 +926,8 @@ class GVol:
 
 
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Date: '2021-03-01'
-        ```
+        Example Response: ``{"date": "1612210707571", "indexPrice": 34005.73, "direction": "buy", "amount": 100, "price": 0.049, "instrumentName": "BTC-12FEB21-36000-C", "priceUsd": 1666.28, "sizeUsd": 166628.07, "iv": 104.95, "blockTradeId": "7268", "count": 1}``
 
-        Example Response:
-        ```
-        {
-        "date": "1612210707571",
-        "indexPrice": 34005.73,
-        "direction": "buy",
-        "amount": 100,
-        "price": 0.049,
-        "instrumentName": "BTC-12FEB21-36000-C",
-        "priceUsd": 1666.28,
-        "sizeUsd": 166628.07,
-        "iv": 104.95,
-        "blockTradeId": "7268",
-        "count": 1
-        }
-        ```
         Args:
             date: (types.String)
             symbol: (types.SymbolEnumType)
@@ -1445,27 +952,8 @@ class GVol:
 
         Theoretically the RFQ block trade may have been negotiated outside of Paradigm but realistically almost all block trade volume is executed through the Paradigm RFQ system.
 
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom
-        date: "2021-01-01" format(YYYY-MM-DD)
+        Example Response: ``{"ts": "1614630215306", "indexPrice": 48721.04, "direction": "buy", "amount": 100, "instrumentName": "BTC-28MAY21-75000-C", "sizeUsd": 401461.36, "priceUsd": "4014.61", "iv": 106.19, "blockTradeId": "8606", "count": 2}``
 
-
-        Example Response:
-        ```
-        {
-        "ts": "1614630215306",
-        "indexPrice": 48721.04,
-        "direction": "buy",
-        "amount": 100,
-        "instrumentName": "BTC-28MAY21-75000-C",
-        "sizeUsd": 401461.36,
-        "priceUsd": "4014.61",
-        "iv": 106.19,
-        "blockTradeId": "8606",
-        "count": 2
-        }
-        ```
         Args:
             date: (types.String)
             symbol: (types.SymbolEnumType)
@@ -1493,23 +981,8 @@ class GVol:
 
 
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        DateRangeStart: '2021-03-01'
-        DateRangeEnd: '2021-03-22'
-        ```
+        Example Response: ``{"expiration": "1614931200000", "strike": 36000, "putCall": "P", "contractVolume": 30, "premiumVolume": 2644.86}``
 
-        Example Response:
-        ```
-        {
-        "expiration": "1614931200000",
-        "strike": 36000,
-        "putCall": "P",
-        "contractVolume": 30,
-        "premiumVolume": 2644.86
-        }
-        ```
         Args:
             dateRangeStart: (types.String)
             dateRangeEnd: (types.String)
@@ -1532,34 +1005,8 @@ class GVol:
     ) -> Dict:
         """This query will return all the options times and sales data for a given exchange on a given day.
 
-        ```
-        Parameters:
-        Date: "2021-09-01"
-        Exchange: "deribit"
-        ```
+        Example Response: ``{"exchange": "deribit", "date": "1631750359238", "instrumentName": "ETH-17SEP21-3900-C", "baseCurrency": "ETH", "expiration": "ETH", "strike": 3900, "putCall": "C", "direction": "buy", "blockTrade": "no", "liquidation": "no", "amount": 7, "price": 0.002, "priceUsd": 7.22, "iv": "89.79"}``
 
-        Available Exchange Parameters: deribit, ledgerx, bitcom, okex, binance, delta
-
-
-        Example Response:
-        ```
-         {
-        "exchange": "deribit",
-        "date": "1631750359238",
-        "instrumentName": "ETH-17SEP21-3900-C",
-        "baseCurrency": "ETH",
-        "expiration": "ETH",
-        "strike": 3900,
-        "putCall": "C",
-        "direction": "buy",
-        "blockTrade": "no",
-        "liquidation": "no",
-        "amount": 7,
-        "price": 0.002,
-        "priceUsd": 7.22,
-        "iv": "89.79"
-        }
-        ```
         Args:
             date: (types.String)
             exchange: (types.ExchangeEnumType)
@@ -1579,61 +1026,8 @@ class GVol:
 
         Given selected rolling windows, the volatility cone displays where current volatilities reside compared to a quartile range.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        Exchange: deribit / bitcom / okex
-        beginDate: "2021-01-01" format(YYYY-MM-DD)
-        endDate: "2021-02-01" format(YYYY-MM-DD)
-        ```
+        Example Response ``{"max365": 83.87, "current365": 83.87, "min365": 75.29, "p75365": 82.235, "p50365": 80.655, "p25365": 77.46, "max180": 76.94, "current180": 76.94, "min180": 56.43, "p75180": 74.6025, "p50180": 71.545, "p25180": 63.2025, "max90": 98.66, "current90": 98.66, "min90": 63.29, "p7590": 93.57, "p5090": 88.17, "p2590": 74.91, "max30": 138.14, "current30": 136, "min30": 66.77, "p7530": 129.185, "p5030": 120.44, "p2530": 94.3325, "max14": 156.93, "current14": 122.88, "min14": 72.56, "p7514": 145.4725, "p5014": 124.155, "p2514": 114.65, "max7": 168.9, "current7": 122.68, "min7": 74.08, "p757": 145.5825, "p507": 124.845, "p257": 120.8725, "max0": 267.5, "current0": 81.28, "min0": 36.07, "p750": 161.475, "p500": 107.295, "p250": 78.8975}``
 
-        Example Response:
-        ```
-        {
-        "max365": 83.87,
-        "current365": 83.87,
-        "min365": 75.29,
-        "p75365": 82.235,
-        "p50365": 80.655,
-        "p25365": 77.46,
-        "max180": 76.94,
-        "current180": 76.94,
-        "min180": 56.43,
-        "p75180": 74.6025,
-        "p50180": 71.545,
-        "p25180": 63.2025,
-        "max90": 98.66,
-        "current90": 98.66,
-        "min90": 63.29,
-        "p7590": 93.57,
-        "p5090": 88.17,
-        "p2590": 74.91,
-        "max30": 138.14,
-        "current30": 136,
-        "min30": 66.77,
-        "p7530": 129.185,
-        "p5030": 120.44,
-        "p2530": 94.3325,
-        "max14": 156.93,
-        "current14": 122.88,
-        "min14": 72.56,
-        "p7514": 145.4725,
-        "p5014": 124.155,
-        "p2514": 114.65,
-        "max7": 168.9,
-        "current7": 122.68,
-        "min7": 74.08,
-        "p757": 145.5825,
-        "p507": 124.845,
-        "p257": 120.8725,
-        "max0": 267.5,
-        "current0": 81.28,
-        "min0": 36.07,
-        "p750": 161.475,
-        "p500": 107.295,
-        "p250": 78.8975
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
             date1: (types.String)
@@ -1666,25 +1060,8 @@ class GVol:
         Given selected rolling windows, the Parkinson IV reflects a rolling average, which can then be compared to the appropriate expiration cycle.
 
 
-        ```
-        Parameters:
-        "symbol": "BTC",
-        "beginDate": "2020-05-01",
-        "endDate": "2020-05-25",
-        "rangeStart": 0,
-        "rangeEnd": 999,
-        "deltaRangeStart": -1,
-        "deltaRangeEnd": 1,
-        "exchange": "deribit"
-        ```
+        Example Response: ``{"date": "1588291200000", "weightedIv": 80.12}``
 
-        Example Response:
-        ```
-        {
-        "date": "1588291200000",
-        "weightedIv": 80.12
-        }
-        ```
         Args:
             date1: (types.String)
             date2: (types.String)
@@ -1730,21 +1107,8 @@ class GVol:
 
         Hourly volatility averages are calculated horizontally across specific groups, such as hour of the day, or day of the week.
 
-        ```
-        Parameters:
-        symbol: BTC / ETH
-        dateStart: 2021-01-01  (Format YYYY-MM-DD)
-        dateEnd: 2021-02-02  (Format YYYY-MM-DD)
-        ```
+        Example Response: ``{"dowUtc": "Sunday   ", "parkinsonHvPerp": 115.19, "parkinsonHvIndex": 109.85}``
 
-        Example Response:
-        ```
-        {
-        "dowUtc": "Sunday   ",
-        "parkinsonHvPerp": 115.19,
-        "parkinsonHvIndex": 109.85
-        }
-        ```
         Args:
             dateStart: (types.String)
             dateEnd: (types.String)
@@ -1774,21 +1138,8 @@ class GVol:
 
         Hourly volatility averages are calculated horizontally across specific groups, such as hour of the day, or day of the week.
 
-        ```
-        Parameters:
-        symbol: BTC / ETH
-        dateStart: 2021-01-01  (Format YYYY-MM-DD)
-        dateEnd: 2021-02-02  (Format YYYY-MM-DD)
-        ```
+        Example Response: ``{"hourUtc": "0", "parkinsonHvPerp": 209.69, "parkinsonHvIndex": 198.07}``
 
-        Example Response:
-        ```
-        {
-        "hourUtc": "0",
-        "parkinsonHvPerp": 209.69,
-        "parkinsonHvIndex": 198.07
-        }
-        ```
         Args:
             dateStart: (types.String)
             dateEnd: (types.String)
@@ -1818,23 +1169,8 @@ class GVol:
 
         Hourly volatility averages are calculated horizontally across specific groups, such as hour of the day, or day of the week.
 
-        ```
-        Parameters:
-        symbol: BTC / ETH
-        dateStart: 2021-01-01  (Format YYYY-MM-DD)
-        dateEnd: 2021-02-02  (Format YYYY-MM-DD)
-        ```
+        Example Response: ``{"dowVal": 0, "dow": "Sunday   ", "hourUtc": 0, "parkinsonHvPerp": 488.65, "parkinsonHvIndex": 462.03}``
 
-        Example Response:
-        ```
-        {
-        "dowVal": 0,
-        "dow": "Sunday   ",
-        "hourUtc": 0,
-        "parkinsonHvPerp": 488.65,
-        "parkinsonHvIndex": 462.03
-        }
-        ```
         Args:
             dateStart: (types.String)
             dateEnd: (types.String)
@@ -1865,21 +1201,8 @@ class GVol:
         Since we are dealing with hourly data here, 10-day volatility requires a 240 input (24hrs * 10 days)
 
         Analyze perpetual swap price data and index price data in order to calculate realized vol.
-        ```
-        Parameters:
-        symbol: BTC / ETH
-        dateStart: 2021-01-01  (Format YYYY-MM-DD)
-        dateEnd: 2021-02-02  (Format YYYY-MM-DD)
-        ```
+        Example Response: ``{"ts": "1588291200000", "parkinsonHvPerp": 74.69, "parkisonHvIndex": 71.05}``
 
-        Example Response:
-        ```
-        {
-        "ts": "1588291200000",
-        "parkinsonHvPerp": 74.69,
-        "parkisonHvIndex": 71.05
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
             dateStart: (types.String)
@@ -1909,21 +1232,8 @@ class GVol:
         Mark prices and mark volatilities are provided from the exchanges.
         If no "mark" is provided midpoints are calculated from the best bid and best ask prices.
 
-        ```
-        Parameters:
-        exchange: deribit / bitcom / okex / ledgerx
-        ```
+        Example Response: ``{"date": "1609804800000", "currency": "BNB", "close": 41.9, "yesterdayClose": 41.1, "vol": 12.27}``
 
-        Example Response:
-        ```
-        {
-        "date": "1609804800000",
-        "currency": "BNB",
-        "close": 41.9,
-        "yesterdayClose": 41.1,
-        "vol": 12.27
-        }
-        ```
         Args:
             symbol: (types.String)
             dateStart: (types.String)
@@ -1953,18 +1263,8 @@ class GVol:
         Mark prices and mark volatilities are provided from the exchanges.
         If no "mark" is provided midpoints are calculated from the best bid and best ask prices.
 
-        ```
-        Parameters:
-        exchange: deribit / bitcom / okex / ledgerx
-        ```
+        Example Response: ``{"date": "1609718400000", "parkinsonHV": 135.43}``
 
-        Example Response:
-        ```
-        {
-        "date": "1609718400000",
-        "parkinsonHV": 135.43
-        }
-        ```
         Args:
             symbol: (types.String)
             dateStart: (types.String)
@@ -1992,22 +1292,8 @@ class GVol:
         Mark prices and mark volatilities are provided from the exchanges.
         If no "mark" is provided midpoints are calculated from the best bid and best ask prices.
 
-        ```
-        Parameters:
-        exchange: deribit / bitcom / okex / ledgerx
-        ```
+        Example Response: ``{"date": "1609718400000", "currency": "BNB", "open": 41.36, "high": 44.01, "low": 39.11, "close": 41.1}``
 
-        Example Response:
-        ```
-        {
-        "date": "1609718400000",
-        "currency": "BNB",
-        "open": 41.36,
-        "high": 44.01,
-        "low": 39.11,
-        "close": 41.1
-        }
-        ```
         Args:
             symbol: (types.String)
             dateStart: (types.String)
@@ -2047,38 +1333,8 @@ class GVol:
         Annualized Called Out Yield:
         [($700/$475) – 1] * (525,600 / minutes left until expiration)
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        ```
+        Example Response: ``{"date": "1637682176595", "instrumentName": "BTC-24NOV21-58000-C", "expiration": "1637740800000", "strike": 58000, "putCall": "C", "bidUsd": 314.86, "markUsd": 348.89, "askUsd": 372.1, "calledOutAnnualized": 707.196343384488, "calledOutAbsolute": 1.31455636888631, "absoluteBidYieldNet": 0.55, "absoluteMarkYieldNet": 0.61, "absoluteAskYieldNet": 0.65, "annualBidYieldNet": 297.52, "annualAskYieldNet": 351.97, "annualMarkYieldNet": 329.87, "absoluteMarkYieldCalledOut": 1.93, "absoluteAskYieldCalledOut": 1.97, "absoluteBidYieldCalledOut": 1.87, "annualizedBidYieldCalledOut": 1008.62, "annualizedMarkYieldCalledOut": 1041.41, "annualizedAskYieldCalledOut": 1063.79}``
 
-        Example Response:
-        ```
-          {
-        "date": "1637682176595",
-        "instrumentName": "BTC-24NOV21-58000-C",
-        "expiration": "1637740800000",
-        "strike": 58000,
-        "putCall": "C",
-        "bidUsd": 314.86,
-        "markUsd": 348.89,
-        "askUsd": 372.1,
-        "calledOutAnnualized": 707.196343384488,
-        "calledOutAbsolute": 1.31455636888631,
-        "absoluteBidYieldNet": 0.55,
-        "absoluteMarkYieldNet": 0.61,
-        "absoluteAskYieldNet": 0.65,
-        "annualBidYieldNet": 297.52,
-        "annualAskYieldNet": 351.97,
-        "annualMarkYieldNet": 329.87,
-        "absoluteMarkYieldCalledOut": 1.93,
-        "absoluteAskYieldCalledOut": 1.97,
-        "absoluteBidYieldCalledOut": 1.87,
-        "annualizedBidYieldCalledOut": 1008.62,
-        "annualizedMarkYieldCalledOut": 1041.41,
-        "annualizedAskYieldCalledOut": 1063.79
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
 
@@ -2108,30 +1364,8 @@ class GVol:
         RETURN CALCULATIONS
         Absolute Yield: $25/$275
         Annualized Yield: $25/$275 * (525,600 / minutes left until expiration)
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        ```
+        Example Response: ``{"date": "1637682194758", "instrumentName": "BTC-24NOV21-57000-P", "expiration": "1637740800000", "strike": 57000, "putCall": "P", "bidUsd": 543.77, "markUsd": 599.13, "askUsd": 629.63, "absoluteBidYieldNet": 0.96, "absoluteMarkYieldNet": 1.06, "absoluteAskYieldNet": 1.11, "bidYieldNetAnnual": 518.69, "markYieldNetAnnual": 572.06, "askYieldNetAnnual": 601.5}``
 
-        Example Response:
-        ```
-        {
-        "date": "1637682194758",
-        "instrumentName": "BTC-24NOV21-57000-P",
-        "expiration": "1637740800000",
-        "strike": 57000,
-        "putCall": "P",
-        "bidUsd": 543.77,
-        "markUsd": 599.13,
-        "askUsd": 629.63,
-        "absoluteBidYieldNet": 0.96,
-        "absoluteMarkYieldNet": 1.06,
-        "absoluteAskYieldNet": 1.11,
-        "bidYieldNetAnnual": 518.69,
-        "markYieldNetAnnual": 572.06,
-        "askYieldNetAnnual": 601.5
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
 
@@ -2164,27 +1398,8 @@ class GVol:
 
         At expiration everything resolves to spot.
 
-        ```
-        Parameters:
-        Symbols: BTC / ETH
-        ```
+        Example Response: ``{"expiration": "1637740800000", "strike": 57000, "bidUsd": 1373, "markUsd": 1433, "askUsd": 1517, "bidSpotPercentage": 2.4, "markSpotPercentage": 2.5, "askSpotPercentage": 2.6, "theta": -701.71, "vega": 19.4, "underlyingPrice": 57249}``
 
-        Example Response:
-        ```
-        {
-        "expiration": "1637740800000",
-        "strike": 57000,
-        "bidUsd": 1373,
-        "markUsd": 1433,
-        "askUsd": 1517,
-        "bidSpotPercentage": 2.4,
-        "markSpotPercentage": 2.5,
-        "askSpotPercentage": 2.6,
-        "theta": -701.71,
-        "vega": 19.4,
-        "underlyingPrice": 57249
-        }
-        ```
         Args:
             symbol: (types.SymbolEnumType)
 
@@ -2219,35 +1434,8 @@ class GVol:
 
         Users can use this high granularity endpoint to measure changes in the volatility surface with respect to changes in the underlying spot prices.
 
-        ```
-        Parameters:
-        Date: 2021-08-25
-        Symbol: BTC/ETH
-        ```
+        Example Response: ``{"date": "1630454400000", "timeLeft": "08:00:00", "currency": "ETH", "expiration": "1630483200000", "underlyingPrice": 3431.38, "spot": 3431.24, "putD05": 104.11, "putD15": 100.33, "putD25": 94.6, "putD35": 90.61, "callD05": 86.85, "callD15": 85.78, "callD25": 84.85, "callD35": 83.97, "atmMarkIV": 86.75, "atmMidIV": 89.23, "atmBidIV": 84.86, "atmAskIV": 93.6}``
 
-        Example Response:
-        ```
-        {
-        "date": "1630454400000",
-        "timeLeft": "08:00:00",
-        "currency": "ETH",
-        "expiration": "1630483200000",
-        "underlyingPrice": 3431.38,
-        "spot": 3431.24,
-        "putD05": 104.11,
-        "putD15": 100.33,
-        "putD25": 94.6,
-        "putD35": 90.61,
-        "callD05": 86.85,
-        "callD15": 85.78,
-        "callD25": 84.85,
-        "callD35": 83.97,
-        "atmMarkIV": 86.75,
-        "atmMidIV": 89.23,
-        "atmBidIV": 84.86,
-        "atmAskIV": 93.6
-        }
-        ```
         Args:
             symbol: (types.BTCOrETHEnumType)
             date: (types.String)
@@ -2271,15 +1459,8 @@ class GVol:
 
         Data available through early 2020.
 
-        Example Response:
-        ```
-        {
-        "dateAndHour": "1632182400000",
-        "daysUntilExpiration": 0,
-        "atmIv": 108.46,
-        "twentyThirtyCallIvMinusPutIv": -18.32
-        }
-        ```
+        Example Response: ``{"dateAndHour": "1632182400000", "daysUntilExpiration": 0, "atmIv": 108.46, "twentyThirtyCallIvMinusPutIv": -18.32}``
+
         Args:
             date: (types.String)
             symbol: (types.SymbolEnumType)
@@ -2308,27 +1489,8 @@ class GVol:
         Mark IV is provided by the exchange.
 
 
-        ```
-        Parameters:
-        Symbol: BTC/ETH
-        Date Start: "2021-09-01"
-        Date End: "2021-09-05"
-        Strike: "100000"
-        Put or Call: "C"
-        Expiration: "2021-12-31"
-        ```
+        Example Response: ``{"date": "1630972800000", "instrumentName": "BTC-31DEC21-100000-C", "oi": 3354.3, "bidIV": 95.64, "markIV": 96.39, "askIV": 97.22}``
 
-        Example Response:
-        ```
-        {
-        "date": "1630972800000",
-        "instrumentName": "BTC-31DEC21-100000-C",
-        "oi": 3354.3,
-        "bidIV": 95.64,
-        "markIV": 96.39,
-        "askIV": 97.22
-        }
-        ```
         Args:
             symbol: (types.BTCOrETHEnumType)
             dateStart: (types.String)
@@ -2357,114 +1519,6 @@ class GVol:
     ) -> Dict:
         """This query returns spot price daily open, high, low, close
 
-        ```
-        Parameters:
-        Symbol: ZRX
-        dateStart: "2021-09-01"
-        dateEnd: "2021-09-05"
-        ```
-        Available Symbols:
-        AAVE
-        ADA
-        ALGO
-        ANKR
-        AR
-        ATOM
-        AVAX
-        BAT
-        BCH
-        BNB
-        BNT
-        BSV
-        BTC
-        BTCB
-        BTT
-        CAKE
-        CEL
-        CELO
-        CHSB
-        CHZ
-        CKB
-        COMP
-        CRO
-        DASH
-        DCR
-        DENT
-        DGB
-        DOGE
-        DOT
-        EGLD
-        ENJ
-        EOS
-        ETC
-        ETH
-        FIL
-        FLOW
-        FTM
-        FTT
-        GRT
-        HBAR
-        HNT
-        HOT
-        HT
-        ICX
-        IOST
-        KLAY
-        KSM
-        LEO
-        LINK
-        LTC
-        LUNA
-        MANA
-        MATIC
-        MIOTA
-        MKR
-        NEAR
-        NEO
-        NEXO
-        NPXS
-        OMG
-        ONE
-        ONT
-        QTUM
-        REN
-        RSR
-        RUNE
-        RVN
-        SC
-        SNX
-        SOL
-        STX
-        SUSHI
-        TFUEL
-        THETA
-        UMA
-        UNI
-        VET
-        VGX
-        WAVES
-        WRX
-        XEM
-        XLM
-        XMR
-        XRP
-        XTZ
-        YFI
-        ZEC
-        ZIL
-        ZRX
-
-        Example Response:
-        ```
-        {
-        "date": "1609891200000",
-        "currency": "ZRX",
-        "open": 0.4457,
-        "high": 0.4974,
-        "low": 0.4273,
-        "close": 0.4613
-        }
-        ```
         Args:
             symbol: (types.String)
             dateStart: (types.String)
@@ -2500,39 +1554,8 @@ class GVol:
 
         Exchange: Deribit
 
-        ```
-        Parameters:
-        Symbol: BTC (BTC/ETH)
-        Interval: "1 minute" (5 minute, 15 minute, 30 minute , 1 hour, 4 hour, 12 hour, 1 day, 1 week)
-        date: "2021-09-01"
-        ```
+        Example Response: ``{"date": "1633219200000", "thirtyFiveDelta7DayExp": -2.16, "twentyFiveDelta7DayExp": -4.14, "fifteenDelta7DayExp": -6.91, "fiveDelta7DayExp": -15.62, "thirtyFiveDelta30DayExp": -0.31, "twentyFiveDelta30DayExp": -1.29, "fifteenDelta30DayExp": -2.28, "fiveDelta30DayExp": -6.53, "thirtyFiveDelta60DayExp": 1.24, "twentyFiveDelta60DayExp": 2.39, "fifteenDelta60DayExp": 3.63, "fiveDelta60DayExp": 8.26, "thirtyFiveDelta90DayExp": 2.46, "twentyFiveDelta90DayExp": 4.66, "fifteenDelta90DayExp": 8.16, "fiveDelta90DayExp": 16.06, "thirtyFiveDelta180DayExp": 4.26, "twentyFiveDelta180DayExp": 7.35, "fifteenDelta180DayExp": 10.27, "fiveDelta180DayExp": 15.27}``
 
-        Example Response:
-        ```
-          {
-        "date": "1633219200000",
-        "thirtyFiveDelta7DayExp": -2.16,
-        "twentyFiveDelta7DayExp": -4.14,
-        "fifteenDelta7DayExp": -6.91,
-        "fiveDelta7DayExp": -15.62,
-        "thirtyFiveDelta30DayExp": -0.31,
-        "twentyFiveDelta30DayExp": -1.29,
-        "fifteenDelta30DayExp": -2.28,
-        "fiveDelta30DayExp": -6.53,
-        "thirtyFiveDelta60DayExp": 1.24,
-        "twentyFiveDelta60DayExp": 2.39,
-        "fifteenDelta60DayExp": 3.63,
-        "fiveDelta60DayExp": 8.26,
-        "thirtyFiveDelta90DayExp": 2.46,
-        "twentyFiveDelta90DayExp": 4.66,
-        "fifteenDelta90DayExp": 8.16,
-        "fiveDelta90DayExp": 16.06,
-        "thirtyFiveDelta180DayExp": 4.26,
-        "twentyFiveDelta180DayExp": 7.35,
-        "fifteenDelta180DayExp": 10.27,
-        "fiveDelta180DayExp": 15.27
-        }
-        ```
         Args:
             symbol: (types.BTCOrETHEnumType)
             dateStart: (types.String)
@@ -2566,24 +1589,8 @@ class GVol:
 
         Exchange: Deribit
 
-        ```
-        Parameters:
-        Symbol: BTC (BTC/ETH)
-        Interval: "1 minute" (5 minute, 15 minute, 30 minute , 1 hour, 4 hour, 12 hour, 1 day, 1 week)
-        date: "2021-09-01"
-        ```
+        Example Response: ``{"date": "1633219200000", "atm7": null, "atm30": 77.5, "atm60": 83.63, "atm90": 86.41, "atm180": 87.79}``
 
-        Example Response:
-        ```
-        {
-        "date": "1633219200000",
-        "atm7": null,
-        "atm30": 77.5,
-        "atm60": 83.63,
-        "atm90": 86.41,
-        "atm180": 87.79
-        }
-        ```
         Args:
             symbol: (types.BTCOrETHEnumType)
             dateStart: (types.String)
@@ -2630,12 +1637,8 @@ class GVol:
         symbol: types.SymbolEnumType,
         expiration: types.String,
     ) -> Dict:
-        """
+        """Orderbook30dayHourlyBasis query
 
-        Parameters:
-        exchange: deribit
-        symbol: BTC / ETH
-        Expiration: 2021-12-31
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
@@ -2656,11 +1659,7 @@ class GVol:
     def OrderbookBasisVolumeandOpenInterest(
         self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType
     ) -> Dict:
-        """
-
-        Parameters:
-        exchange: deribit
-        symbol: BTC / ETH
+        """OrderbookBasisVolumeandOpenInterest query
 
         Args:
             exchange: (types.ExchangeEnumType)
@@ -2680,11 +1679,7 @@ class GVol:
         symbol: types.SymbolEnumType,
         expiration: types.String,
     ) -> Dict:
-        """
-
-        Parameters:
-        exchange: deribit
-        symbol: BTC / ETH
+        """OrderbookPast1HrBasisandSpot query
 
         Args:
             exchange: (types.ExchangeEnumType)
@@ -2709,7 +1704,7 @@ class GVol:
         symbol: types.SymbolEnumType,
         excludeExpiration: types.Boolean,
     ) -> Dict:
-        """
+        """Orderbook30DayTradeWeightedBasis query
 
 
         Args:
@@ -2737,11 +1732,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
     ) -> Dict:
-        """
-
-        Parameters:
-        exchange: deribit
-        symbol: BTC / ETH
+        """HistoricalIntradayTradedWeightedBasis query
 
         Args:
             exchange: (types.ExchangeEnumType)
@@ -2772,14 +1763,7 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
     ) -> Dict:
-        """
-
-        Parameters:
-        exchange: deribit
-        symbol: BTC / ETH
-        expiration: "2021-12-31 08:00:00"
-        dateStart: "2021-03-15"
-        datetEnd: "2021-04-15"
+        """Basis24HR query
 
         Args:
             exchange: (types.ExchangeEnumType)
