@@ -1,7 +1,14 @@
 # GVol
 
 [![Main workflow](https://github.com/genesis-volatility-public/gvol/actions/workflows/main.yml/badge.svg)](https://github.com/genesis-volatility-public/gvol/actions/workflows/main.yml)
+[![Documentation Status](https://readthedocs.org/projects/gvol/badge/?version=latest)](https://gvol.readthedocs.io/en/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+---
+
+**Documentation**: [https://gvol.readthedocs.io/en/latest/index.html](https://gvol.readthedocs.io/en/latest/index.html)
+
+---
 
 ## Install
 
