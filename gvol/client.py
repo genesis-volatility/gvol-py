@@ -7,12 +7,15 @@ from gvol import queries, types
 
 
 class GVol:
+    """GVol API client.
+
+    Contact info@genesisvolatility.io for API key information.
+    """
+
     _url = "https://app.pinkswantrading.com/graphql"
 
     def __init__(self, gvol_api_key: str) -> None:
-        """GVol API Client
-
-        Contact info@genesisvolatility.io for API key information.
+        """Initializes GVol API client.
 
         Args:
             gvol_api_key (str): API key
