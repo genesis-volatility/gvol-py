@@ -38,6 +38,9 @@ flake8 = "^4.0.1"
 mypy = "^0.930"
 types-toml = "^0.10.1"
 
+[tool.isort]
+profile = "black"
+
 [tool.poetry.extras]
 docs = ["sphinx", "sphinx-rtd-theme"]
 
