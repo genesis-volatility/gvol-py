@@ -214,8 +214,7 @@ class GVol:
     def ConstantMaturity30to20DeltaSkew(self, symbol: types.SymbolEnumType) -> Dict:
         """This returns Constant maturity 20/30 skew for Deribit only.
 
-        Example Response
-         ``{"date": "1606089600000", "seven": 6.66, "thirty": 10.69, "sixty": 12.71, "ninty": 13.45, "onehundredeighty": 14.77}``
+        Example Response: ``{"date": "1606089600000", "seven": 6.66, "thirty": 10.69, "sixty": 12.71, "ninty": 13.45, "onehundredeighty": 14.77}``
 
         Args:
             symbol: (types.SymbolEnumType)
@@ -368,14 +367,15 @@ class GVol:
         self, exchange: types.ExchangeEnumType, days: types.Float
     ) -> Dict:
         """The at-the-money (ATM) volatility chart shows the average ATM volatility for each hour for the given time period. This gives a good idea regarding how volatility has changed throughout time given 1hr granularity.
-        : ``{"date": "1606089600000", "btcAtmShort": 72.94, "btcAtmMed": 73.84, "btcAtmLong": 74.33, "ethAtmShort": 96.77, "ethAtmMed": 94.41, "ethAtmLong": 80.92}``
 
-                Args:
-                    exchange: (types.ExchangeEnumType)
-                    days: (types.Float)
+        Example Response: ``{"date": "1606089600000", "btcAtmShort": 72.94, "btcAtmMed": 73.84, "btcAtmLong": 74.33, "ethAtmShort": 96.77, "ethAtmMed": 94.41, "ethAtmLong": 80.92}``
 
-                Returns:
-                    dict
+        Args:
+            exchange: (types.ExchangeEnumType)
+            days: (types.Float)
+
+        Returns:
+            dict
         """
         return self._client.execute(
             gql(queries.HistoricalConstantATM),
@@ -415,15 +415,15 @@ class GVol:
 
         Example Response: ``{"timerange": "1635084000000", "instrument": "BTC", "open": 88.33, "high": 88.6, "low": 88.07, "close": 88.54}``
 
-                Args:
-                    exchange: (types.ExchangeEnumType)
-                    symbol: (types.SymbolEnumType)
-                    interval: (types.String)
-                    dateStart: (types.String)
-                    dateEnd: (types.String)
+        Args:
+            exchange: (types.ExchangeEnumType)
+            symbol: (types.SymbolEnumType)
+            interval: (types.String)
+            dateStart: (types.String)
+            dateEnd: (types.String)
 
-                Returns:
-                    dict
+        Returns:
+            dict
         """
         return self._client.execute(
             gql(queries.DVolIndex),
@@ -1062,7 +1062,6 @@ class GVol:
 
         Given selected rolling windows, the Parkinson IV reflects a rolling average, which can then be compared to the appropriate expiration cycle.
 
-
         Example Response: ``{"date": "1588291200000", "weightedIv": 80.12}``
 
         Args:
@@ -1204,6 +1203,7 @@ class GVol:
         Since we are dealing with hourly data here, 10-day volatility requires a 240 input (24hrs * 10 days)
 
         Analyze perpetual swap price data and index price data in order to calculate realized vol.
+
         Example Response: ``{"ts": "1588291200000", "parkinsonHvPerp": 74.69, "parkisonHvIndex": 71.05}``
 
         Args:
@@ -1367,6 +1367,7 @@ class GVol:
         RETURN CALCULATIONS
         Absolute Yield: $25/$275
         Annualized Yield: $25/$275 * (525,600 / minutes left until expiration)
+
         Example Response: ``{"date": "1637682194758", "instrumentName": "BTC-24NOV21-57000-P", "expiration": "1637740800000", "strike": 57000, "putCall": "P", "bidUsd": 543.77, "markUsd": 599.13, "askUsd": 629.63, "absoluteBidYieldNet": 0.96, "absoluteMarkYieldNet": 1.06, "absoluteAskYieldNet": 1.11, "bidYieldNetAnnual": 518.69, "markYieldNetAnnual": 572.06, "askYieldNetAnnual": 601.5}``
 
         Args:
@@ -1415,8 +1416,6 @@ class GVol:
 
     def GlobalAllOrderBooksOptionPricing(self) -> Dict:
         """Returns a list of all active option instruments for every exchange.
-        Args:
-
 
         Returns:
             dict
@@ -1490,7 +1489,6 @@ class GVol:
         This data reflects option quotes found on Deribit for the given date range of interest.
 
         Mark IV is provided by the exchange.
-
 
         Example Response: ``{"date": "1630972800000", "instrumentName": "BTC-31DEC21-100000-C", "oi": 3354.3, "bidIV": 95.64, "markIV": 96.39, "askIV": 97.22}``
 
@@ -1801,10 +1799,10 @@ class GVol:
         Currently supports: Deribit
 
         Args:
-            symbol (types.SymbolEnumType)
-            date (types.String)
-            interval (types.String)
-            exchange (types.ExchangeEnumType)
+            symbol: (types.SymbolEnumType)
+            date: (types.String)
+            interval: (types.String)
+            exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
