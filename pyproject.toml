@@ -36,7 +36,6 @@ black = "^21.12b0"
 isort = "^5.10.1"
 flake8 = "^4.0.1"
 mypy = "^0.930"
-types-toml = "^0.10.1"
 
 [tool.isort]
 profile = "black"
