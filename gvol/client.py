@@ -1788,3 +1788,33 @@ class GVol:
                 "dateEnd": dateEnd,
             },
         )
+
+    def HifiStrikesVolSurface(
+        self,
+        symbol: types.SymbolEnumType,
+        date: types.String,
+        interval: types.String,
+        exchange: types.ExchangeEnumType,
+    ) -> Dict:
+        """Returns OTM volatility surface based on strikes and actual expirations.
+
+        Currently supports: Deribit
+
+        Args:
+            symbol (types.SymbolEnumType)
+            date (types.String)
+            interval (types.String)
+            exchange (types.ExchangeEnumType)
+
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.HifiStrikesVolSurface),
+            variable_values={
+                "symbol": symbol,
+                "date": date,
+                "interval": interval,
+                "exchange": exchange,
+            },
+        )

@@ -1106,3 +1106,25 @@ Basis24HR = """
       }
     }
 """
+
+HifiStrikesVolSurface = """
+    query HifiStrikesVolSurface($symbol: BTCOrETHEnumType, $date: String, $interval: String, $exchange: ExchangeEnumType) {
+      HifiStrikesVolSurface(symbol: $symbol, date: $date, interval: $interval, exchange: $exchange) {
+        date
+        currency
+        expiration
+        strike
+        putCall
+        spot
+        underlyingPrice
+        bidIv
+        markIv
+        askIv
+        bestBidAmount
+        bestBidPrice
+        markPrice
+        bestAskPrice
+        bestAskAmount
+      }
+    }
+"""
