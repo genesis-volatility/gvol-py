@@ -1,8 +1,26 @@
 [tool.poetry]
 name = "gvol"
 version = "0.1.0"
-description = ""
+description = "GVol is a Python library to access the GVol API"
 authors = ["Denys Halenok <denys.halenok@gmail.com>"]
+
+readme = "README.md"
+
+homepage = "https://github.com/genesis-volatility-public/gvol"
+repository = "https://github.com/genesis-volatility-public/gvol"
+documentation = "https://gvol.readthedocs.io/"
+
+classifiers = [
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10"
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -22,6 +40,9 @@ types-toml = "^0.10.1"
 
 [tool.poetry.extras]
 docs = ["sphinx", "sphinx-rtd-theme"]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/genesis-volatility-public/gvol/issues"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
