@@ -1,6 +1,8 @@
 # GVol
 
-[![Main workflow](https://github.com/genesis-volatility-public/gvol/actions/workflows/main.yml/badge.svg)](https://github.com/genesis-volatility-public/gvol/actions/workflows/main.yml)
+[![Latest Version](https://img.shields.io/pypi/v/gvol.svg)](https://pypi.org/project/gvol/)
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/gvol.svg)](https://pypi.org/project/gvol/)
+[![Main Workflow](https://github.com/genesis-volatility-public/gvol/actions/workflows/main.yml/badge.svg)](https://github.com/genesis-volatility-public/gvol/actions/workflows/main.yml)
 [![Documentation Status](https://readthedocs.org/projects/gvol/badge/?version=latest)](https://gvol.readthedocs.io/en/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -15,7 +17,7 @@ GVol is a Python library to access the [GVol API](https://docs.gvol.io/).
 ## Install
 
 ```bash
-pip install git+ssh://git@github.com/genesis-volatility-public/gvol@main
+pip install gvol
 ```
 
 ## Demo
