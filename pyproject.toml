@@ -6,8 +6,8 @@ authors = ["Denys Halenok <denys.halenok@gmail.com>"]
 
 readme = "README.md"
 
-homepage = "https://github.com/genesis-volatility-public/gvol"
-repository = "https://github.com/genesis-volatility-public/gvol"
+homepage = "https://github.com/genesis-volatility/gvol-py"
+repository = "https://github.com/genesis-volatility/gvol-py"
 documentation = "https://gvol.readthedocs.io/"
 
 classifiers = [
@@ -44,7 +44,7 @@ profile = "black"
 docs = ["sphinx", "sphinx-rtd-theme"]
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/genesis-volatility-public/gvol/issues"
+"Bug Tracker" = "https://github.com/genesis-volatility/gvol-py/issues"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
