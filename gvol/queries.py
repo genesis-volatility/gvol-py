@@ -1195,3 +1195,16 @@ $exchange: ExchangeEnumType ){
   } 
 }
 """
+
+
+dvolVariancePremium = """
+query DVolVariancePremium($symbol: SymbolEnumType) {
+		dvolVariancePremium(symbol: $symbol) {
+			dvolImpliedRvDate
+			instrument
+			dvolOpen30Days
+			parkinsonHv
+			variancePremium
+		}
+	}
+"""

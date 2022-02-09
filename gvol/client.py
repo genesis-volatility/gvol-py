@@ -1877,3 +1877,20 @@ class GVol:
                 "interval": interval
             },
         )
+
+    def dVolVariancePremium(
+        self,
+        symbol: types.SymbolEnumType,
+    ) -> Dict:
+        """
+        Args:
+            symbol: (types.SymbolEnumType)
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.dvolVariancePremium),
+            variable_values={
+                "symbol": symbol,
+            },
+        )
