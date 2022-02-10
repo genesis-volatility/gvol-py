@@ -1208,3 +1208,30 @@ query DVolVariancePremium($symbol: SymbolEnumType) {
 		}
 	}
 """
+
+
+UtilityRealtimeOptionbook = """	
+query UtilityRealtimeOptionbook(
+		$exchange: ExchangeEnumType
+	) {
+		UtilityRealtimeOptionbook: genericUtilityRealtimeOptionbook(
+			exchange: $exchange	
+		) {
+			date
+            instrumentName
+            currency
+            expiration
+            strike
+            putCall
+            isAtm
+            oi
+            bestBidPrice
+            usdBid
+            bidIV
+            markIv
+            askIv
+            indexPrice
+            underlyingPrice
+		}
+	}
+  """

@@ -1825,7 +1825,7 @@ class GVol:
     ) -> Dict:
         """This endpoint returns a volatility surface represented by option strike prices.
 
-        This is a "model-free" volatility surface, meaning no interpolation or fitting of any kind is present. 
+        This is a "model-free" volatility surface, meaning no interpolation or fitting of any kind is present.
 
         Currently supports: Deribit
 
@@ -1892,5 +1892,27 @@ class GVol:
             gql(queries.dvolVariancePremium),
             variable_values={
                 "symbol": symbol,
+            },
+        )
+
+  def UtilityRealtimeOptionbook(
+        self,
+        symbol: types.SymbolEnumType,
+    ) -> Dict:
+        """
+        This endpoint will return the option orderbook, index prices, underlying prices and open interest for the entire exchange.
+        All crypto options, regardless of underlying coin, are returned.
+        This endpoint is real-time and will return live prices when requested.
+        Supported exchanges are |Deribit|Bitcom|Okex|Delta|
+
+        Args:
+             exchange: (types.ExchangeEnumType)
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.UtilityRealtimeOptionbook),
+            variable_values={
+                "exchange": symbol,
             },
         )
