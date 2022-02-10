@@ -1895,7 +1895,7 @@ class GVol:
             },
         )
 
-  def UtilityRealtimeOptionbook(
+    def UtilityRealtimeOptionbook(
         self,
         symbol: types.SymbolEnumType,
     ) -> Dict:
