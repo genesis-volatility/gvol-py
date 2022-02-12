@@ -1897,7 +1897,7 @@ class GVol:
 
     def UtilityRealtimeOptionbook(
         self,
-        symbol: types.SymbolEnumType,
+        exchange: types.ExchangeEnumType,
     ) -> Dict:
         """
         This endpoint will return the option orderbook, index prices, underlying prices and open interest for the entire exchange.
