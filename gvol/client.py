@@ -1913,6 +1913,6 @@ class GVol:
         return self._client.execute(
             gql(queries.UtilityRealtimeOptionbook),
             variable_values={
-                "exchange": symbol,
+                "exchange": exchange,
             },
         )
