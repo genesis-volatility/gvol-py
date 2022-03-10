@@ -1235,3 +1235,75 @@ query UtilityRealtimeOptionbook(
 		}
 	}
   """
+
+HifiVolSurfaceStrikesGreeksMinute = """
+ query HifiVolSurfaceStrikesGreeksMinute(
+  $symbol: BTCOrETHEnumType, 
+  $dateTime: String, 
+  $exchange: ExchangeEnumType
+   ){
+  HifiVolSurfaceStrikesGreeksMinute(
+    symbol: $symbol, 
+    dateTime: $dateTime, 
+    exchange:$exchange,
+    ) {
+    date
+    currency
+    expiration
+    strike
+    putCall
+    spot
+    underlyingPrice
+    openInterest
+    bidIv
+    markIv
+    askIv
+    bestBidAmount
+    bestBidPrice
+    markPrice
+    bestAskPrice
+    bestAskAmount
+    delta
+    gamma
+    theta
+    vega
+    rho
+  } 
+}
+ """
+
+HifiVolSurfaceStrikesGreeksHourly = """
+query HifiVolSurfaceStrikesGreeksHourly(
+  $symbol: BTCOrETHEnumType, 
+  $date: String, 
+ $interval:String,
+$exchange: ExchangeEnumType ){
+  HifiVolSurfaceStrikesGreeksHourly(
+    symbol: $symbol, 
+    date: $date, 
+    interval: $interval, 
+    exchange:$exchange) {
+    date
+    currency
+    expiration
+    strike
+    putCall
+    spot
+    underlyingPrice
+    openInterest
+    bidIv
+    markIv
+    askIv
+    bestBidAmount
+    bestBidPrice
+    markPrice
+    bestAskPrice
+    bestAskAmount
+    delta
+    gamma
+    theta
+    vega
+    rho
+  } 
+}
+ """

@@ -1916,3 +1916,81 @@ class GVol:
                 "exchange": exchange,
             },
         )
+
+    def HifiVolSurfaceStrikesGreeksMinute(
+        self,
+        exchange: types.ExchangeEnumType,
+        dateTime: types.String,
+        symbol: types.SymbolEnumType
+    ) -> Dict:
+        """
+      Explanation:
+        This endpoint returns a volatility surface represented by option strike prices.
+        This is a "model-free" volatility surface, meaning no interpolation or fitting of any kind is present.
+        Mark IV is determined by Deribit's internal risk-engine, which is proprietary formulation that is built upon a smoothing process. Deribit's internal fitting.
+        Option greeks and implied volatility are based on the future (forward) price, also known as the underlying and Deribit "marks".
+        For options with no tradable underlying (AKA tradable future) a synthetic is interpolated from two nearest active futures.
+        Bid IV and Ask IV are directly observable implied volatilities calculated from the best bid and best offer, this is raw, "model-free" data.
+        The index price represents the spot price. This is the current "cash market" price for the respective crypto.
+        Comparing the underlying price and spot price will determine the basis.
+        Endpoint Details:
+        Time period start: June 2021
+        Total date per pull: 1-hour worth of data points (It's recommended that users build looping functions to retrieve the entire dataset)
+        Supported date intervals: 1-minute, 5-minute, 15-minute, etc.
+        Supported Exchange: Deribit
+        New data appendage rate: 1-min (new data is added every 1-min)
+        Args:
+             exchange: (types.ExchangeEnumType), 
+             symbol: (types.SymbolEnumType),
+             date: (types.String)
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.HifiVolSurfaceStrikesGreeksMinute),
+            variable_values={
+                "exchange": exchange,
+                "dateTime": dateTime,
+                "symbol": symbol
+            },
+        )
+
+    def HifiVolSurfaceStrikesGreeksHourly(
+        self,
+        exchange: types.ExchangeEnumType,
+        dateTime: types.String,
+        symbol: types.SymbolEnumType,
+        interval: types.String
+    ) -> Dict:
+        """
+      Explanation:
+        This endpoint returns a volatility surface represented by option strike prices.
+        This is a "model-free" volatility surface, meaning no interpolation or fitting of any kind is present.
+        Mark IV is determined by Deribit's internal risk-engine, which is proprietary formulation that is built upon a smoothing process. Deribit's internal fitting.
+        Option greeks and implied volatility are based on the future (forward) price, also known as the underlying and Deribit "marks".
+        For options with no tradable underlying (AKA tradable future) a synthetic is interpolated from two nearest active futures.
+        Bid IV and Ask IV are directly observable implied volatilities calculated from the best bid and best offer, this is raw, "model-free" data.
+        The index price represents the spot price. This is the current "cash market" price for the respective crypto.
+        Comparing the underlying price and spot price will determine the basis.
+        Endpoint Details:
+        Time period start: April 2019
+        Total date per pull: 1-day worth of data points (It's recommended that users build looping functions to retrieve the entire dataset)
+        Supported date intervals: 1-hour, 2-hour, etc. up to 'daily'
+        Supported Exchange: Deribit
+        New data appendage rate: 1-min (new data is added every 1-min)
+        Args:
+             exchange: (types.ExchangeEnumType), 
+             symbol: (types.SymbolEnumType),
+             date: (types.String)
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.HifiVolSurfaceStrikesGreeksHourly),
+            variable_values={
+                "exchange": exchange,
+                "dateTime": dateTime,
+                "symbol": symbol,
+                "interval": interval
+            },
+        )
