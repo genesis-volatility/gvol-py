@@ -1817,67 +1817,6 @@ class GVol:
             },
         )
 
-    def HifiVolSurfaceStrikesGreeksMinute(
-        self,
-        symbol: types.SymbolEnumType,
-        dateTime: types.String,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """This endpoint returns a volatility surface represented by option strike prices.
-
-        This is a "model-free" volatility surface, meaning no interpolation or fitting of any kind is present.
-
-        Currently supports: Deribit
-
-        Args:
-            symbol: (types.SymbolEnumType)
-            dateTime: (types.String)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HifiVolSurfaceStrikesGreeksMinute),
-            variable_values={
-                "symbol": symbol,
-                "dateTime": dateTime,
-                "exchange": exchange,
-            },
-        )
-
-    def HifiVolSurfaceStrikesGreeksHourly(
-        self,
-        symbol: types.SymbolEnumType,
-        date: types.String,
-        exchange: types.ExchangeEnumType,
-        interval: types.String
-    ) -> Dict:
-        """This endpoint returns a volatility surface represented by option strike prices.
-
-        This is a "model-free" volatility surface, meaning no interpolation or fitting of any kind is present.
-
-        Currently supports: Deribit
-
-        Args:
-            symbol: (types.SymbolEnumType)
-            date: (types.String)
-            interval: (types.String)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HifiVolSurfaceStrikesGreeksHourly),
-            variable_values={
-                "symbol": symbol,
-                "date": date,
-                "exchange": exchange,
-                "interval": interval
-            },
-        )
-
     def dVolVariancePremium(
         self,
         symbol: types.SymbolEnumType,
