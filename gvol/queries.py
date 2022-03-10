@@ -1159,6 +1159,7 @@ query HifiVolSurfaceStrikesGreeksMinute(
     delta
     gamma
     vega
+    theta
   } 
 }
 """
@@ -1192,6 +1193,7 @@ $exchange: ExchangeEnumType ){
     delta
     gamma
     vega
+    theta
   } 
 }
 """
@@ -1217,7 +1219,7 @@ query UtilityRealtimeOptionbook(
 		UtilityRealtimeOptionbook: genericUtilityRealtimeOptionbook(
 			exchange: $exchange	
 		) {
-			date
+			      date
             instrumentName
             currency
             expiration
