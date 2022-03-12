@@ -1228,7 +1228,9 @@ query UtilityRealtimeOptionbook(
             isAtm
             oi
             bestBidPrice
+            bestAskPrice
             usdBid
+            usdAsk
             bidIV
             markIv
             askIv
