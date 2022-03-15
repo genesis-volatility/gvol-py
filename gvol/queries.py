@@ -449,6 +449,7 @@ TimesandSales = """
         amount
         price
         priceUsd
+        indexPrice
         iv
       }
     }
