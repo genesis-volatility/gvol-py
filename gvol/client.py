@@ -1897,7 +1897,7 @@ class GVol:
     def HifiVolSurfaceStrikesGreeksHourly(
         self,
         exchange: types.ExchangeEnumType,
-        dateTime: types.String,
+        date: types.String,
         symbol: types.SymbolEnumType,
         interval: types.String
     ) -> Dict:
@@ -1920,7 +1920,7 @@ class GVol:
         Args:
              exchange: (types.ExchangeEnumType), 
              symbol: (types.SymbolEnumType),
-             date: (types.String)
+             dateTime: (types.String)
         Returns:
             dict
         """
@@ -1928,7 +1928,7 @@ class GVol:
             gql(queries.HifiVolSurfaceStrikesGreeksHourly),
             variable_values={
                 "exchange": exchange,
-                "dateTime": dateTime,
+                "date": date,
                 "symbol": symbol,
                 "interval": interval
             },
