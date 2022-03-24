@@ -2193,51 +2193,6 @@ class GVol:
             },
         )
 
-    def UtilityRealtimeFuturesPrices(
-        self,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """
-      Explanation:
-        Inputs:
-        Exchange: Deribit, Bit.com, Okex, DyDx, FTX
-
-        Why do traders like this endpoint?
-        This endpoint returns the order-book for futures and perpetuals, often called ∆1 (Delta-one) products, along with 24hr volume and current open interest for each product.
-
-        Calculation:
-        USD
-        24hr volume returned in usd: bit.com, okex, deribit, dydx, ftx
-
-        open interest returned in usd: bit.com, okex, dydx, ftx
-
-        COIN
-        24hr volume returned in coin:
-
-        open interest returned in coin: deribit
-
-        Endpoint Output Details:
-        Granularity: 100ms (1-minute for dydx)
-        Date: Unix Format
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/yea
-
-        Args:
-             symbol: (types.SymbolEnumType),
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.UtilityRealtimeFuturesPrices),
-            variable_values={
-                "exchange": exchange,
-            },
-        )
-
     def BasisTradedLite(
         self,
         exchange: types.ExchangeEnumType,
