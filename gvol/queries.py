@@ -1240,3 +1240,237 @@ query UtilityRealtimeOptionbook(
 		}
 	}
   """
+
+SpotPricesLite = """
+query SpotPricesLite( $symbol:SymbolEnumType){
+  SpotPricesLite(symbol: $symbol) {
+    date
+    currency
+    open
+    high
+    low
+    close
+  } 
+}
+"""
+
+FixedMaturityAtm = """
+query FixedMaturityAtm($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumType){
+  FixedMaturityAtm(exchange:$exchange, symbol: $symbol) {
+    date
+    atm7
+    atm30
+    atm60
+    atm90
+    atm180
+    currency
+  }
+}
+"""
+
+
+FixedMaturitySkewLite = """
+query FixedMaturitySkewLite($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumType){
+  FixedMaturitySkewLite(exchange:$exchange, symbol: $symbol) {
+    date
+    currency
+    thirtyFiveDelta7DayExp
+    twentyFiveDelta7DayExp
+    fifteenDelta7DayExp
+    fiveDelta7DayExp
+    thirtyFiveDelta30DayExp
+    twentyFiveDelta30DayExp
+    fifteenDelta30DayExp
+    fiveDelta30DayExp
+    thirtyFiveDelta60DayExp
+    twentyFiveDelta60DayExp
+    fifteenDelta60DayExp
+    fiveDelta60DayExp
+    thirtyFiveDelta90DayExp
+    twentyFiveDelta90DayExp
+    fifteenDelta90DayExp
+    fiveDelta90DayExp
+    thirtyFiveDelta180DayExp
+    twentyFiveDelta180DayExp
+    fifteenDelta180DayExp
+    fiveDelta180DayExp
+  } 
+}
+"""
+
+TwentyFourHourTradesLite = """
+query TwentyFourHourTradesLite(
+		$exchange: ExchangeEnumType, $symbol: SymbolEnumType
+	) {
+		TwentyFourHourTradesLite(
+			exchange: $exchange, 
+      symbol: $symbol
+		) {
+		date
+    exchange
+    tradeId
+    blockId
+    block
+    amount
+    optionCoinPrice
+    optionUsdPrice
+    indexPrice
+    instrumentName
+    baseCurrency
+    expiratioin
+    putcall
+    notional
+    liquidation
+		}
+	}
+"""
+
+ParkinsonComboVolatilityLite = """
+query ParkinsonComboVolatilityLite( $symbol:SymbolEnumType){
+  ParkinsonComboVolatilityLite(symbol: $symbol) {
+    date
+    parkinsonHV10
+    parkinsonHV30
+    parkinsonHV90
+    parkinsonHV190
+    parkinsonHV365
+  } 
+}
+"""
+
+RealizedVolConeLite = """
+query RealizedVolConeLite( $symbol:SymbolEnumType){
+  RealizedVolConeLite(symbol: $symbol) {
+    measurement
+    current
+    max
+    p75
+    p50
+    p25
+    min
+  } 
+}
+"""
+
+UtilityRealtimeFuturesPrices = """
+query UtilityRealtimeFuturesPrices($exchange: ExchangeEnumType){
+	UtilityRealtimeFuturesPrices(exchange: $exchange) {
+    date
+    instrumentName
+    expiration
+    openInterest
+    volume24Hr
+    bestBidAmount
+    bestBidPrice
+    markPrice
+    indexPrice
+    bestAskPrice
+    bestAskAmount
+    currentFunding
+  }
+}
+
+"""
+
+BasisTradedLite = """
+query BasisTradedLite($exchange: ExchangeEnumType, $symbol: BTCOrETHEnumType){
+	BasisTradedLite(exchange: $exchange, symbol: $symbol) {
+    date
+    tradeSequence
+    instrumentName
+    baseCurrency
+    expiration
+    timeleft
+    amount
+    indexPrice
+    price
+    basis
+  }
+}
+"""
+
+
+CurrentObBasisVolumeOpenInterests = """
+	query CurrentObBasisVolumeOpenInterest($exchange: ExchangeEnumType, $symbol: SymbolEnumType) {
+		CurrentObBasisVolumeOpenInterests: genericCurrentObBasisVolumeOpenInterest(
+			exchange: $exchange
+			symbol: $symbol
+		) {
+			date
+			instrument
+			indexPrice
+			markPrice
+			midPrice
+			expirationn
+			timeleft
+			dollarSpread
+			annualizedPercentSpread
+			coinVolume
+			openInterestCoin
+		}
+	}
+"""
+
+DeribitFunding = """
+	query DeribitFunding{
+	  DeribitFunding{
+                date
+                instrumentName
+                markPrice
+                indexPrice
+                currentFunding
+                funding8h
+            }
+	}
+"""
+
+ConstantBasisSevenDayOneHour = """
+query ConstantBasisSevenDayOneHour($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumType){
+  ConstantBasisSevenDayOneHour(exchange:$exchange, symbol: $symbol) {
+    date
+    y30
+    y60
+    y90
+    currency
+  }
+}
+"""
+
+DydxFunding = """
+query DydxFunding{
+	  DydxFunding{
+            date
+            market
+            id
+            rate
+            price
+            effectiveAt
+            }
+	}
+"""
+
+ZetaOrderbookLite = """
+query ZetaOrderbookLite{
+	ZetaOrderbookLite {
+    instrumentName
+    date
+    currency
+    expiration
+    strike
+    putcall
+    distinctBidWallets
+    bidDepth
+    bestAskAmount
+    bestBidPrice
+    bidIv
+    markPrice
+    markIv
+    askIv
+    bestAskPrice
+    askDepth
+    distinctAskWallets
+    isATM
+    oraclePrice
+  }
+	}
+"""
