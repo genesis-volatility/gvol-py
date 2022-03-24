@@ -14,7 +14,7 @@ class GVol:
 
     _url = "https://app.pinkswantrading.com/graphql"
 
-    def __init__(self, header, gvol_api_key: str) -> None:
+    def __init__(self, header: str, gvol_api_key: str) -> None:
         """Initializes GVol API client.
 
         Args:
