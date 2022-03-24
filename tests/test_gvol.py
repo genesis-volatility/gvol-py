@@ -15,4 +15,4 @@ def test_version():
 
 
 def test_client_initialization():
-    _ = GVol("gvol_api_key")
+    _ = GVol("header", "gvol_api_key")
