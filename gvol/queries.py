@@ -1241,6 +1241,7 @@ query UtilityRealtimeOptionbook(
 	}
   """
 
+# Starting here.
 SpotPricesLite = """
 query SpotPricesLite( $symbol:SymbolEnumType){
   SpotPricesLite(symbol: $symbol) {
@@ -1472,5 +1473,22 @@ query ZetaOrderbookLite{
     isATM
     oraclePrice
   }
+	}
+"""
+
+RibbonTimeAndSales = """
+	query RibbonTimeAndSales {
+		RibbonTimeAndSales {
+		    date
+            expiration
+            defi
+            underlying
+            strike
+            putCall
+            direction
+            volume
+            coinPremium
+            notional
+		}
 	}
 """
