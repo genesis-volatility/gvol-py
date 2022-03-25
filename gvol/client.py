@@ -2194,7 +2194,7 @@ class GVol:
 
     def UtilityRealtimeFuturesPrices(
         self,
-        symbol: types.SymbolEnumType,
+        exchange: types.ExchangeEnumType,
     ) -> Dict:
         """
       Explanation:
@@ -2233,7 +2233,7 @@ class GVol:
         return self._client.execute(
             gql(queries.UtilityRealtimeFuturesPrices),
             variable_values={
-                "symbol": symbol,
+                "exchange": exchange,
             },
         )
 
