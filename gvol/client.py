@@ -1968,7 +1968,7 @@ class GVol:
             },
         )
 
-    def TwentyFourHourTradesLite(
+    def FixedMaturityAtm(
         self,
         exchange: types.ExchangeEnumType,
         symbol: types.SymbolEnumType,
@@ -2006,7 +2006,51 @@ class GVol:
             dict
         """
         return self._client.execute(
-            gql(queries.TwentyFourHourTradesLite),
+            gql(queries.FixedMaturityAtm),
+            variable_values={
+                "exchange": exchange,
+                "symbol": symbol,
+            },
+        )
+
+    def FixedMaturitySkewLite(
+        self,
+        exchange: types.ExchangeEnumType,
+        symbol: types.SymbolEnumType,
+    ) -> Dict:
+        """
+      Explanation:
+        Why do traders like this endpoint?
+        When moving out into the "wings" of options (aka. farther out-of-the-money options) implied volatilities begin to differ between equidistant options.
+        In this case, distance is measured by delta (Δ).
+        The reason for this difference in implied volatility is due to "Volatility Path". Meaning, the option market might expect higher volatility/momentum during a market crash of 20% versus a market rally of 20% (or down to the -Δ25 versus up to the Δ25).
+        More info: https://www.youtube.com/watch?v=Px6DewFrJeA
+
+        Calculation:
+        Target deltas are first calculated by weighting the nearest periphery options to account for varying distances from the target.
+        In order to calculate fixed maturities, the implied volatility is first converted into variance, then linearly interpolated to the target maturity and finally converted back into implied volatility.
+
+        Endpoint Output Details:
+        Granularity: Hourly
+        Dataset: 30-days of hourly data points for Δ35, Δ25, Δ15, Δ05, skews with fixed 7-day, 30-day, 60-day, 90-day, 180-day maturities.
+
+        Exchange: Deribit
+        Date: Unix Format
+
+        Need More? info@genesisvolatility.io
+        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+
+        Args:
+             exchange: (types.ExchangeEnumType)
+             symbol: (types.SymbolEnumType),
+
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.FixedMaturitySkewLite),
             variable_values={
                 "exchange": exchange,
                 "symbol": symbol,
