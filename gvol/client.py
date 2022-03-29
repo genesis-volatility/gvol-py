@@ -14,14 +14,14 @@ class GVol:
 
     _url = "https://app.pinkswantrading.com/graphql"
 
-    def __init__(self, gvol_api_key: str) -> None:
+    def __init__(self, header: str, gvol_api_key: str) -> None:
         """Initializes GVol API client.
 
         Args:
             gvol_api_key (str): API key
         """
         headers = {
-            "x-oracle": f"{gvol_api_key}",
+            f"{header}": f"{gvol_api_key}",
             "Content-Type": "application/json",
             "accept": "*/*",
             "Accept-Language": "en-US,en;q=0.9",
