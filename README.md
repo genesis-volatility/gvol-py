@@ -25,7 +25,7 @@ pip install gvol
 ```python
 from gvol import GVol
 
-gvol_client = GVol("gvol_api_key")
+gvol_client = GVol("header", "gvol_api_key")
 
 orderbook_skew_strike = gvol_client.CurrentOrderbookSkewStrike(
     symbol="BTC", exchange="deribit"
