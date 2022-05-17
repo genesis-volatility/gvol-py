@@ -5,7 +5,6 @@ from gql.transport.requests import RequestsHTTPTransport
 
 from gvol import queries, types
 
-##test changing something in fabio-test branch
 
 class GVol:
     """GVol API client.
