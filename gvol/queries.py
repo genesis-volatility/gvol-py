@@ -1,6 +1,6 @@
 CurrentOrderbookSkewStrike = """
-    query OrderbookSkew($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      genericOrderbookSkew(symbol: $symbol, exchange: $exchange) {
+    query CurrentOrderbookSkewStrike($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentOrderbookSkewStrike: genericOrderbookSkew(symbol: $symbol, exchange: $exchange) {
         ts
         instrumentName
         strike
@@ -13,19 +13,9 @@ CurrentOrderbookSkewStrike = """
     }
 """
 
-Shadow25Skews = """
-    query TwentyThirtySkewShadow($dateTime: String, $symbol: SymbolEnumType) {
-      TwentyThirtySkewShadow(dateTime: $dateTime, symbol: $symbol) {
-        date
-        twentyThirtyCallIvMinusPutIv
-        daysUntilExpiration
-      }
-    }
-"""
-
 CurrentOrderbookSkewDeltaBucket = """
-    query OrderbookSkewDelta($expiration: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      OrderbookSkewDelta: genericOrderBookSkewDelta(symbol: $symbol, expiration: $expiration, exchange: $exchange) {
+    query CurrentOrderbookSkewDeltaBucket($expiration: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentOrderbookSkewDeltaBucket: genericOrderBookSkewDelta(symbol: $symbol, expiration: $expiration, exchange: $exchange) {
         expiration
         n00
         n01
@@ -41,8 +31,8 @@ CurrentOrderbookSkewDeltaBucket = """
 """
 
 CurrentOrderbookTermStructure = """
-    query OrderbookForwardImpliedVolatilityCurve1($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      OrderbookForwardImpliedVolatilityCurve: genericOrderbookTermStructure(symbol: $symbol, exchange: $exchange) {
+    query CurrentOrderbookTermStructure($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentOrderbookTermStructure: genericOrderbookTermStructure(symbol: $symbol, exchange: $exchange) {
         expiration
         markIv
         forwardVolatility
