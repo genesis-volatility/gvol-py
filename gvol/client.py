@@ -55,29 +55,7 @@ class GVol:
             variable_values={"symbol": symbol, "exchange": exchange},
         )
 
-    def Shadow25Skews(
-        self, dateTime: types.String, symbol: types.SymbolEnumType
-    ) -> Dict:
-        """This end-point represents the 20/30 skew (~∆25) for various expirations at the given timestamp parameter.
-
-        Data goes back to mid-February 2020.
-
-        The end-point supports 1hr timestamp granularity.
-
-        Example Response: ``{"date": "1613930400000", "twentyThirtyCallIvMinusPutIv": -2.19, "daysUntilExpiration": 1 }``
-
-        Args:
-            dateTime: (types.String)
-            symbol: (types.SymbolEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.Shadow25Skews),
-            variable_values={"dateTime": dateTime, "symbol": symbol},
-        )
-
+    
     def CurrentOrderbookSkewDeltaBucket(
         self,
         expiration: types.String,
