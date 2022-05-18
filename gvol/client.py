@@ -72,9 +72,9 @@ class GVol:
 
 
         Args:
-            expiration: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
+            expiration:  2022-12-30  (YYYY-MM-DD)
+            symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
+            exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
             dict
