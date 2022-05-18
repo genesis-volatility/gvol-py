@@ -43,7 +43,7 @@ class GVol:
 
         Example Response: ``{"ts": "1637677441586", "instrumentName": "BTC-24NOV21-59000-C", "strike": 59000, "expiration": "1637712000000", "bidIv": 59.4, "markIv": 66.33, "askIv": 71.68, "delta": 0.10811}``
         Args:
-            symbol: BTC / ETH 
+            symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
             exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
@@ -118,8 +118,8 @@ class GVol:
         Example Response: ``{"expiration": "1637740800000", "markIv": 72.305, "forwardVolatility": 72.3 }``
 
         Args:
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
+            symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
+            exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
             dict
