@@ -1292,7 +1292,7 @@ class GVol:
             },
         )
 
-    def CoveredCall(self, symbol: types.SymbolEnumType) -> Dict:
+    def CoveredCall(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
         """DESCRIPTION:
         The “Covered Call” is constructed by holding a long position in the underlying asset.
         There is a 1-to-1 relationship between holding the long asset and the short call options.
@@ -1318,15 +1318,16 @@ class GVol:
 
         Args:
             symbol: (types.SymbolEnumType)
+            exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
         """
         return self._client.execute(
-            gql(queries.CoveredCall), variable_values={"symbol": symbol}
+            gql(queries.CoveredCall), variable_values={"symbol": symbol,"exchange": exchange}
         )
 
-    def CashSecuredPuts(self, symbol: types.SymbolEnumType) -> Dict:
+    def CashSecuredPuts(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
         """DESCRIPTION:
         The “Cash Secured Put” is a low-risk strategy with a similar payout profile to the “Covered Call”.
         Traders will sell a naked put but maintain enough cash to purchase the underlying asset at the predetermined strike price.
@@ -1350,15 +1351,16 @@ class GVol:
 
         Args:
             symbol: (types.SymbolEnumType)
+            exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
         """
         return self._client.execute(
-            gql(queries.CashSecuredPuts), variable_values={"symbol": symbol}
+            gql(queries.CashSecuredPuts), variable_values={"symbol": symbol,"exchange": exchange}
         )
 
-    def StraddleRun(self, symbol: types.SymbolEnumType) -> Dict:
+    def StraddleRun(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
         """DESCRIPTION:
         Straddles are a classic volatility trade.
         Buyers of the straddle hope that the underlying moves enough to either exceed the straddle price by expiration or that the underlying moves enough to profitably “gamma scalp” the underlying.
@@ -1384,12 +1386,13 @@ class GVol:
 
         Args:
             symbol: (types.SymbolEnumType)
+            exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
         """
         return self._client.execute(
-            gql(queries.StraddleRun), variable_values={"symbol": symbol}
+            gql(queries.StraddleRun), variable_values={"symbol": symbol,"exchange": exchange}
         )
 
     def GlobalAllOrderBooksOptionPricing(self) -> Dict:

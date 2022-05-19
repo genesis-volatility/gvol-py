@@ -41,8 +41,8 @@ CurrentOrderbookTermStructure = """
 """
 
 CurrentOrderbook1hr3020Skew = """
-    query Orderbook1hr3020Skew($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      Orderbook1hr3020Skew: genericOrderbook1hr3020Skew(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
+    query CurrentOrderbook1hr3020Skew($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentOrderbook1hr3020Skew: genericOrderbook1hr3020Skew(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
         date
         callIvMinusPutIv
       }
@@ -50,8 +50,8 @@ CurrentOrderbook1hr3020Skew = """
 """
 
 CurrentOrderbook1HrATMVol = """
-    query OrderBook1HrAtmVol($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      Orderbook1HrAtmVol: genericOrderbook1HrAtmVol(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
+    query CurrentOrderbook1HrATMVol($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentOrderbook1HrATMVol: genericOrderbook1HrAtmVol(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
         date
         avgMarkIv
       }
@@ -59,8 +59,8 @@ CurrentOrderbook1HrATMVol = """
 """
 
 ConstantMaturityATMIV = """
-    query ConstantMaturityAtmIv($symbol: SymbolEnumType) {
-      HistoricalConstantMaturityVariousAtmIv(symbol: $symbol) {
+    query ConstantMaturityATMIV($symbol: SymbolEnumType) {
+      ConstantMaturityATMIV: HistoricalConstantMaturityVariousAtmIv(symbol: $symbol) {
         date
         seven
         thirty
@@ -72,8 +72,8 @@ ConstantMaturityATMIV = """
 """
 
 ConstantMaturity30to20DeltaSkew = """
-    query ConstantMaturity2030($symbol: SymbolEnumType) {
-      HistoricalConstantMaturityVariousSkews(symbol: $symbol) {
+    query ConstantMaturity30to20DeltaSkew($symbol: SymbolEnumType) {
+      ConstantMaturity30to20DeltaSkew: HistoricalConstantMaturityVariousSkews(symbol: $symbol) {
         date
         seven
         thirty
@@ -85,8 +85,8 @@ ConstantMaturity30to20DeltaSkew = """
 """
 
 ShadowTermStructure = """
-    query OrderbookShadowTermStructure($dateTime: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      OrderbookShadowTermStructure: genericShadowTermStructure(symbol: $symbol, dateTime: $dateTime, exchange: $exchange) {
+    query ShadowTermStructure($dateTime: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      ShadowTermStructure: genericShadowTermStructure(symbol: $symbol, dateTime: $dateTime, exchange: $exchange) {
         sequenceDays2Exp
         tsHourShadow
         tsHourCurrent
@@ -98,8 +98,8 @@ ShadowTermStructure = """
 """
 
 ShadowTermStructureComparison = """
-    query OrderbookShadowTermStuctureCompare($dateTimeOne: String, $dateTimeTwo: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      OrderbookShadowTermStuctureCompare: genericShadowTermStructureCompare(symbol: $symbol, dateTimeOne: $dateTimeOne, dateTimeTwo: $dateTimeTwo, exchange: $exchange) {
+    query ShadowTermStructureComparison($dateTimeOne: String, $dateTimeTwo: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      ShadowTermStructureComparison: genericShadowTermStructureCompare(symbol: $symbol, dateTimeOne: $dateTimeOne, dateTimeTwo: $dateTimeTwo, exchange: $exchange) {
         sequenceDays2Exp
         tsHourShadow
         tsHourCurrent
@@ -111,7 +111,7 @@ ShadowTermStructureComparison = """
 """
 
 HistoricalSkew = """
-    query HistoricalSkewExpirations($date: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+    query HistoricalSkew($date: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
       HistoricalSkew: genericHistoricalSkew(symbol: $symbol, date: $date, exchange: $exchange) {
         expirationDate
         weightedIv
@@ -122,8 +122,8 @@ HistoricalSkew = """
 """
 
 HistoricalTermStructure = """
-    query HistoricalATMDeltasTermStructure($date: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      HistoricalATMDeltasTermStructure: genericHistoricalAtmDeltasTermStructure(symbol: $symbol, date: $date, exchange: $exchange) {
+    query HistoricalTermStructure($date: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      HistoricalTermStructure: genericHistoricalAtmDeltasTermStructure(symbol: $symbol, date: $date, exchange: $exchange) {
         expirationDate
         weightedIv
         fwdIv
@@ -147,8 +147,8 @@ HistoricalConstantSkew = """
 """
 
 HistoricalConstantATM = """
-    query HistoricalConstantAtm($exchange: ExchangeEnumType, $days: Float) {
-      HistoricalConstantAtm: genericHistoricalConstantsAtm(exchange: $exchange, days: $days) {
+    query HistoricalConstantATM($exchange: ExchangeEnumType, $days: Float) {
+      HistoricalConstantATM: genericHistoricalConstantsAtm(exchange: $exchange, days: $days) {
         date
         btcAtmShort
         btcAtmMed
@@ -161,8 +161,8 @@ HistoricalConstantATM = """
 """
 
 HistoricalConstantWings = """
-    query HistoricalConstantWingsAtm($exchange: ExchangeEnumType, $days: Float) {
-      HistoricalConstantWingsAtm: genericHistoricalConstantWingsAtm(exchange: $exchange, days: $days) {
+    query HistoricalConstantWings($exchange: ExchangeEnumType, $days: Float) {
+      HistoricalConstantWings: genericHistoricalConstantWingsAtm(exchange: $exchange, days: $days) {
         date
         btcShort
         btcMed
@@ -175,8 +175,8 @@ HistoricalConstantWings = """
 """
 
 DVolIndex = """
-    query dVol($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $interval: String, $dateStart: String, $dateEnd: String) {
-      dVol: genericDvol(symbol: $symbol, exchange: $exchange, interval: $interval, dateStart: $dateStart, dateEnd: $dateEnd) {
+    query DVolIndex($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $interval: String, $dateStart: String, $dateEnd: String) {
+      DVolIndex: genericDvol(symbol: $symbol, exchange: $exchange, interval: $interval, dateStart: $dateStart, dateEnd: $dateEnd) {
         timerange
         instrument
         open
@@ -188,8 +188,8 @@ DVolIndex = """
 """
 
 OrderbookATMDepthPriceandSize = """
-    query OrderbookAtmDepthPxSize($date: String, $symbol: SymbolEnumType!, $exchange: ExchangeEnumType) {
-      OrderbookAtmDepthPxSize: genericOrderbookAtmDepthPxSize(symbol: $symbol, date: $date, exchange: $exchange) {
+    query OrderbookATMDepthPriceandSize($date: String, $symbol: SymbolEnumType!, $exchange: ExchangeEnumType) {
+      OrderbookATMDepthPriceandSize: genericOrderbookAtmDepthPxSize(symbol: $symbol, date: $date, exchange: $exchange) {
         date
         instrumentName
         baseCurrency
@@ -203,8 +203,8 @@ OrderbookATMDepthPriceandSize = """
 """
 
 OpenInterestByStrike = """
-    query OrderBookOpenInterestByStrike($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      OrderBookOpenInterestByStrike: genericOrderBookOpenInterestByStrike(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
+    query OpenInterestByStrike($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      OpenInterestByStrike: genericOrderBookOpenInterestByStrike(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
         strike
         openInterest
         notionalOpenInterest
@@ -217,8 +217,8 @@ OpenInterestByStrike = """
 """
 
 OpenInterestByPutCall = """
-    query OrderBookOpenInterestByPutCall($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType!, $exchange: ExchangeEnumType) {
-      OrderBookOpenInterestByPutCall: genericOrderBookOpenInterestByPutCall(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
+    query OpenInterestByPutCall($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType!, $exchange: ExchangeEnumType) {
+      OpenInterestByPutCall: genericOrderBookOpenInterestByPutCall(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
         putCall
         openInterest
         notionalOpenInterest
@@ -231,8 +231,8 @@ OpenInterestByPutCall = """
 """
 
 OpenInterestByExpiration = """
-    query OrderBookOpenInterestByExpiration($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType!, $exchange: ExchangeEnumType) {
-      OrderBookOpenInterestByExpiration: genericOrderBookOpenInterestByExpiration(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
+    query OpenInterestByExpiration($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType!, $exchange: ExchangeEnumType) {
+      OpenInterestByExpiration: genericOrderBookOpenInterestByExpiration(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
         expiration
         openInterest
         notionalOpenInterest
@@ -245,8 +245,8 @@ OpenInterestByExpiration = """
 """
 
 GlobalOpenInterestByStrikeExpirationPutCall = """
-    query GlobalExchangeStrikeExpirationOi($symbol: SymbolEnumType) {
-      GlobalExchangeStrikeExpirationOi(symbol: $symbol) {
+    query GlobalOpenInterestByStrikeExpirationPutCall($symbol: SymbolEnumType) {
+      GlobalOpenInterestByStrikeExpirationPutCall(symbol: $symbol) {
         strike
         putCall
         expiration
@@ -263,8 +263,8 @@ GlobalOpenInterestByStrikeExpirationPutCall = """
 """
 
 CurrentOiChangeByStrikeandExpiration = """
-    query CurrentOiChangeByStrikeExpirationDetailed($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      CurrentOiChangeByStrikeExpirationDetailed: genericCurrentOiChangeByStrikeExpirationDetailed(symbol: $symbol, exchange: $exchange) {
+    query CurrentOiChangeByStrikeandExpiration($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentOiChangeByStrikeandExpiration: genericCurrentOiChangeByStrikeExpirationDetailed(symbol: $symbol, exchange: $exchange) {
         expiration
         strike
         oiChange
@@ -273,8 +273,8 @@ CurrentOiChangeByStrikeandExpiration = """
 """
 
 CurrentVolumebyExpiration = """
-    query CurrentVolumeByExpiration($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      CurrentVolumeByExpiration: genericCurrentVolumeByExpiration(symbol: $symbol, exchange: $exchange) {
+    query CurrentVolumebyExpiration($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentVolumebyExpiration: genericCurrentVolumeByExpiration(symbol: $symbol, exchange: $exchange) {
         date
         expiration
         contractsTraded
@@ -285,8 +285,8 @@ CurrentVolumebyExpiration = """
 """
 
 CurrentVolumebyStrike = """
-    query CurrentVolumeByStrike($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      CurrentVolumeByStrike: genericCurrentVolumeByStrike(symbol: $symbol, exchange: $exchange) {
+    query CurrentVolumebyStrike($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentVolumebyStrike: genericCurrentVolumeByStrike(symbol: $symbol, exchange: $exchange) {
         date
         strike
         contractsTraded
@@ -297,8 +297,8 @@ CurrentVolumebyStrike = """
 """
 
 CurrentVolumebyPutCall = """
-    query CurrentVolumeByPutCall($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      CurrentVolumeByPutCall: genericCurrentVolumeByPutCall(symbol: $symbol, exchange: $exchange) {
+    query CurrentVolumebyPutCall($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CurrentVolumebyPutCall: genericCurrentVolumeByPutCall(symbol: $symbol, exchange: $exchange) {
         contractVolume
         putContractVolume
         putContractVolume1Btc
@@ -327,8 +327,8 @@ HistoricalPutCallRatio = """
 """
 
 HistoricalVolume = """
-    query HistoricalContractsTradedAndPremiumVolume($date1: String, $date2: String, $rangeStart: Float, $rangeEnd: Float, $direction1: String, $direction2: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      HistoricalContractsTradedAndPremiumVolume: genericHistoricalContractsTradedAndPremiumDollarVolume(symbol: $symbol, beginDate: $date1, endDate: $date2, rangeStart: $rangeStart, rangeEnd: $rangeEnd, direction1: $direction1, direction2: $direction2, exchange: $exchange) {
+    query HistoricalVolume($date1: String, $date2: String, $rangeStart: Float, $rangeEnd: Float, $direction1: String, $direction2: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      HistoricalVolume: genericHistoricalContractsTradedAndPremiumDollarVolume(symbol: $symbol, beginDate: $date1, endDate: $date2, rangeStart: $rangeStart, rangeEnd: $rangeEnd, direction1: $direction1, direction2: $direction2, exchange: $exchange) {
         date
         contractsTraded
         contractsBlockTraded
@@ -339,8 +339,8 @@ HistoricalVolume = """
 """
 
 HistoricalChangeinOIbyExpiration = """
-    query HistoricalOiChangeByPutCallExpiration($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      HistoricalOiChangeByPutCallExpiration: genericHistoricalOiChangeByPutCallExpiration(dateStart: $dateStart, dateEnd: $dateEnd, symbol: $symbol, exchange: $exchange) {
+    query HistoricalChangeinOIbyExpiration($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      HistoricalChangeinOIbyExpiration: genericHistoricalOiChangeByPutCallExpiration(dateStart: $dateStart, dateEnd: $dateEnd, symbol: $symbol, exchange: $exchange) {
         expiration
         callOiChange
         putOiChange
@@ -350,8 +350,8 @@ HistoricalChangeinOIbyExpiration = """
 """
 
 HistoricalChangeinOIbyStrike = """
-    query HistoricalOiChangeByStrike($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      HistoricalOiChangeByStrike: genericHistoricalOiChangeByStrike(dateStart: $dateStart, dateEnd: $dateEnd, symbol: $symbol, exchange: $exchange) {
+    query HistoricalChangeinOIbyStrike($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      HistoricalChangeinOIbyStrike: genericHistoricalOiChangeByStrike(dateStart: $dateStart, dateEnd: $dateEnd, symbol: $symbol, exchange: $exchange) {
         strike
         totalOiChange
         callOiChange
@@ -362,7 +362,7 @@ HistoricalChangeinOIbyStrike = """
 
 ParadigmBlockSnifferCallSpreadsasPercentageofTradeCount = """
     query ParadigmCallSpreadPercentage($dateRangeStart: String, $dateRangeEnd: String, $symbol: SymbolEnumType) {
-      ParadigmCallSpreadPercentage(symbol: $symbol, dateRangeStart: $dateRangeStart, dateRangeEnd: $dateRangeEnd) {
+      ParadigmCallSpreadPercentage: ParadigmCallSpreadPercentage(symbol: $symbol, dateRangeStart: $dateRangeStart, dateRangeEnd: $dateRangeEnd) {
         percentageOfTrades
       }
     }
@@ -370,7 +370,7 @@ ParadigmBlockSnifferCallSpreadsasPercentageofTradeCount = """
 
 ParadigmBlockSnifferPutSpreadsasPercentageofTradeCount = """
     query ParadigmPutSpreadPercentage($dateRangeStart: String, $dateRangeEnd: String, $symbol: SymbolEnumType) {
-      ParadigmPutSpreadPercentage(symbol: $symbol, dateRangeStart: $dateRangeStart, dateRangeEnd: $dateRangeEnd) {
+      ParadigmPutSpreadPercentage: ParadigmPutSpreadPercentage(symbol: $symbol, dateRangeStart: $dateRangeStart, dateRangeEnd: $dateRangeEnd) {
         percentageOfTrades
       }
     }
@@ -378,7 +378,7 @@ ParadigmBlockSnifferPutSpreadsasPercentageofTradeCount = """
 
 ParadigmBlockSnifferSingleLegBlockTrades = """
     query ParadigmSingleTrades($date: String, $symbol: SymbolEnumType) {
-      ParadigmSingleTrades(symbol: $symbol, date: $date) {
+      ParadigmSingleTrades: ParadigmSingleTrades(symbol: $symbol, date: $date) {
         date
         indexPrice
         direction
@@ -395,8 +395,8 @@ ParadigmBlockSnifferSingleLegBlockTrades = """
 """
 
 ParadgimBlockSnifferTradesTiedUpMultiLegTrades = """
-    query OrderbookTiedUpInBlocks($date: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      OrderbookTiedUpInBlocks: genericTiedUpBlockTrades(symbol: $symbol, date: $date, exchange: $exchange) {
+    query ParadigmTiedTrades($date: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      ParadigmTiedTrades: genericTiedUpBlockTrades(symbol: $symbol, date: $date, exchange: $exchange) {
         ts
         indexPrice
         direction
@@ -413,7 +413,7 @@ ParadgimBlockSnifferTradesTiedUpMultiLegTrades = """
 
 ParadgimBlockSnifferDetailedVolumeBreakdown = """
     query ParadigmVolume($dateRangeStart: String, $dateRangeEnd: String, $symbol: SymbolEnumType) {
-      ParadigmVolume(symbol: $symbol, dateRangeStart: $dateRangeStart, dateRangeEnd: $dateRangeEnd) {
+      ParadigmVolume: ParadigmVolume(symbol: $symbol, dateRangeStart: $dateRangeStart, dateRangeEnd: $dateRangeEnd) {
         expiration
         strike
         putCall
@@ -424,8 +424,8 @@ ParadgimBlockSnifferDetailedVolumeBreakdown = """
 """
 
 TimesandSales = """
-    query TimesAndSales($date: String, $exchange: ExchangeEnumType) {
-      TimesAndSales(date: $date, exchange: $exchange) {
+    query TimesandSales($date: String, $exchange: ExchangeEnumType) {
+      TimesandSales: TimesandSales(date: $date, exchange: $exchange) {
         exchange
         date
         instrumentName
@@ -446,8 +446,8 @@ TimesandSales = """
 """
 
 VolatilityCone = """
-    query RealizedVolVolatilityConesQuery($symbol: SymbolEnumType, $date1: String, $date2: String) {
-      RealizedVolVolatilityCones(symbol: $symbol, beginDate: $date1, endDate: $date2) {
+    query VolatilityCone($symbol: SymbolEnumType, $date1: String, $date2: String) {
+      VolatilityCone: RealizedVolVolatilityCones(symbol: $symbol, beginDate: $date1, endDate: $date2) {
         max365
         current365
         min365
@@ -495,8 +495,8 @@ VolatilityCone = """
 """
 
 RealizedVolvsTradeWeightedIV = """
-    query RealizedVolParkinsonCalc($date1: String, $date2: String, $timeWindow: Float, $beginDate: String, $endDate: String, $rangeStart: Float, $rangeEnd: Float, $deltaRangeStart: Float, $deltaRangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      RealizedVolParkinsonCalc(symbol: $symbol, beginDate: $date1, endDate: $date2, timeWindow: $timeWindow) {
+    query RealizedVolvsTradeWeightedIV($date1: String, $date2: String, $timeWindow: Float, $beginDate: String, $endDate: String, $rangeStart: Float, $rangeEnd: Float, $deltaRangeStart: Float, $deltaRangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      RealizedVolvsTradeWeightedIV: RealizedVolParkinsonCalc(symbol: $symbol, beginDate: $date1, endDate: $date2, timeWindow: $timeWindow) {
         date
         parkinsonHv
       }
@@ -508,8 +508,8 @@ RealizedVolvsTradeWeightedIV = """
 """
 
 RealizedVolDayofWeek = """
-    query OrderbookDayOfWeekRv($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType) {
-      OrderbookDayOfWeekRv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
+    query RealizedVolDayofWeek($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType) {
+      RealizedVolDayofWeek: OrderbookDayOfWeekRv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
         dowUtc
         parkinsonHvPerp
         parkinsonHvIndex
@@ -518,8 +518,8 @@ RealizedVolDayofWeek = """
 """
 
 RealizedVolHourofDay = """
-    query OrderbookHourOfDayRv($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType) {
-      OrderbookHourOfDayRv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
+    query RealizedVolHourofDay($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType) {
+      RealizedVolHourofDay: OrderbookHourOfDayRv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
         hourUtc
         parkinsonHvPerp
         parkinsonHvIndex
@@ -528,8 +528,8 @@ RealizedVolHourofDay = """
 """
 
 RealizedVolHourofDayandDayofWeek = """
-    query OrderbookHourAndDayRv($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType) {
-      OrderbookHourAndDayRv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
+    query RealizedVolHourofDayandDayofWeek($dateStart: String, $dateEnd: String, $symbol: SymbolEnumType) {
+      RealizedVolHourofDayandDayofWeek: OrderbookHourAndDayRv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
         dowVal
         dow
         hourUtc
@@ -540,8 +540,8 @@ RealizedVolHourofDayandDayofWeek = """
 """
 
 IntradayRealizedVolatility = """
-    query OrderbookIntradayParkinsonHv($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String, $range1: Float, $range2: Float) {
-      OrderbookIntradayParkinsonHv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, range1: $range1, range2: $range2) {
+    query IntradayRealizedVolatility($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String, $range1: Float, $range2: Float) {
+      IntradayRealizedVolatility: OrderbookIntradayParkinsonHv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, range1: $range1, range2: $range2) {
         ts
         parkinsonHvPerp
         parkisonHvIndex
@@ -550,8 +550,8 @@ IntradayRealizedVolatility = """
 """
 
 ClosetoCloseHistoricalVol = """
-    query currentOrderbookPricing($symbol: String, $dateStart: String, $dateEnd: String) {
-      CloseToCloseHv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
+    query ClosetoCloseHistoricalVol($symbol: String, $dateStart: String, $dateEnd: String) {
+      ClosetoCloseHistoricalVol: CloseToCloseHv(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
         date
         currency
         close
@@ -562,8 +562,8 @@ ClosetoCloseHistoricalVol = """
 """
 
 RealizedVolParkinson = """
-    query currentOrderbookPricing($symbol: String, $dateStart: String, $dateEnd: String, $parkinsonRange: Float) {
-      RvParkinson(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, parkinsonRange: $parkinsonRange) {
+    query RealizedVolParkinson($symbol: String, $dateStart: String, $dateEnd: String, $parkinsonRange: Float) {
+      RealizedVolParkinson: RvParkinson(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, parkinsonRange: $parkinsonRange) {
         date
         parkinsonHV
       }
@@ -572,7 +572,7 @@ RealizedVolParkinson = """
 
 OHLC = """
     query OHLC($symbol: String, $dateStart: String, $dateEnd: String) {
-      RvOhlc(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
+      OHLC: RvOhlc(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
         date
         currency
         open
@@ -584,104 +584,8 @@ OHLC = """
 """
 
 CoveredCall = """
-    query coveredCall($symbol: SymbolEnumType) {
-      deribit: genericCoveredCall(exchange: deribit, symbol: $symbol) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        calledOutAnnualized
-        calledOutAbsolute
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        annualBidYieldNet
-        annualAskYieldNet
-        annualMarkYieldNet
-        absoluteMarkYieldCalledOut
-        absoluteAskYieldCalledOut
-        absoluteBidYieldCalledOut
-        annualizedBidYieldCalledOut
-        annualizedMarkYieldCalledOut
-        annualizedAskYieldCalledOut
-      }
-      bitcom: genericCoveredCall(exchange: bitcom, symbol: $symbol) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        calledOutAnnualized
-        calledOutAbsolute
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        annualBidYieldNet
-        annualAskYieldNet
-        annualMarkYieldNet
-        absoluteMarkYieldCalledOut
-        absoluteAskYieldCalledOut
-        absoluteBidYieldCalledOut
-        annualizedBidYieldCalledOut
-        annualizedMarkYieldCalledOut
-        annualizedAskYieldCalledOut
-      }
-      ledgerx: genericCoveredCall(exchange: ledgerx, symbol: $symbol) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        calledOutAnnualized
-        calledOutAbsolute
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        annualBidYieldNet
-        annualAskYieldNet
-        annualMarkYieldNet
-        absoluteMarkYieldCalledOut
-        absoluteAskYieldCalledOut
-        absoluteBidYieldCalledOut
-        annualizedBidYieldCalledOut
-        annualizedMarkYieldCalledOut
-        annualizedAskYieldCalledOut
-      }
-      okex: genericCoveredCall(exchange: okex, symbol: $symbol) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        calledOutAnnualized
-        calledOutAbsolute
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        annualBidYieldNet
-        annualAskYieldNet
-        annualMarkYieldNet
-        absoluteMarkYieldCalledOut
-        absoluteAskYieldCalledOut
-        absoluteBidYieldCalledOut
-        annualizedBidYieldCalledOut
-        annualizedMarkYieldCalledOut
-        annualizedAskYieldCalledOut
-      }
-      binance: genericCoveredCall(exchange: binance, symbol: $symbol) {
+    query CoveredCall($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CoveredCall: genericCoveredCall(symbol: $symbol, exchange: $exchange) {
         date
         instrumentName
         expiration
@@ -709,72 +613,8 @@ CoveredCall = """
 """
 
 CashSecuredPuts = """
-    query cashSecuredPuts($symbol: SymbolEnumType) {
-      deribit: genericCashSecuredPuts(symbol: $symbol, exchange: deribit) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        bidYieldNetAnnual
-        markYieldNetAnnual
-        askYieldNetAnnual
-      }
-      bitcom: genericCashSecuredPuts(symbol: $symbol, exchange: bitcom) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        bidYieldNetAnnual
-        markYieldNetAnnual
-        askYieldNetAnnual
-      }
-      ledgerx: genericCashSecuredPuts(symbol: $symbol, exchange: ledgerx) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        bidYieldNetAnnual
-        markYieldNetAnnual
-        askYieldNetAnnual
-      }
-      okex: genericCashSecuredPuts(symbol: $symbol, exchange: okex) {
-        date
-        instrumentName
-        expiration
-        strike
-        putCall
-        bidUsd
-        markUsd
-        askUsd
-        absoluteBidYieldNet
-        absoluteMarkYieldNet
-        absoluteAskYieldNet
-        bidYieldNetAnnual
-        markYieldNetAnnual
-        askYieldNetAnnual
-      }
-      binance: genericCashSecuredPuts(symbol: $symbol, exchange: binance) {
+    query CashSecuredPuts($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      CashSecuredPuts: genericCashSecuredPuts(symbol: $symbol, exchange: $exchange) {
         date
         instrumentName
         expiration
@@ -794,60 +634,8 @@ CashSecuredPuts = """
 """
 
 StraddleRun = """
-    query straddleRun($symbol: SymbolEnumType) {
-      deribit: genericStraddleRun(symbol: $symbol, exchange: deribit) {
-        expiration
-        strike
-        bidUsd
-        markUsd
-        askUsd
-        bidSpotPercentage
-        markSpotPercentage
-        askSpotPercentage
-        theta
-        vega
-        underlyingPrice
-      }
-      bitcom: genericStraddleRun(symbol: $symbol, exchange: bitcom) {
-        expiration
-        strike
-        bidUsd
-        markUsd
-        askUsd
-        bidSpotPercentage
-        markSpotPercentage
-        askSpotPercentage
-        theta
-        vega
-        underlyingPrice
-      }
-      ledgerx: genericStraddleRun(symbol: $symbol, exchange: ledgerx) {
-        expiration
-        strike
-        bidUsd
-        markUsd
-        askUsd
-        bidSpotPercentage
-        markSpotPercentage
-        askSpotPercentage
-        theta
-        vega
-        underlyingPrice
-      }
-      okex: genericStraddleRun(symbol: $symbol, exchange: okex) {
-        expiration
-        strike
-        bidUsd
-        markUsd
-        askUsd
-        bidSpotPercentage
-        markSpotPercentage
-        askSpotPercentage
-        theta
-        vega
-        underlyingPrice
-      }
-      binance: genericStraddleRun(symbol: $symbol, exchange: binance) {
+    query StraddleRun($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      StraddleRun: genericStraddleRun(symbol: $symbol, exchange: $exchange) {
         expiration
         strike
         bidUsd
@@ -864,8 +652,8 @@ StraddleRun = """
 """
 
 GlobalAllOrderBooksOptionPricing = """
-    query currentOrderbookPricing {
-      currentOrderbookPricing {
+    query GlobalAllOrderBooksOptionPricing {
+      GlobalAllOrderBooksOptionPricing: currentOrderbookPricing {
         date
         instrumentName
         currency
@@ -905,8 +693,8 @@ VolatilitySurfaceStrikes = """
 """
 
 VolatilitySurfaceDelta = """
-    query HifiVolSurface1DayOf1Min($symbol: BTCOrETHEnumType, $date: String) {
-      HifiVolSurface1DayOf1Min(symbol: $symbol, date: $date) {
+    query VolatilitySurfaceDelta($symbol: BTCOrETHEnumType, $date: String) {
+      VolatilitySurfaceDelta: HifiVolSurface1DayOf1Min(symbol: $symbol, date: $date) {
         date
         timeLeft
         currency
@@ -930,8 +718,8 @@ VolatilitySurfaceDelta = """
 """
 
 ShadowTermStructureand25Skew = """
-    query ShadowTimeSkew($date: String, $symbol: SymbolEnumType) {
-      ShadowTimeSkew(date: $date, symbol: $symbol) {
+    query ShadowTermStructureand25Skew($date: String, $symbol: SymbolEnumType) {
+      ShadowTermStructureand25Skew: ShadowTimeSkew(date: $date, symbol: $symbol) {
         dateAndHour
         daysUntilExpiration
         atmIv
@@ -941,8 +729,8 @@ ShadowTermStructureand25Skew = """
 """
 
 HourlyInstrumentImpliedVolandOI = """
-    query InstrumentOiIv1Hr($symbol: BTCOrETHEnumType, $dateStart: String, $dateEnd: String, $strike: String, $putCall: PutCallEnumType, $expiration: String) {
-      InstrumentOiIv1Hr(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, strike: $strike, putCall: $putCall, expiration: $expiration) {
+    query HourlyInstrumentImpliedVolandOI($symbol: BTCOrETHEnumType, $dateStart: String, $dateEnd: String, $strike: String, $putCall: PutCallEnumType, $expiration: String) {
+      HourlyInstrumentImpliedVolandOI: InstrumentOiIv1Hr(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, strike: $strike, putCall: $putCall, expiration: $expiration) {
         date
         instrumentName
         oi
@@ -954,8 +742,8 @@ HourlyInstrumentImpliedVolandOI = """
 """
 
 SpotPrices = """
-    query spotPrice($symbol: String, $dateStart: String, $dateEnd: String) {
-      SpotPrices(dateStart: $dateStart, dateEnd: $dateEnd, symbol: $symbol) {
+    query SpotPrices($symbol: String, $dateStart: String, $dateEnd: String) {
+      SpotPrices: SpotPrices(dateStart: $dateStart, dateEnd: $dateEnd, symbol: $symbol) {
         date
         currency
         open
@@ -967,8 +755,8 @@ SpotPrices = """
 """
 
 ConstantMaturitySkew1minutegranularity = """
-    query ConstantMaturitySkew1Min($symbol: BTCOrETHEnumType, $dateStart: String, $dateEnd: String, $interval: String) {
-      ConstantMaturitySkew1Min(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, interval: $interval) {
+    query ConstantMaturitySkew1minutegranularity($symbol: BTCOrETHEnumType, $dateStart: String, $dateEnd: String, $interval: String) {
+      ConstantMaturitySkew1minutegranularity: ConstantMaturitySkew1Min(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, interval: $interval) {
         date
         thirtyFiveDelta7DayExp
         twentyFiveDelta7DayExp
@@ -995,8 +783,8 @@ ConstantMaturitySkew1minutegranularity = """
 """
 
 ConstantMaturityATM1minutegranularity = """
-    query ConstantMaturityAtm1Min($symbol: BTCOrETHEnumType, $dateStart: String, $dateEnd: String, $interval: String) {
-      ConstantMaturityAtm1Min(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, interval: $interval) {
+    query ConstantMaturityATM1minutegranularity($symbol: BTCOrETHEnumType, $dateStart: String, $dateEnd: String, $interval: String) {
+      ConstantMaturityATM1minutegranularity: ConstantMaturityAtm1Min(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, interval: $interval) {
         date
         atm7
         atm30
@@ -1008,8 +796,8 @@ ConstantMaturityATM1minutegranularity = """
 """
 
 CustomMaturityDeltaSurface = """
-    query CustomMaturityAtmDelta($symbol: BTCOrETHEnumType, $date: String, $days: Float) {
-      CustomMaturityAtmDelta(symbol: $symbol, date: $date, days: $days) {
+    query CustomMaturityDeltaSurface($symbol: BTCOrETHEnumType, $date: String, $days: Float) {
+      CustomMaturityDeltaSurface: CustomMaturityAtmDelta(symbol: $symbol, date: $date, days: $days) {
         date
         p05
         p15
@@ -1025,8 +813,8 @@ CustomMaturityDeltaSurface = """
 """
 
 Orderbook30dayHourlyBasis = """
-    query FuturesCurrentOb30dayHourlyBasisandSpot($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String) {
-      FuturesCurrentOb30dayHourlyBasisandSpot: genericCurrentOb30dayHourlyBasisandSpot(exchange: $exchange, symbol: $symbol, expiration: $expiration) {
+    query Orderbook30dayHourlyBasis($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String) {
+      Orderbook30dayHourlyBasis: FuturesCurrentOb30dayHourlyBasisandSpot: genericCurrentOb30dayHourlyBasisandSpot(exchange: $exchange, symbol: $symbol, expiration: $expiration) {
         date
         midPrice
         basis
@@ -1035,8 +823,8 @@ Orderbook30dayHourlyBasis = """
 """
 
 OrderbookBasisVolumeandOpenInterest = """
-    query CurrentObBasisVolumeOpenInterest($exchange: ExchangeEnumType, $symbol: SymbolEnumType) {
-      CurrentObBasisVolumeOpenInterests: genericCurrentObBasisVolumeOpenInterest(exchange: $exchange, symbol: $symbol) {
+    query OrderbookBasisVolumeandOpenInterest($exchange: ExchangeEnumType, $symbol: SymbolEnumType) {
+      OrderbookBasisVolumeandOpenInterest: CurrentObBasisVolumeOpenInterests: genericCurrentObBasisVolumeOpenInterest(exchange: $exchange, symbol: $symbol) {
         date
         instrument
         indexPrice
@@ -1053,8 +841,8 @@ OrderbookBasisVolumeandOpenInterest = """
 """
 
 OrderbookPast1HrBasisandSpot = """
-    query futuresCurrentObPast1HrBasisAndSpot($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String) {
-      futuresCurrentObPastBasisAndSpot: genericCurrentObPast1HrBasisAndSpot(exchange: $exchange, symbol: $symbol, expiration: $expiration) {
+    query OrderbookPast1HrBasisandSpot($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String) {
+      OrderbookPast1HrBasisandSpot: futuresCurrentObPastBasisAndSpot: genericCurrentObPast1HrBasisAndSpot(exchange: $exchange, symbol: $symbol, expiration: $expiration) {
         date
         price
         expiration
@@ -1065,8 +853,8 @@ OrderbookPast1HrBasisandSpot = """
 """
 
 Orderbook30DayTradeWeightedBasis = """
-    query Historical30dayTradeWeightedBasis($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $excludeExpiration: Boolean) {
-      Historical30dayTradeWeightedBasis: genericHistorical30DayTradeWeightedBasis(exchange: $exchange, symbol: $symbol, excludeExpiration: $excludeExpiration) {
+    query Orderbook30DayTradeWeightedBasis($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $excludeExpiration: Boolean) {
+      Orderbook30DayTradeWeightedBasis: Historical30dayTradeWeightedBasis: genericHistorical30DayTradeWeightedBasis(exchange: $exchange, symbol: $symbol, excludeExpiration: $excludeExpiration) {
         date
         instrumentName
         vwapBasis
@@ -1075,8 +863,8 @@ Orderbook30DayTradeWeightedBasis = """
 """
 
 HistoricalIntradayTradedWeightedBasis = """
-    query HistoricalIntraDayTradedBasis($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String, $dateStart: String, $dateEnd: String) {
-      HistoricalIntraDayTradedBasis: genericHistoricalIntraDayTradedBasis(exchange: $exchange, symbol: $symbol, expiration: $expiration, dateStart: $dateStart, dateEnd: $dateEnd) {
+    query HistoricalIntradayTradedWeightedBasis($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String, $dateStart: String, $dateEnd: String) {
+      HistoricalIntradayTradedWeightedBasis: HistoricalIntraDayTradedBasis: genericHistoricalIntraDayTradedBasis(exchange: $exchange, symbol: $symbol, expiration: $expiration, dateStart: $dateStart, dateEnd: $dateEnd) {
         date
         expiration
         amount
@@ -1090,8 +878,8 @@ HistoricalIntradayTradedWeightedBasis = """
 """
 
 Basis24HR = """
-    query CurrentObPast24HrBasisHistogram($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String, $dateStart: String, $dateEnd: String) {
-      CurrentObPastBasisHistogram: genericCurrentOb24HrBasisHistogram(exchange: $exchange, symbol: $symbol, expiration: $expiration, dateStart: $dateStart, dateEnd: $dateEnd) {
+    query Basis24HR($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String, $dateStart: String, $dateEnd: String) {
+      Basis24HR: genericCurrentOb24HrBasisHistogram(exchange: $exchange, symbol: $symbol, expiration: $expiration, dateStart: $dateStart, dateEnd: $dateEnd) {
         annualizedPercentSpread
         dollarVolume
       }
@@ -1100,7 +888,7 @@ Basis24HR = """
 
 HifiStrikesVolSurface = """
     query HifiStrikesVolSurface($symbol: BTCOrETHEnumType, $date: String, $interval: String, $exchange: ExchangeEnumType) {
-      HifiStrikesVolSurface(symbol: $symbol, date: $date, interval: $interval, exchange: $exchange) {
+      HifiStrikesVolSurface: HifiStrikesVolSurface(symbol: $symbol, date: $date, interval: $interval, exchange: $exchange) {
         date
         currency
         expiration
@@ -1122,16 +910,8 @@ HifiStrikesVolSurface = """
 
 
 HifiVolSurfaceStrikesGreeksMinute = """
-query HifiVolSurfaceStrikesGreeksMinute(
-  $symbol: BTCOrETHEnumType, 
-  $dateTime: String, 
-  $exchange: ExchangeEnumType
-   ){
-  HifiVolSurfaceStrikesGreeksMinute(
-    symbol: $symbol, 
-    dateTime: $dateTime, 
-    exchange:$exchange,
-    ) {
+query HifiVolSurfaceStrikesGreeksMinute($symbol: BTCOrETHEnumType, $dateTime: String,$exchange: ExchangeEnumType){
+  HifiVolSurfaceStrikesGreeksMinute: HifiVolSurfaceStrikesGreeksMinute(symbol: $symbol, dateTime: $dateTime, exchange:$exchange) {
     date
     currency
     expiration
@@ -1156,16 +936,8 @@ query HifiVolSurfaceStrikesGreeksMinute(
 """
 
 HifiVolSurfaceStrikesGreeksHourly = """
-query HifiVolSurfaceStrikesGreeksHourly(
-  $symbol: BTCOrETHEnumType, 
-  $date: String, 
- $interval:String,
-$exchange: ExchangeEnumType ){
-  HifiVolSurfaceStrikesGreeksHourly(
-    symbol: $symbol, 
-    date: $date, 
-    interval: $interval, 
-    exchange:$exchange) {
+query HifiVolSurfaceStrikesGreeksHourly($symbol: BTCOrETHEnumType, $date: String, $interval:String, $exchange: ExchangeEnumType){
+  HifiVolSurfaceStrikesGreeksHourly: HifiVolSurfaceStrikesGreeksHourly(symbol: $symbol, date: $date, interval: $interval, exchange:$exchange) {
     date
     currency
     expiration
@@ -1191,8 +963,8 @@ $exchange: ExchangeEnumType ){
 
 
 dvolVariancePremium = """
-query DVolVariancePremium($symbol: SymbolEnumType) {
-		dvolVariancePremium(symbol: $symbol) {
+query dvolVariancePremium($symbol: SymbolEnumType) {
+		dvolVariancePremium: dvolVariancePremium(symbol: $symbol) {
 			dvolImpliedRvDate
 			instrument
 			dvolOpen30Days
@@ -1204,12 +976,8 @@ query DVolVariancePremium($symbol: SymbolEnumType) {
 
 
 UtilityRealtimeOptionbook = """	
-query UtilityRealtimeOptionbook(
-		$exchange: ExchangeEnumType
-	) {
-		UtilityRealtimeOptionbook: genericUtilityRealtimeOptionbook(
-			exchange: $exchange	
-		) {
+query UtilityRealtimeOptionbook($exchange: ExchangeEnumType) {
+		UtilityRealtimeOptionbook: genericUtilityRealtimeOptionbook(exchange: $exchange) {
 			      date
             instrumentName
             currency
@@ -1234,7 +1002,7 @@ query UtilityRealtimeOptionbook(
 # Starting here.
 SpotPricesLite = """
 query SpotPricesLite( $symbol:SymbolEnumType){
-  SpotPricesLite(symbol: $symbol) {
+  SpotPricesLite: SpotPricesLite(symbol: $symbol) {
     date
     currency
     open
@@ -1247,7 +1015,7 @@ query SpotPricesLite( $symbol:SymbolEnumType){
 
 FixedMaturityAtm = """
 query FixedMaturityAtm($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumType){
-  FixedMaturityAtm(exchange:$exchange, symbol: $symbol) {
+  FixedMaturityAtm: FixedMaturityAtm(exchange:$exchange, symbol: $symbol) {
     date
     atm7
     atm30
@@ -1262,7 +1030,7 @@ query FixedMaturityAtm($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumType){
 
 FixedMaturitySkewLite = """
 query FixedMaturitySkewLite($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumType){
-  FixedMaturitySkewLite(exchange:$exchange, symbol: $symbol) {
+  FixedMaturitySkewLite: FixedMaturitySkewLite(exchange:$exchange, symbol: $symbol) {
     date
     currency
     thirtyFiveDelta7DayExp
@@ -1290,13 +1058,8 @@ query FixedMaturitySkewLite($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumTyp
 """
 
 TwentyFourHourTradesLite = """
-query TwentyFourHourTradesLite(
-		$exchange: ExchangeEnumType, $symbol: SymbolEnumType
-	) {
-		TwentyFourHourTradesLite(
-			exchange: $exchange, 
-      symbol: $symbol
-		) {
+query TwentyFourHourTradesLite($exchange: ExchangeEnumType, $symbol: SymbolEnumType) {
+		TwentyFourHourTradesLite: TwentyFourHourTradesLite(exchange: $exchange, symbol: $symbol) {
 		date
     exchange
     tradeId
@@ -1318,7 +1081,7 @@ query TwentyFourHourTradesLite(
 
 ParkinsonComboVolatilityLite = """
 query ParkinsonComboVolatilityLite( $symbol:SymbolEnumType){
-  ParkinsonComboVolatilityLite(symbol: $symbol) {
+  ParkinsonComboVolatilityLite: ParkinsonComboVolatilityLite(symbol: $symbol) {
     date
     parkinsonHV10
     parkinsonHV30
@@ -1331,7 +1094,7 @@ query ParkinsonComboVolatilityLite( $symbol:SymbolEnumType){
 
 RealizedVolConeLite = """
 query RealizedVolConeLite( $symbol:SymbolEnumType){
-  RealizedVolConeLite(symbol: $symbol) {
+  RealizedVolConeLite: RealizedVolConeLite(symbol: $symbol) {
     measurement
     current
     max
@@ -1345,7 +1108,7 @@ query RealizedVolConeLite( $symbol:SymbolEnumType){
 
 UtilityRealtimeFuturesPrices = """
 query UtilityRealtimeFuturesPrices($exchange: ExchangeEnumType){
-	UtilityRealtimeFuturesPrices(exchange: $exchange) {
+	UtilityRealtimeFuturesPrices: UtilityRealtimeFuturesPrices(exchange: $exchange) {
     date
     instrumentName
     expiration
@@ -1365,7 +1128,7 @@ query UtilityRealtimeFuturesPrices($exchange: ExchangeEnumType){
 
 BasisTradedLite = """
 query BasisTradedLite($exchange: ExchangeEnumType, $symbol: BTCOrETHEnumType){
-	BasisTradedLite(exchange: $exchange, symbol: $symbol) {
+	BasisTradedLite: BasisTradedLite(exchange: $exchange, symbol: $symbol) {
     date
     tradeSequence
     instrumentName
@@ -1382,11 +1145,8 @@ query BasisTradedLite($exchange: ExchangeEnumType, $symbol: BTCOrETHEnumType){
 
 
 CurrentObBasisVolumeOpenInterests = """
-	query CurrentObBasisVolumeOpenInterest($exchange: ExchangeEnumType, $symbol: SymbolEnumType) {
-		CurrentObBasisVolumeOpenInterests: genericCurrentObBasisVolumeOpenInterest(
-			exchange: $exchange
-			symbol: $symbol
-		) {
+	query CurrentObBasisVolumeOpenInterests($exchange: ExchangeEnumType, $symbol: SymbolEnumType) {
+		CurrentObBasisVolumeOpenInterests: genericCurrentObBasisVolumeOpenInterest(exchange: $exchange, symbol: $symbol) {
 			date
 			instrument
 			indexPrice
@@ -1404,7 +1164,7 @@ CurrentObBasisVolumeOpenInterests = """
 
 DeribitFunding = """
 	query DeribitFunding{
-	  DeribitFunding{
+	  DeribitFunding: DeribitFunding{
                 date
                 instrumentName
                 markPrice
@@ -1417,7 +1177,7 @@ DeribitFunding = """
 
 ConstantBasisSevenDayOneHour = """
 query ConstantBasisSevenDayOneHour($exchange: ExchangeEnumType, $symbol:BTCOrETHEnumType){
-  ConstantBasisSevenDayOneHour(exchange:$exchange, symbol: $symbol) {
+  ConstantBasisSevenDayOneHour: ConstantBasisSevenDayOneHour(exchange:$exchange, symbol: $symbol) {
     date
     y30
     y60
@@ -1429,7 +1189,7 @@ query ConstantBasisSevenDayOneHour($exchange: ExchangeEnumType, $symbol:BTCOrETH
 
 DydxFunding = """
 query DydxFunding{
-	  DydxFunding{
+	  DydxFunding: DydxFunding{
             date
             market
             id
@@ -1442,7 +1202,7 @@ query DydxFunding{
 
 ZetaOrderbookLite = """
 query ZetaOrderbookLite{
-	ZetaOrderbookLite {
+	ZetaOrderbookLite: ZetaOrderbookLite {
     instrumentName
     date
     currency
@@ -1468,7 +1228,7 @@ query ZetaOrderbookLite{
 
 RibbonTimeAndSales = """
 	query RibbonTimeAndSales {
-		RibbonTimeAndSales {
+		RibbonTimeAndSales: RibbonTimeAndSales {
 		    date
             expiration
             defi
