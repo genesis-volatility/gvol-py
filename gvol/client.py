@@ -43,8 +43,8 @@ class GVol:
 
         Example Response: ``{"ts": "1637677441586", "instrumentName": "BTC-24NOV21-59000-C", "strike": 59000, "expiration": "1637712000000", "bidIv": 59.4, "markIv": 66.33, "askIv": 71.68, "delta": 0.10811}``
         Args:
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
+            symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
+            exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
             dict
@@ -53,29 +53,6 @@ class GVol:
         return self._client.execute(
             gql(queries.CurrentOrderbookSkewStrike),
             variable_values={"symbol": symbol, "exchange": exchange},
-        )
-
-    def Shadow25Skews(
-        self, dateTime: types.String, symbol: types.SymbolEnumType
-    ) -> Dict:
-        """This end-point represents the 20/30 skew (~∆25) for various expirations at the given timestamp parameter.
-
-        Data goes back to mid-February 2020.
-
-        The end-point supports 1hr timestamp granularity.
-
-        Example Response: ``{"date": "1613930400000", "twentyThirtyCallIvMinusPutIv": -2.19, "daysUntilExpiration": 1 }``
-
-        Args:
-            dateTime: (types.String)
-            symbol: (types.SymbolEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.Shadow25Skews),
-            variable_values={"dateTime": dateTime, "symbol": symbol},
         )
 
     def CurrentOrderbookSkewDeltaBucket(
@@ -94,9 +71,9 @@ class GVol:
 
 
         Args:
-            expiration: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
+            expiration:  "2022-12-30"   
+            symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
+            exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
             dict
@@ -118,8 +95,8 @@ class GVol:
         Example Response: ``{"expiration": "1637740800000", "markIv": 72.305, "forwardVolatility": 72.3 }``
 
         Args:
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
+            symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
+            exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
             dict
@@ -129,40 +106,39 @@ class GVol:
             variable_values={"symbol": symbol, "exchange": exchange},
         )
 
-    def CurrentOrderbook1hr3020Skew(
-        self,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """This data displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
+    # def CurrentOrderbook1hr3020Skew(
+    #     self,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """This data displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
 
-        This data is useful to gauge how expensive calls are versus puts.
+    #     This data is useful to gauge how expensive calls are versus puts.
 
-        This displays the symmetry (or asymmetry) of the volatility skews.
+    #     This displays the symmetry (or asymmetry) of the volatility skews.
 
-        RangeStart / rangeEnd, we can view how skew symmetry has changed for options within the given expiration window.
+    #     RangeStart / rangeEnd, we can view how skew symmetry has changed for options within the given expiration window.
 
+    #     Args:
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
 
-        Args:
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.CurrentOrderbook1hr3020Skew),
-            variable_values={
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentOrderbook1hr3020Skew),
+    #         variable_values={
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
 
     def CurrentOrderbook1HrATMVol(
         self,
@@ -1003,7 +979,7 @@ class GVol:
             },
         )
 
-    def TimesandSales(
+    def TimesAndSales(
         self, date: types.String, exchange: types.ExchangeEnumType
     ) -> Dict:
         """This query will return all the options times and sales data for a given exchange on a given day.
@@ -1018,7 +994,7 @@ class GVol:
             dict
         """
         return self._client.execute(
-            gql(queries.TimesandSales),
+            gql(queries.TimesAndSales),
             variable_values={"date": date, "exchange": exchange},
         )
 
@@ -1314,7 +1290,7 @@ class GVol:
             },
         )
 
-    def CoveredCall(self, symbol: types.SymbolEnumType) -> Dict:
+    def CoveredCall(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
         """DESCRIPTION:
         The “Covered Call” is constructed by holding a long position in the underlying asset.
         There is a 1-to-1 relationship between holding the long asset and the short call options.
@@ -1340,15 +1316,16 @@ class GVol:
 
         Args:
             symbol: (types.SymbolEnumType)
+            exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
         """
         return self._client.execute(
-            gql(queries.CoveredCall), variable_values={"symbol": symbol}
+            gql(queries.CoveredCall), variable_values={"symbol": symbol, "exchange": exchange}
         )
 
-    def CashSecuredPuts(self, symbol: types.SymbolEnumType) -> Dict:
+    def CashSecuredPuts(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
         """DESCRIPTION:
         The “Cash Secured Put” is a low-risk strategy with a similar payout profile to the “Covered Call”.
         Traders will sell a naked put but maintain enough cash to purchase the underlying asset at the predetermined strike price.
@@ -1372,15 +1349,16 @@ class GVol:
 
         Args:
             symbol: (types.SymbolEnumType)
+            exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
         """
         return self._client.execute(
-            gql(queries.CashSecuredPuts), variable_values={"symbol": symbol}
+            gql(queries.CashSecuredPuts), variable_values={"symbol": symbol, "exchange": exchange}
         )
 
-    def StraddleRun(self, symbol: types.SymbolEnumType) -> Dict:
+    def StraddleRun(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
         """DESCRIPTION:
         Straddles are a classic volatility trade.
         Buyers of the straddle hope that the underlying moves enough to either exceed the straddle price by expiration or that the underlying moves enough to profitably “gamma scalp” the underlying.
@@ -1406,12 +1384,13 @@ class GVol:
 
         Args:
             symbol: (types.SymbolEnumType)
+            exchange: (types.ExchangeEnumType)
 
         Returns:
             dict
         """
         return self._client.execute(
-            gql(queries.StraddleRun), variable_values={"symbol": symbol}
+            gql(queries.StraddleRun), variable_values={"symbol": symbol, "exchange": exchange}
         )
 
     def GlobalAllOrderBooksOptionPricing(self) -> Dict:
@@ -1498,7 +1477,7 @@ class GVol:
             dateEnd: (types.String)
             strike: (types.String)
             putCall: (types.PutCallEnumType)
-            expiration: (types.String)
+            expiration:  "2022-12-30"  (YYYY-MM-DD)
 
         Returns:
             dict
@@ -1643,7 +1622,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration: "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
 
         Returns:
             dict
@@ -1685,7 +1664,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration:  "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
 
         Returns:
             dict
@@ -1738,7 +1717,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration:  "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
             dateStart: (types.String)
             dateEnd: (types.String)
 
@@ -1769,7 +1748,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration:  "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
             dateStart: (types.String)
             dateEnd: (types.String)
 
@@ -1853,6 +1832,38 @@ class GVol:
             gql(queries.UtilityRealtimeOptionbook),
             variable_values={
                 "exchange": exchange,
+            },
+        )
+
+    def PortfolioAnalyzer(
+        self,
+        portfolio: types.String,
+        deltaFutures: types.Float,
+        numberOfDays: types.Float,
+        ivShift: types.Float,
+        symbol: types.BTCOrETHEnumType
+
+    ) -> Dict:
+        """
+        This endpoint will create a scenario simulation (underlying/iv/dte) of current portfolio book (DERIBIT)
+        or a simulated new one
+        Args:
+            portfolio: [{ "instrument": "BTC-30DEC22-40000-C", "size": 15 }, { "instrument": "BTC-30DEC22-55000-C", "size": -15}],
+            deltaFutures: deltas to add/remove to portfolio
+            numberOfDays: 0 (DTE-numberOfDays)
+            ivShift: 0 (simulation of a shift in vol termstructure)
+            symbol: BTC
+      Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.PortfolioAnalyzer),
+            variable_values={
+                "portfolio": portfolio,
+                "deltaFutures": deltaFutures,
+                "numberOfDays": numberOfDays,
+                "ivShift": ivShift,
+                "symbol": symbol
             },
         )
 
