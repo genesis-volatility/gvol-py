@@ -980,7 +980,7 @@ class GVol:
             },
         )
 
-    def TimesandSales(
+    def TimesAndSales(
         self, date: types.String, exchange: types.ExchangeEnumType
     ) -> Dict:
         """This query will return all the options times and sales data for a given exchange on a given day.
@@ -995,7 +995,7 @@ class GVol:
             dict
         """
         return self._client.execute(
-            gql(queries.TimesandSales),
+            gql(queries.TimesAndSales),
             variable_values={"date": date, "exchange": exchange},
         )
 
