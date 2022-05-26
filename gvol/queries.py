@@ -1140,6 +1140,18 @@ Basis24HR = """
     }
 """
 
+DailyBasisVwap = """
+	query DailyBasisVwap($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {
+        DailyBasisVwap: DailyBasisVwap(symbol: $symbol, dateRangeStart: $dateStart,	dateRangeEnd: $dateEnd) {
+          date
+          vwapBasis
+          instrumentName
+          baseCurrency
+          expiration
+		}
+	}
+"""
+
 TradesWithBasis = """
 query TradesWithBasis($symbol: SymbolEnumType, $date: String) {
 		TradesWithBasis: TradesWithBasis(symbol: $symbol,	date: $date) {
