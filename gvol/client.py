@@ -1479,7 +1479,7 @@ class GVol:
             dateEnd: (types.String)
             strike: (types.String)
             putCall: (types.PutCallEnumType)
-            expiration: (types.String)
+            expiration:  2022-12-30  (YYYY-MM-DD)
 
         Returns:
             dict
@@ -1624,7 +1624,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration:  2022-12-30  (YYYY-MM-DD)
 
         Returns:
             dict
@@ -1666,7 +1666,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration:  2022-12-30  (YYYY-MM-DD)
 
         Returns:
             dict
@@ -1719,7 +1719,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration:  2022-12-30  (YYYY-MM-DD)
             dateStart: (types.String)
             dateEnd: (types.String)
 
@@ -1750,7 +1750,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration: (types.String)
+            expiration:  2022-12-30  (YYYY-MM-DD)
             dateStart: (types.String)
             dateEnd: (types.String)
 
