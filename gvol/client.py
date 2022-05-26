@@ -106,40 +106,39 @@ class GVol:
             variable_values={"symbol": symbol, "exchange": exchange},
         )
 
-    def CurrentOrderbook1hr3020Skew(
-        self,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """This data displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
+    # def CurrentOrderbook1hr3020Skew(
+    #     self,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """This data displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
 
-        This data is useful to gauge how expensive calls are versus puts.
+    #     This data is useful to gauge how expensive calls are versus puts.
 
-        This displays the symmetry (or asymmetry) of the volatility skews.
+    #     This displays the symmetry (or asymmetry) of the volatility skews.
 
-        RangeStart / rangeEnd, we can view how skew symmetry has changed for options within the given expiration window.
+    #     RangeStart / rangeEnd, we can view how skew symmetry has changed for options within the given expiration window.
 
+    #     Args:
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
 
-        Args:
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.CurrentOrderbook1hr3020Skew),
-            variable_values={
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentOrderbook1hr3020Skew),
+    #         variable_values={
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
 
     def CurrentOrderbook1HrATMVol(
         self,
