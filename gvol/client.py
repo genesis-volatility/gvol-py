@@ -72,7 +72,7 @@ class GVol:
 
 
         Args:
-            expiration:  2022-12-30  (YYYY-MM-DD)
+            expiration:  "2022-12-30"   
             symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
             exchange: deribit / bitcom / okex / ledgerx
 
@@ -1479,7 +1479,7 @@ class GVol:
             dateEnd: (types.String)
             strike: (types.String)
             putCall: (types.PutCallEnumType)
-            expiration:  2022-12-30  (YYYY-MM-DD)
+            expiration:  "2022-12-30"  (YYYY-MM-DD)
 
         Returns:
             dict
@@ -1624,7 +1624,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration:  2022-12-30  (YYYY-MM-DD)
+            expiration: "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
 
         Returns:
             dict
@@ -1666,7 +1666,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration:  2022-12-30  (YYYY-MM-DD)
+            expiration:  "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
 
         Returns:
             dict
@@ -1719,7 +1719,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration:  2022-12-30  (YYYY-MM-DD)
+            expiration:  "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
             dateStart: (types.String)
             dateEnd: (types.String)
 
@@ -1750,7 +1750,7 @@ class GVol:
         Args:
             exchange: (types.ExchangeEnumType)
             symbol: (types.SymbolEnumType)
-            expiration:  2022-12-30  (YYYY-MM-DD)
+            expiration:  "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
             dateStart: (types.String)
             dateEnd: (types.String)
 
@@ -1836,6 +1836,52 @@ class GVol:
                 "exchange": exchange,
             },
         )
+
+
+
+    def PortfolioAnalyzer(
+        self,
+        $portfolio: [CreatePortfolioInput],
+        $deltaFutures: Float, 
+        $numberOfDays:Float, 
+        $ivShift:Float, 
+        $symbol:BTCOrETHEnumType
+
+    ) -> Dict:
+        """
+        This endpoint will create a scenario simulation (underlying/iv/dte) of current portfolio book (DERIBIT) 
+        or a simulated new one
+        Args:
+            portfolio: [{ "instrument": "BTC-30DEC22-40000-C", "size": 15 }, { "instrument": "BTC-30DEC22-55000-C", "size": -15}],
+            deltaFutures: deltas to add/remove to portfolio
+            numberOfDays: 0 (DTE-numberOfDays)
+            ivShift: 0 (simulation of a shift in vol termstructure)
+            symbol: BTC
+      Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.PortfolioAnalyzer),
+            variable_values={
+                "portfolio": portfolio,
+                "deltaFutures": deltaFutures,
+                "numberOfDays": numberOfDays,
+                "ivShift": ivShift,
+                "symbol": symbol
+            },
+        )
+
+
+
+
+
+
+
+
+
+
+
+
 
     def HifiVolSurfaceStrikesGreeksMinute(
         self,
