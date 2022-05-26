@@ -400,8 +400,8 @@ query dVolVolOfVol($symbol: SymbolEnumType, $days: DaysBackEnumType) {
 	}
 """
 
-TimeAndSales = """
-query TimeAndSales($exchange: ExchangeEnumType $date: String) {
+TimesAndSales = """
+query TimesAndSales($exchange: ExchangeEnumType $date: String) {
 		TimesAndSales: TimesAndSales( exchange: $exchange date: $date) {
 		    exchange
         date
