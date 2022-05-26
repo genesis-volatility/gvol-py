@@ -55,7 +55,6 @@ class GVol:
             variable_values={"symbol": symbol, "exchange": exchange},
         )
 
-    
     def CurrentOrderbookSkewDeltaBucket(
         self,
         expiration: types.String,
@@ -1324,7 +1323,7 @@ class GVol:
             dict
         """
         return self._client.execute(
-            gql(queries.CoveredCall), variable_values={"symbol": symbol,"exchange": exchange}
+            gql(queries.CoveredCall), variable_values={"symbol": symbol, "exchange": exchange}
         )
 
     def CashSecuredPuts(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
@@ -1357,7 +1356,7 @@ class GVol:
             dict
         """
         return self._client.execute(
-            gql(queries.CashSecuredPuts), variable_values={"symbol": symbol,"exchange": exchange}
+            gql(queries.CashSecuredPuts), variable_values={"symbol": symbol, "exchange": exchange}
         )
 
     def StraddleRun(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType) -> Dict:
@@ -1392,7 +1391,7 @@ class GVol:
             dict
         """
         return self._client.execute(
-            gql(queries.StraddleRun), variable_values={"symbol": symbol,"exchange": exchange}
+            gql(queries.StraddleRun), variable_values={"symbol": symbol, "exchange": exchange}
         )
 
     def GlobalAllOrderBooksOptionPricing(self) -> Dict:
@@ -1837,19 +1836,17 @@ class GVol:
             },
         )
 
-
-
     def PortfolioAnalyzer(
         self,
-        $portfolio: [CreatePortfolioInput],
-        $deltaFutures: Float, 
-        $numberOfDays:Float, 
-        $ivShift:Float, 
-        $symbol:BTCOrETHEnumType
+        portfolio: types.String,
+        deltaFutures: types.Float,
+        numberOfDays: types.Float,
+        ivShift: types.Float,
+        symbol: types.BTCOrETHEnumType
 
     ) -> Dict:
         """
-        This endpoint will create a scenario simulation (underlying/iv/dte) of current portfolio book (DERIBIT) 
+        This endpoint will create a scenario simulation (underlying/iv/dte) of current portfolio book (DERIBIT)
         or a simulated new one
         Args:
             portfolio: [{ "instrument": "BTC-30DEC22-40000-C", "size": 15 }, { "instrument": "BTC-30DEC22-55000-C", "size": -15}],
@@ -1870,18 +1867,6 @@ class GVol:
                 "symbol": symbol
             },
         )
-
-
-
-
-
-
-
-
-
-
-
-
 
     def HifiVolSurfaceStrikesGreeksMinute(
         self,
