@@ -1838,9 +1838,9 @@ class GVol:
     def PortfolioAnalyzer(
         self,
         portfolio: types.String,
-        deltaFutures: types.Float,
-        numberOfDays: types.Float,
-        ivShift: types.Float,
+        deltaFutures: types.Float = 0,
+        numberOfDays: types.Float = 0,
+        ivShift: types.Float = 0,
         symbol: types.BTCOrETHEnumType
 
     ) -> Dict:
