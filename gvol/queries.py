@@ -750,21 +750,21 @@ query UtilityRealtimeOptionbook($exchange: ExchangeEnumType) {
   """
 
 PortfolioAnalyzer = """
-  query PortfolioAnalyzer($portfolio: [CreatePortfolioInput], $deltaFutures: Float, $numberOfDays:Float, $ivShift:Float, $symbol:BTCOrETHEnumType){
-    PortfolioAnalyzer: PortfolioAnalyzer(portfolio:$portfolio, deltaFutures:$deltaFutures,numberOfDays:$numberOfDays, ivShift:$ivShift, symbol:$symbol){
-      PnL
-      PnLUSD
-      deltaBSM
-      deltaCash
-      deltaSkew
-      gamma
-      vega
-      vegaNorm30
-      theta
-      index
-      equity
-      equityUSD
-      days
+  query PortfolioAnalyzer($portfolio: [CreatePortfolioInput], $deltaFutures: Float,	$ivShift:Float,	$symbol:BTCOrETHEnumType){
+    PortfolioAnalyzer: PortfolioAnalyzer(portfolio:$portfolio, deltaFutures:$deltaFutures,ivShift:$ivShift, symbol:$symbol){
+          PnL
+          PnLUSD
+          deltaBSM
+          deltaCash
+          deltaSkew
+          gamma
+          vega
+          wVega
+          theta
+          index
+          equity
+          equityUSD
+          days
     }
   }
 """

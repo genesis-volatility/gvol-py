@@ -1838,11 +1838,9 @@ class GVol:
     def PortfolioAnalyzer(
         self,
         portfolio: types.String,
-        deltaFutures: types.Float,
-        numberOfDays: types.Float,
-        ivShift: types.Float,
-        symbol: types.BTCOrETHEnumType
-
+        deltaFutures: types.Float = 0,
+        ivShift: types.Float = 0,
+        symbol: types.BTCOrETHEnumType = 'BTC'
     ) -> Dict:
         """
         This endpoint will create a scenario simulation (underlying/iv/dte) of current portfolio book (DERIBIT)
@@ -1850,7 +1848,6 @@ class GVol:
         Args:
             portfolio: [{ "instrument": "BTC-30DEC22-40000-C", "size": 15 }, { "instrument": "BTC-30DEC22-55000-C", "size": -15}],
             deltaFutures: deltas to add/remove to portfolio
-            numberOfDays: 0 (DTE-numberOfDays)
             ivShift: 0 (simulation of a shift in vol termstructure)
             symbol: BTC
       Returns:
@@ -1861,7 +1858,6 @@ class GVol:
             variable_values={
                 "portfolio": portfolio,
                 "deltaFutures": deltaFutures,
-                "numberOfDays": numberOfDays,
                 "ivShift": ivShift,
                 "symbol": symbol
             },
