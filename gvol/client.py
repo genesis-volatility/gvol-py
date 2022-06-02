@@ -1839,7 +1839,6 @@ class GVol:
         self,
         portfolio: types.String,
         deltaFutures: types.Float = 0,
-        numberOfDays: types.Float = 0,
         ivShift: types.Float = 0,
         symbol: types.BTCOrETHEnumType
 
@@ -1850,7 +1849,6 @@ class GVol:
         Args:
             portfolio: [{ "instrument": "BTC-30DEC22-40000-C", "size": 15 }, { "instrument": "BTC-30DEC22-55000-C", "size": -15}],
             deltaFutures: deltas to add/remove to portfolio
-            numberOfDays: 0 (DTE-numberOfDays)
             ivShift: 0 (simulation of a shift in vol termstructure)
             symbol: BTC
       Returns:
@@ -1861,7 +1859,6 @@ class GVol:
             variable_values={
                 "portfolio": portfolio,
                 "deltaFutures": deltaFutures,
-                "numberOfDays": numberOfDays,
                 "ivShift": ivShift,
                 "symbol": symbol
             },
