@@ -1840,8 +1840,7 @@ class GVol:
         portfolio: types.String,
         deltaFutures: types.Float = 0,
         ivShift: types.Float = 0,
-        symbol: types.BTCOrETHEnumType
-
+        symbol: types.BTCOrETHEnumType = 'BTC'
     ) -> Dict:
         """
         This endpoint will create a scenario simulation (underlying/iv/dte) of current portfolio book (DERIBIT)
