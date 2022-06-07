@@ -999,7 +999,7 @@ class GVol:
         )
 
     def TimesAndSalesWithOrderbookDetails(
-        self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType, $dateStart: types.String, $dateEnd: types.String 
+        self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType, dateStart: types.String, dateEnd: types.String 
     ) -> Dict:
         """This query will return the trades with useful information about the orderbook at the time of the trade.
 
