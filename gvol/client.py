@@ -998,6 +998,30 @@ class GVol:
             variable_values={"date": date, "exchange": exchange},
         )
 
+    def TimesAndSalesWithOrderbookDetails(
+        self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType, $dateStart: types.String, $dateEnd: types.String 
+    ) -> Dict:
+        """This query will return the trades with useful information about the orderbook at the time of the trade.
+
+        Example Response: ``{"exchange": "deribit", "date": "1631750359238", "instrumentName": "ETH-17SEP21-3900-C", "baseCurrency": "ETH", "expiration": "ETH", "strike": 3900, "putCall": "C", "direction": "buy", "blockTrade": "no", "liquidation": "no", "amount": 7, "price": 0.002, "priceUsd": 7.22, "iv": "89.79"}``
+
+        Args:
+            exchange: (types.ExchangeEnumType)
+            symbol: BTC/ETH/SOL
+            dateStart: '2022-12-31'
+            dateEnd: '2022-12-31'
+            
+
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.TimesAndSalesWithOrderbookDetails),
+            variable_values={"exchange": exchange, "symbol":symbol, "dateStart":dateStart, "dateEnd":dateEnd},
+        )
+
+
+
     def VolatilityCone(
         self, symbol: types.SymbolEnumType, date1: types.String, date2: types.String
     ) -> Dict:

@@ -422,6 +422,63 @@ query TimesAndSales($exchange: ExchangeEnumType $date: String) {
 	}
 """
 
+TimesAndSalesWithOrderbookDetails = """
+query TimesAndSalesWithOrderbookDetails($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $dateStart: String, $dateEnd: String){
+  TimesAndSalesWithOrderbookDetails :genericTimesAndSalesWithOrderbookDetails(exchange:$exchange, symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
+    preTxObTs
+    txTs
+    postTxObTs
+    tradeSeq
+    tradeId
+    instrumentName
+    currency
+    expiration
+    strike
+    putcall
+    blockTradeId
+    liquidation
+    direction
+    tickDirection
+    txAmount
+    txIv
+    price
+    priceUsd
+    indexPrice
+    underlyingPrice
+    volume24h
+    high24h
+    low24h
+    preTxBbSize
+    preTxBbPrice
+    preTxBbIv
+    preTxMidIv
+    preTxMidPrice
+    preTxMarkIv
+    preTxMarkPrice
+    preTxBaIv
+    preTxBaPrice
+    preTxBaSize
+    postTxBbSize
+    postTxBbPrice
+    postTxBbIv
+    postTxMidIv
+    postTxMidPrice
+    postTxMarkIv
+    postTxMarkPrice
+    postTxBaIv
+    postTxBaPrice
+    postTxBaSize
+    delta
+    gamma
+    theta
+    vega
+    rho
+    preTxOi
+    postTxOi
+    oiChange
+  }
+}
+"""
 
 ParadigmBlockSnifferCallSpreadsasPercentageofTradeCount = """
     query ParadigmCallSpreadPercentage($dateRangeStart: String, $dateRangeEnd: String, $symbol: SymbolEnumType) {
@@ -752,6 +809,7 @@ query UtilityRealtimeOptionbook($exchange: ExchangeEnumType) {
 PortfolioAnalyzer = """
   query PortfolioAnalyzer($portfolio: [CreatePortfolioInput], $deltaFutures: Float,	$ivShift:Float,	$symbol:BTCOrETHEnumType){
     PortfolioAnalyzer: PortfolioAnalyzer(portfolio:$portfolio, deltaFutures:$deltaFutures,ivShift:$ivShift, symbol:$symbol){
+          indexChange
           PnL
           PnLUSD
           deltaBSM
