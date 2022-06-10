@@ -999,7 +999,7 @@ class GVol:
         )
 
     def TimesAndSalesWithOrderbookDetails(
-        self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType, dateStart: types.String, dateEnd: types.String 
+        self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType, dateStart: types.String, dateEnd: types.String
     ) -> Dict:
         """This query will return the trades with useful information about the orderbook at the time of the trade.
 
@@ -1010,17 +1010,15 @@ class GVol:
             symbol: BTC/ETH/SOL
             dateStart: '2022-12-31'
             dateEnd: '2022-12-31'
-            
+
 
         Returns:
             dict
         """
         return self._client.execute(
             gql(queries.TimesAndSalesWithOrderbookDetails),
-            variable_values={"exchange": exchange, "symbol":symbol, "dateStart":dateStart, "dateEnd":dateEnd},
+            variable_values={"exchange": exchange, "symbol": symbol, "dateStart": dateStart, "dateEnd": dateEnd},
         )
-
-
 
     def VolatilityCone(
         self, symbol: types.SymbolEnumType, date1: types.String, date2: types.String
@@ -2397,242 +2395,198 @@ class GVol:
 
 
 def LiveTablePerps(
-        self, 
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """
-        Granularity: 100ms
+    self,
+    exchange: types.ExchangeEnumType,
+) -> Dict:
+    """
+    Granularity: 100ms
 
-        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
-        Date: Unix Format
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
-        """
-        return self._client.execute(
-            gql(queries.LiveTablePerps),
-            variable_values={
-                "exchange": exchange,
-            },
-        )
+    Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
+    Date: Unix Format
+    Need More? info@genesisvolatility.io
+    API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+    GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+    GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+    """
+    return self._client.execute(
+        gql(queries.LiveTablePerps),
+        variable_values={
+            "exchange": exchange,
+        },
+    )
 
 
 def LiveTableFutures(
-        self, 
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """
-        Granularity: 100ms
+    self,
+    exchange: types.ExchangeEnumType,
+) -> Dict:
+    """
+    Granularity: 100ms
+
+    Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
+    Date: Unix Format
+    Need More? info@genesisvolatility.io
+    API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+    GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+    GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+    """
+    return self._client.execute(
+        gql(queries.LiveTableFutures),
+        variable_values={
+            "exchange": exchange,
+        },
+    )
+
+
+def ConstantBasisSevenDayOneHour(
+    self,
+    exchange: types.ExchangeEnumType,
+    symbol: types.SymbolEnumType,
+) -> Dict:
+    """
+  Explanation:
+    Inputs:
+    Exchange: Deribit
+    Currency Symbol: BTC, ETH
+
+    Why do traders like this endpoint?
+    The futures basis represents the "implicit" interest rate paid by futures traders.
+    At expiration the futures price will equal the spot price by definition and exchange rules.
+    Until expiration, futures price can deviate greatly from spot prices (this is due to leverage or short demand) and the basis is the "translation" of this deviation into an APY.
+    This endpoint returns the basis for 30-day, 60-day and 90-day fixed maturities.
+
+    Calculation:
+    Raw Basis = [(Mid-price) ÷ (Index price)] - 1
+    Annualized Basis = (Raw Basis) * [(525,600)/ (minutes until futures expiration)]
+
+    Endpoint Output Details:
+    Granularity: hourly
+    Dataset: returns 30 days of hourly data-point for the 30-day, 60-day and 90-day basis.
+    Date: Unix Format
+
+    Need More? info@genesisvolatility.io
+    API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+    GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+    GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+
+    Args:
+    exchange: types.ExchangeEnumType,
+    symbol: types.SymbolEnumType,
+
+    Returns:
+        dict
+    """
+    return self._client.execute(
+        gql(queries.ConstantBasisSevenDayOneHour),
+        variable_values={
+            "exchange": exchange,
+            "symbol": symbol,
+        },
+    )
+
+
+def DydxFunding(
+    self
+) -> Dict:
+    """
+  Explanation:
+    Inputs: None
+
+    Why do traders like this endpoint?
+    Unlike futures contracts, perpetual swaps have no expiration date. Any deviation between spot prices and perpetual swaps can persist indefinitely since there is no final expiration settlement process.
+    In order to keep spot and perpetual prices in-line, a funding mechanism is paid between counter-parties.
+
+    Calculation:
+    At the start of each hour, an account receives USDC (if F is positive) or pays USDC (if F is negative) in an amount equal to:
+    F = (-1) × S × P × R
+
+    Where:
+    S is the size of the position (positive if long, negative if short)
+    P is the oracle (index) price for the market
+    R is the funding rate (as a 1-hour rate)
+    At the end of each hour, the 1-hour premium is calculated as the simple average (i.e. TWAP) of the 60 premiums calculated over the course of the last hour. In addition to the premium component, each market has a fixed interest rate component that aims to account for the difference in interest rates of the base and quote currencies. The funding rate is then:
+
+    Funding Rate = (Premium Component / 8) + Interest Rate Component
+    Currently, the interest rate component for all dYdX markets is 0.00125% (equivalent to 0.01% per 8 hours). For markets with no interest rate component, the funding rate is simply the one-hour premium.
+
+    More info: https://help.dydx.exchange/en/articles/4797443-perpetual-funding-rate
+
+    Endpoint Output Details:
+    Granularity: 1 minute
+    Date: Unix Format
+
+    Need More? info@genesisvolatility.io
+    API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+    GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+    GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
 
-        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
-        Date: Unix Format
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
-        """
-        return self._client.execute(
-            gql(queries.LiveTableFutures),
-            variable_values={
-                "exchange": exchange,
-            },
-        )
 
+    Returns:
+        dict
+    """
+    return self._client.execute(
+        gql(queries.DydxFunding),
 
+    )
 
 
+def ZetaOrderbookLite(
+    self
+) -> Dict:
+    """
+  Explanation:
+    Inputs: None
 
+    Why do traders like this endpoint?
+    This endpoint is real-time and will return live prices when requested.
+    This endpoint will return the option order-book, oracle prices, order depth and implied volatility.
 
+    Calculation:
+    Black-Scholes Implied Volatility assumptions: 0% interest rate, oracle price as underlying.
 
+    Endpoint Output Details:
+    Granularity: 1 minute
+    Date: Unix Format
 
+    Need More? info@genesisvolatility.io
+    API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+    GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+    GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
 
 
+    Returns:
+        dict
+    """
+    return self._client.execute(
+        gql(queries.ZetaOrderbookLite),
 
+    )
 
 
+def RibbonTimeAndSales(
+    self
+) -> Dict:
+    """
+  Explanation:
+    Inputs: None
 
+    Why do traders like this endpoint?
+    This endpoint returns the option contract specs and notional size for Ribbon DOV (DeFi Option Vault) auctions, along with the given blockchain.
 
+    Endpoint Output Details:
+    Granularity: Daily
+    Date: Unix Format
 
+    Need More? info@genesisvolatility.io
+    API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+    GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+    GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
 
 
+    Returns:
+        dict
+    """
+    return self._client.execute(
+        gql(queries.RibbonTimeAndSales),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    def ConstantBasisSevenDayOneHour(
-        self,
-        exchange: types.ExchangeEnumType,
-        symbol: types.SymbolEnumType,
-    ) -> Dict:
-        """
-      Explanation:
-        Inputs:
-        Exchange: Deribit
-        Currency Symbol: BTC, ETH
-
-        Why do traders like this endpoint?
-        The futures basis represents the "implicit" interest rate paid by futures traders.
-        At expiration the futures price will equal the spot price by definition and exchange rules.
-        Until expiration, futures price can deviate greatly from spot prices (this is due to leverage or short demand) and the basis is the "translation" of this deviation into an APY.
-        This endpoint returns the basis for 30-day, 60-day and 90-day fixed maturities.
-
-        Calculation:
-        Raw Basis = [(Mid-price) ÷ (Index price)] - 1
-        Annualized Basis = (Raw Basis) * [(525,600)/ (minutes until futures expiration)]
-
-        Endpoint Output Details:
-        Granularity: hourly
-        Dataset: returns 30 days of hourly data-point for the 30-day, 60-day and 90-day basis.
-        Date: Unix Format
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
-
-        Args:
-        exchange: types.ExchangeEnumType,
-        symbol: types.SymbolEnumType,
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.ConstantBasisSevenDayOneHour),
-            variable_values={
-                "exchange": exchange,
-                "symbol": symbol,
-            },
-        )
-
-    def DydxFunding(
-        self
-    ) -> Dict:
-        """
-      Explanation:
-        Inputs: None
-
-        Why do traders like this endpoint?
-        Unlike futures contracts, perpetual swaps have no expiration date. Any deviation between spot prices and perpetual swaps can persist indefinitely since there is no final expiration settlement process.
-        In order to keep spot and perpetual prices in-line, a funding mechanism is paid between counter-parties.
-
-        Calculation:
-        At the start of each hour, an account receives USDC (if F is positive) or pays USDC (if F is negative) in an amount equal to:
-        F = (-1) × S × P × R
-
-        Where:
-        S is the size of the position (positive if long, negative if short)
-        P is the oracle (index) price for the market
-        R is the funding rate (as a 1-hour rate)
-        At the end of each hour, the 1-hour premium is calculated as the simple average (i.e. TWAP) of the 60 premiums calculated over the course of the last hour. In addition to the premium component, each market has a fixed interest rate component that aims to account for the difference in interest rates of the base and quote currencies. The funding rate is then:
-
-        Funding Rate = (Premium Component / 8) + Interest Rate Component
-        Currently, the interest rate component for all dYdX markets is 0.00125% (equivalent to 0.01% per 8 hours). For markets with no interest rate component, the funding rate is simply the one-hour premium.
-
-        More info: https://help.dydx.exchange/en/articles/4797443-perpetual-funding-rate
-
-        Endpoint Output Details:
-        Granularity: 1 minute
-        Date: Unix Format
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
-
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.DydxFunding),
-
-        )
-
-    def ZetaOrderbookLite(
-        self
-    ) -> Dict:
-        """
-      Explanation:
-        Inputs: None
-
-        Why do traders like this endpoint?
-        This endpoint is real-time and will return live prices when requested.
-        This endpoint will return the option order-book, oracle prices, order depth and implied volatility.
-
-        Calculation:
-        Black-Scholes Implied Volatility assumptions: 0% interest rate, oracle price as underlying.
-
-        Endpoint Output Details:
-        Granularity: 1 minute
-        Date: Unix Format
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
-
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.ZetaOrderbookLite),
-
-        )
-
-    def RibbonTimeAndSales(
-        self
-    ) -> Dict:
-        """
-      Explanation:
-        Inputs: None
-
-        Why do traders like this endpoint?
-        This endpoint returns the option contract specs and notional size for Ribbon DOV (DeFi Option Vault) auctions, along with the given blockchain.
-
-        Endpoint Output Details:
-        Granularity: Daily
-        Date: Unix Format
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
-
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.RibbonTimeAndSales),
-
-        )
+    )
