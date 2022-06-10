@@ -1139,7 +1139,7 @@ HistoricalIntradayTradedWeightedBasis = """
 """
 
 TablePerpsLive = """
-query TablePerpsLive($exchange: ExchangeEnumType) {
+	query TablePerpsLive($exchange: ExchangeEnumType) {
 		TablePerpsLive: TablePerpsLive(exchange: $exchange) {
 			    date
           instrumentName
@@ -1160,6 +1160,63 @@ query TablePerpsLive($exchange: ExchangeEnumType) {
 		}
 	}
 """
+
+LiveTablePerps = """
+query LiveTablePerps($exchange:ExchangeEnumType){
+  LiveTablePerps:genericLiveTablePerps(exchange:$exchange) {
+    mcapMils
+    instrumentName
+    currency
+    margin
+    expiration
+    price
+    indexPrice
+    priceChange24
+    apy
+    funding
+    oiUsdMillions
+    volume24UsdMillions
+    volumer2Oi
+    lsRatio
+    hv5
+    hv10
+    hv14
+    hv30
+    hv60
+    hv90
+    hv180
+  }
+}
+"""
+
+LiveTableFutures = """
+query LiveTableFutures($exchange:ExchangeEnumType){
+  LiveTableFutures:genericLiveTableFutures(exchange:$exchange) {
+    mcapMils
+    instrumentName
+    currency
+    margin
+    expiration
+    price
+    indexPrice
+    priceChange24
+    apy
+    funding
+    oiUsdMillions
+    volume24UsdMillions
+    volumer2Oi
+    lsRatio
+    hv5
+    hv10
+    hv14
+    hv30
+    hv60
+    hv90
+    hv180
+  }
+}
+"""
+
 
 TableClickForDetailsDydx = """
 query TableClickForDetailsDydx(

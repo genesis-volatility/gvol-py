@@ -2395,6 +2395,98 @@ class GVol:
             gql(queries.DeribitFunding)
         )
 
+
+def LiveTablePerps(
+        self, 
+        exchange: types.ExchangeEnumType,
+    ) -> Dict:
+        """
+        Granularity: 100ms
+
+        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
+        Date: Unix Format
+        Need More? info@genesisvolatility.io
+        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+        """
+        return self._client.execute(
+            gql(queries.LiveTablePerps),
+            variable_values={
+                "exchange": exchange,
+            },
+        )
+
+
+def LiveTableFutures(
+        self, 
+        exchange: types.ExchangeEnumType,
+    ) -> Dict:
+        """
+        Granularity: 100ms
+
+        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
+        Date: Unix Format
+        Need More? info@genesisvolatility.io
+        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+        """
+        return self._client.execute(
+            gql(queries.LiveTableFutures),
+            variable_values={
+                "exchange": exchange,
+            },
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def ConstantBasisSevenDayOneHour(
         self,
         exchange: types.ExchangeEnumType,
