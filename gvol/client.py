@@ -2349,54 +2349,7 @@ class GVol:
             },
         )
 
-    def DeribitFunding(
-        self
-    ) -> Dict:
-        """
-      Explanation:
-        Inputs:
-
-        Why do traders like this endpoint?
-        Unlike futures contracts, perpetual swaps have no expiration date. Any deviation between spot prices and perpetual swaps can persist indefinitely since there is no final expiration settlement process.
-        In order to keep spot and perpetual prices in-line, a funding mechanism is paid between counter-parties.
-
-        Calculation:
-        When the funding rate is positive, long position holders pay funding to the short position holders; when the funding rate is negative, short position holders pay funding to the long position holders. The funding rate is expressed as an 8-hour interest rate, and is calculated at any given time as follows:
-        Premium Rate = ((Mark Price - Deribit Index) / Deribit Index) * 100%
-        Sequentially, the funding rate is derived from the premium rate by applying a damper.
-
-        If the premium rate is within -0.05% and 0.05% range, the actual funding rate will be reduced to 0.00%.
-        If the premium rate is lower than -0.05%, then the actual funding rate will be the premium rate + 0.05%.
-        If the premium rate is higher than 0.05%, then the actual funding rate will be the premium rate - 0.05%.
-        Additionally, the funding rate is capped at -/+0.5%, expressed as an 8-hour interest rate.
-        Funding Rate = Maximum (0.05%, Premium Rate) + Minimum (-0.05%, Premium Rate)
-
-        Time Fraction = Funding Rate Time Period / 8 hours
-        The actual funding payment is calculated by multiplying the funding rate by the position size and the time fraction.
-        Funding Payment = Funding Rate * Position Size * Time Fraction
-
-        More info: https://legacy.deribit.com/pages/docs/perpetual
-        Endpoint Output Details:
-        Granularity: 100ms
-        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
-        Date: Unix Format
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
-
-        Args:
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.DeribitFunding)
-        )
-
-
-    def LiveTablePerps(
+    def TablePerps(
         self, 
         exchange: types.ExchangeEnumType,
     ) -> Dict:
@@ -2411,14 +2364,14 @@ class GVol:
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
         """
         return self._client.execute(
-            gql(queries.LiveTablePerps),
+            gql(queries.TablePerps),
             variable_values={
                 "exchange": exchange,
             },
         )
 
 
-    def LiveTableFutures(
+    def TableFutures(
         self, 
         exchange: types.ExchangeEnumType,
     ) -> Dict:
@@ -2433,7 +2386,7 @@ class GVol:
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
         """
         return self._client.execute(
-            gql(queries.LiveTableFutures),
+            gql(queries.TableFutures),
             variable_values={
                 "exchange": exchange,
             },
@@ -2587,4 +2540,50 @@ class GVol:
         return self._client.execute(
             gql(queries.RibbonTimeAndSales),
 
+        )
+
+    def DeribitFunding(
+        self
+    ) -> Dict:
+        """
+      Explanation:
+        Inputs:
+
+        Why do traders like this endpoint?
+        Unlike futures contracts, perpetual swaps have no expiration date. Any deviation between spot prices and perpetual swaps can persist indefinitely since there is no final expiration settlement process.
+        In order to keep spot and perpetual prices in-line, a funding mechanism is paid between counter-parties.
+
+        Calculation:
+        When the funding rate is positive, long position holders pay funding to the short position holders; when the funding rate is negative, short position holders pay funding to the long position holders. The funding rate is expressed as an 8-hour interest rate, and is calculated at any given time as follows:
+        Premium Rate = ((Mark Price - Deribit Index) / Deribit Index) * 100%
+        Sequentially, the funding rate is derived from the premium rate by applying a damper.
+
+        If the premium rate is within -0.05% and 0.05% range, the actual funding rate will be reduced to 0.00%.
+        If the premium rate is lower than -0.05%, then the actual funding rate will be the premium rate + 0.05%.
+        If the premium rate is higher than 0.05%, then the actual funding rate will be the premium rate - 0.05%.
+        Additionally, the funding rate is capped at -/+0.5%, expressed as an 8-hour interest rate.
+        Funding Rate = Maximum (0.05%, Premium Rate) + Minimum (-0.05%, Premium Rate)
+
+        Time Fraction = Funding Rate Time Period / 8 hours
+        The actual funding payment is calculated by multiplying the funding rate by the position size and the time fraction.
+        Funding Payment = Funding Rate * Position Size * Time Fraction
+
+        More info: https://legacy.deribit.com/pages/docs/perpetual
+        Endpoint Output Details:
+        Granularity: 100ms
+        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
+        Date: Unix Format
+
+        Need More? info@genesisvolatility.io
+        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
+        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
+        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+
+        Args:
+
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.DeribitFunding)
         )
