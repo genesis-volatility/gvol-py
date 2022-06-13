@@ -1161,80 +1161,78 @@ TablePerpsLive = """
 	}
 """
 
-LiveTablePerps = """
-query LiveTablePerps($exchange:ExchangeEnumType){
-  LiveTablePerps:genericLiveTablePerps(exchange:$exchange) {
-    mcapMils
-    instrumentName
-    currency
-    margin
-    expiration
-    price
-    indexPrice
-    priceChange24
-    apy
-    funding
-    oiUsdMillions
-    volume24UsdMillions
-    volumer2Oi
-    lsRatio
-    hv5
-    hv10
-    hv14
-    hv30
-    hv60
-    hv90
-    hv180
+TablePerps = """
+  query TablePerps($exchange:ExchangeEnumType){
+    TablePerps:genericLiveTablePerps(exchange:$exchange) {
+      mcapMils
+      instrumentName
+      currency
+      margin
+      expiration
+      price
+      indexPrice
+      priceChange24
+      apy
+      funding
+      oiUsdMillions
+      volume24UsdMillions
+      volumer2Oi
+      lsRatio
+      hv5
+      hv10
+      hv14
+      hv30
+      hv60
+      hv90
+      hv180
+    }
   }
-}
 """
 
-LiveTableFutures = """
-query LiveTableFutures($exchange:ExchangeEnumType){
-  LiveTableFutures:genericLiveTableFutures(exchange:$exchange) {
-    mcapMils
-    instrumentName
-    currency
-    margin
-    expiration
-    price
-    indexPrice
-    priceChange24
-    apy
-    funding
-    oiUsdMillions
-    volume24UsdMillions
-    volumer2Oi
-    lsRatio
-    hv5
-    hv10
-    hv14
-    hv30
-    hv60
-    hv90
-    hv180
+TableFutures = """
+  query TableFutures($exchange:ExchangeEnumType){
+    TableFutures:genericLiveTableFutures(exchange:$exchange) {
+      mcapMils
+      instrumentName
+      currency
+      margin
+      expiration
+      price
+      indexPrice
+      priceChange24
+      apy
+      funding
+      oiUsdMillions
+      volume24UsdMillions
+      volumer2Oi
+      lsRatio
+      hv5
+      hv10
+      hv14
+      hv30
+      hv60
+      hv90
+      hv180
+    }
   }
-}
 """
-
 
 TableClickForDetailsDydx = """
-query TableClickForDetailsDydx(
-		$instrumentName: String, $rangeStart: String, $rangeEnd: String) {
-		TableClickForDetailsDydx: TableClickForDetailsDydx(instrumentName: $instrumentName, rangeStart: $rangeStart, rangeEnd: $rangeEnd) {
-			    date
-          openInterest
-          volume24h
-          markPrice
-          indexPrice
-          turnover
-          apy
-          funding8h
-          nextFunding
-		}
-	}
+  query TableClickForDetailsDydx(
+      $instrumentName: String, $rangeStart: String, $rangeEnd: String) {
+      TableClickForDetailsDydx: TableClickForDetailsDydx(instrumentName: $instrumentName, rangeStart: $rangeStart, rangeEnd: $rangeEnd) {
+            date
+            openInterest
+            volume24h
+            markPrice
+            indexPrice
+            turnover
+            apy
+            funding8h
+            nextFunding
+      }
+    }
 """
-
 
 Basis24HR = """
     query Basis24HR($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String, $dateStart: String, $dateEnd: String) {
@@ -1258,39 +1256,39 @@ DailyBasisVwap = """
 """
 
 TradesWithBasis = """
-query TradesWithBasis($symbol: SymbolEnumType, $date: String) {
-		TradesWithBasis: TradesWithBasis(symbol: $symbol,	date: $date) {
-			date
-      amount
-      indexPrice
-      price
-      basis
-      instrumentName
-      baseCurrency
-      expiration
-		}
-	}
+  query TradesWithBasis($symbol: SymbolEnumType, $date: String) {
+      TradesWithBasis: TradesWithBasis(symbol: $symbol,	date: $date) {
+        date
+        amount
+        indexPrice
+        price
+        basis
+        instrumentName
+        baseCurrency
+        expiration
+      }
+    }
 """
 
 DeribitFundingPerp = """
-query DeribitFundingPerp($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {
-		DeribitFundingPerp: DeribitFundingPerp(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
-			date
-			indexPrice
-			currentFundingPercent
-			tradableBboPremiumDiscount
-		}
-	}
+  query DeribitFundingPerp($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {
+      DeribitFundingPerp: DeribitFundingPerp(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd) {
+        date
+        indexPrice
+        currentFundingPercent
+        tradableBboPremiumDiscount
+      }
+    }
 """
 
 PremiaCumulativeVolumeByNetwork = """
-query PremiaCumulativeVolumeByNetwork($dateStart: String, $dateEnd: String) {
-			PremiaCumulativeVolumeByNetwork: PremiaCumulativeVolumeByNetwork(dateStart: $dateStart, dateEnd:$dateEnd) {
-          date
-          network
-          cumulativeNotional
-				}
-			}
+  query PremiaCumulativeVolumeByNetwork($dateStart: String, $dateEnd: String) {
+        PremiaCumulativeVolumeByNetwork: PremiaCumulativeVolumeByNetwork(dateStart: $dateStart, dateEnd:$dateEnd) {
+            date
+            network
+            cumulativeNotional
+          }
+        }
 """
 
 PremiaCumulativeVolumeByNetwork = """
@@ -1324,12 +1322,12 @@ PremiaTotalDailyVolumeAndCumulative = """
 """
 
 PremiaCumulativeVolumeByPool = """
-query PremiaCumulativeVolumeByPool($dateStart: String, $dateEnd: String, $currency: String, $network: String, $putCall: PutCallEnumType) {
-				PremiaCumulativeVolumeByPool: PremiaCumulativeVolumeByPool(dateStart: $dateStart, dateEnd:$dateEnd, currency: $currency,network: $network, putCall: $putCall) {
-            date
-            cumulativeNotional
-				}
-			}
+  query PremiaCumulativeVolumeByPool($dateStart: String, $dateEnd: String, $currency: String, $network: String, $putCall: PutCallEnumType) {
+          PremiaCumulativeVolumeByPool: PremiaCumulativeVolumeByPool(dateStart: $dateStart, dateEnd:$dateEnd, currency: $currency,network: $network, putCall: $putCall) {
+              date
+              cumulativeNotional
+          }
+        }
 """
 
 PremiaTotalValueLockedNetwork = """
@@ -1343,13 +1341,13 @@ PremiaTotalValueLockedNetwork = """
 """
 
 PremiaTotalValueLockedPool = """
-query PremiaTotalValueLockedPool($dateStart: String, $dateEnd: String, $currency: String, $network: String, $putCall: PutCallEnumType) {
-				PremiaTotalValueLockedPool: PremiaTotalValueLockedPool(dateStart: $dateStart, dateEnd:$dateEnd, currency: $currency,network: $network, putCall: $putCall) {
-          date
-          network
-          tvlUsd
-				}
-			}
+  query PremiaTotalValueLockedPool($dateStart: String, $dateEnd: String, $currency: String, $network: String, $putCall: PutCallEnumType) {
+          PremiaTotalValueLockedPool: PremiaTotalValueLockedPool(dateStart: $dateStart, dateEnd:$dateEnd, currency: $currency,network: $network, putCall: $putCall) {
+            date
+            network
+            tvlUsd
+          }
+        }
 """
 
 PremiaLiveOptionTvl = """
@@ -1361,34 +1359,34 @@ PremiaLiveOptionTvl = """
 """
 
 PremiaTransactionsByPool = """
-query PremiaTransactionsByPool($dateStart: String, $dateEnd: String, $currency: String, $network: String,$putCall: PutCallEnumType) {
-			PremiaTransactionsByPool: PremiaTransactionsByPool(dateStart: $dateStart, dateEnd:$dateEnd, currency: $currency,network: $network, putCall: $putCall) {
-          date
-          instrument
-          activity
-          amount
-          notional
-          initiatingWallet
-				}
-			}
+  query PremiaTransactionsByPool($dateStart: String, $dateEnd: String, $currency: String, $network: String,$putCall: PutCallEnumType) {
+        PremiaTransactionsByPool: PremiaTransactionsByPool(dateStart: $dateStart, dateEnd:$dateEnd, currency: $currency,network: $network, putCall: $putCall) {
+            date
+            instrument
+            activity
+            amount
+            notional
+            initiatingWallet
+          }
+        }
 """
 
 PremiaLiveOiAllOptionsWithGreeks = """
-query PremiaLiveOiAllOptionsWithGreeks($currency: String, $network: String, $putCall: PutCallEnumType) {
-			PremiaLiveOiAllOptionsWithGreeks: PremiaLiveOiAllOptionsWithGreeks( currency: $currency,network: $network, putCall: $putCall) {
-          instrument
-          oi
-          iv
-          delta
-          theta
-          gamma
-          vega
-          totalHolders
-          priceUsd
-          priceUsd24hrAgo
-          percentage24hrChange
-				}
-			}
+  query PremiaLiveOiAllOptionsWithGreeks($currency: String, $network: String, $putCall: PutCallEnumType) {
+        PremiaLiveOiAllOptionsWithGreeks: PremiaLiveOiAllOptionsWithGreeks( currency: $currency,network: $network, putCall: $putCall) {
+            instrument
+            oi
+            iv
+            delta
+            theta
+            gamma
+            vega
+            totalHolders
+            priceUsd
+            priceUsd24hrAgo
+            percentage24hrChange
+          }
+        }
 """
 
 PremiaLiveOptionOiCurrency = """
