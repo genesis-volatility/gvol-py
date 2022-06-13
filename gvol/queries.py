@@ -1737,28 +1737,6 @@ ZetaOrderbookLite = """
 
 
 ## OLD QUERIES/APIs
-
-"""
-CurrentOrderbook1HrATMVol = """
-    query CurrentOrderbook1HrATMVol($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-          CurrentOrderbook1HrATMVol: genericOrderbook1HrAtmVol(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
-            date
-            avgMarkIv
-          }
-      }
-"""
-
-ConstantMaturityATMIV = """
-    query ConstantMaturityATMIV($symbol: SymbolEnumType) {
-      ConstantMaturityATMIV: HistoricalConstantMaturityVariousAtmIv(symbol: $symbol) {
-        date
-        seven
-        thirty
-        sixty
-        ninty
-        onehundredeighty
-      }
-    }
 """
 
 ConstantMaturity30to20DeltaSkew = """
