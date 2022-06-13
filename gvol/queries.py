@@ -1741,11 +1741,11 @@ ZetaOrderbookLite = """
 """
 CurrentOrderbook1HrATMVol = """
     query CurrentOrderbook1HrATMVol($rangeStart: Float, $rangeEnd: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      CurrentOrderbook1HrATMVol: genericOrderbook1HrAtmVol(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
-        date
-        avgMarkIv
+          CurrentOrderbook1HrATMVol: genericOrderbook1HrAtmVol(symbol: $symbol, rangeStart: $rangeStart, rangeEnd: $rangeEnd, exchange: $exchange) {
+            date
+            avgMarkIv
+          }
       }
-    }
 """
 
 ConstantMaturityATMIV = """
