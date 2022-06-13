@@ -106,102 +106,7 @@ class GVol:
             variable_values={"symbol": symbol, "exchange": exchange},
         )
 
-    # def CurrentOrderbook1hr3020Skew(
-    #     self,
-    #     rangeStart: types.Float,
-    #     rangeEnd: types.Float,
-    #     symbol: types.SymbolEnumType,
-    #     exchange: types.ExchangeEnumType,
-    # ) -> Dict:
-    #     """This data displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
-
-    #     This data is useful to gauge how expensive calls are versus puts.
-
-    #     This displays the symmetry (or asymmetry) of the volatility skews.
-
-    #     RangeStart / rangeEnd, we can view how skew symmetry has changed for options within the given expiration window.
-
-    #     Args:
-    #         rangeStart: (types.Float)
-    #         rangeEnd: (types.Float)
-    #         symbol: (types.SymbolEnumType)
-    #         exchange: (types.ExchangeEnumType)
-
-    #     Returns:
-    #         dict
-    #     """
-    #     return self._client.execute(
-    #         gql(queries.CurrentOrderbook1hr3020Skew),
-    #         variable_values={
-    #             "rangeStart": rangeStart,
-    #             "rangeEnd": rangeEnd,
-    #             "symbol": symbol,
-    #             "exchange": exchange,
-    #         },
-    #     )
-
-    def CurrentOrderbook1HrATMVol(
-        self,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """This data shows the average ATM volatility for each hour during the given time period.. This gives a good idea regarding how volatility has changed throughout time.
-
-        Using rangesStart / rangeEnd , we can view how volatility has changed for options within the given expiration window.
-
-        Example Response: ``{"date": "1635084000000", "avgMarkIv": 83.98 }, { "date": "1635087600000", "avgMarkIv": 84.13 }``
-
-        Args:
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.CurrentOrderbook1HrATMVol),
-            variable_values={
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
-    def ConstantMaturityATMIV(self, symbol: types.SymbolEnumType) -> Dict:
-        """This returns Constanct Maturity ATM IV for Deribit.
-
-        Example Response: ``{"date": "1606089600000", "seven": 76.22, "thirty": 73.69, "sixty": 73.81, "ninty": 73.96, "onehundredeighty": 74.35}``
-
-        Args:
-            symbol: (types.SymbolEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.ConstantMaturityATMIV), variable_values={"symbol": symbol}
-        )
-
-    def ConstantMaturity30to20DeltaSkew(self, symbol: types.SymbolEnumType) -> Dict:
-        """This returns Constant maturity 20/30 skew for Deribit only.
-
-        Example Response: ``{"date": "1606089600000", "seven": 6.66, "thirty": 10.69, "sixty": 12.71, "ninty": 13.45, "onehundredeighty": 14.77}``
-
-        Args:
-            symbol: (types.SymbolEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.ConstantMaturity30to20DeltaSkew),
-            variable_values={"symbol": symbol},
-        )
+   
 
     def ShadowTermStructure(
         self,
@@ -316,69 +221,7 @@ class GVol:
             variable_values={"date": date, "symbol": symbol, "exchange": exchange},
         )
 
-    def HistoricalConstantSkew(
-        self, exchange: types.ExchangeEnumType, days: types.Float
-    ) -> Dict:
-        """This chart displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
-
-        This chart is useful to gauge how expensive calls are versus puts.
-
-        This displays the symmetry (or asymmetry) of the volatility skews.
-
-        Example Response: ``{"date": "1606089600000", "btcSkewShort": 10.52, "btcSkewMed": 11.69, "btcSkewLong": 14.85, "ethSkewShort": 15.54, "ethSkewMed": 13.65, "ethSkewLong": 15.81}``
-
-        Args:
-            exchange: (types.ExchangeEnumType)
-            days: (types.Float)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HistoricalConstantSkew),
-            variable_values={"exchange": exchange, "days": days},
-        )
-
-    def HistoricalConstantATM(
-        self, exchange: types.ExchangeEnumType, days: types.Float
-    ) -> Dict:
-        """The at-the-money (ATM) volatility chart shows the average ATM volatility for each hour for the given time period. This gives a good idea regarding how volatility has changed throughout time given 1hr granularity.
-
-        Example Response: ``{"date": "1606089600000", "btcAtmShort": 72.94, "btcAtmMed": 73.84, "btcAtmLong": 74.33, "ethAtmShort": 96.77, "ethAtmMed": 94.41, "ethAtmLong": 80.92}``
-
-        Args:
-            exchange: (types.ExchangeEnumType)
-            days: (types.Float)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HistoricalConstantATM),
-            variable_values={"exchange": exchange, "days": days},
-        )
-
-    def HistoricalConstantWings(
-        self, exchange: types.ExchangeEnumType, days: types.Float
-    ) -> Dict:
-        """This data compares the relative elevation of implied volatility for “wing” options, defined as options with .30 to .20 delta for calls and -.20 to -.30 delta for puts, versus ATM volatility.
-
-        This gives traders insight into the relative cost of lower probability options versus high probability options.
-
-        This measure is linked to the “Kurtosis” of the distribution of returns.
-
-        Args:
-            exchange: (types.ExchangeEnumType)
-            days: (types.Float)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HistoricalConstantWings),
-            variable_values={"exchange": exchange, "days": days},
-        )
-
+   
     def DVolIndex(
         self,
         exchange: types.ExchangeEnumType,
@@ -412,424 +255,7 @@ class GVol:
             },
         )
 
-    def OrderbookATMDepthPriceandSize(
-        self,
-        date: types.String,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """This endpoint looks only at ATM options.
-        It returns the average Bid/Ask size for the top 5 levels of the orderbook.
-
-        The price is calculated as the average price if a trader were to "take" all the size of the top five levels.
-
-        The data returns 24 hours of data for the given date passed.
-
-        Example Response: ``{"date": "1628726400000", "instrumentName": "BTC-12AUG21-46000-C", "baseCurrency": "BTC", "expiration": "1628755200000", "bidSize5LevelsDeep": 124.57, "avgBidPrice5LevelsDeep": 0, "askSize5LevelsDeep": 125.47, "avgAskPrice5LevelsDeep": 0}``
-
-        Args:
-            date: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.OrderbookATMDepthPriceandSize),
-            variable_values={"date": date, "symbol": symbol, "exchange": exchange},
-        )
-
-    def OpenInterestByStrike(
-        self,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """Coin OI represents open interest normalized for 1x multiplier.
-        Otherwise raw open interest is not consistent between the various exchanges.
-
-        Deribit: BTC 1x, ETH 1x
-        Bitcom: BTC 1x, ETH 1x
-        Okex: BTC 1/10, ETH 1x
-        LedgerX: BTC 1/100, ETH 1/10
-
-        RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
-
-
-        Example Response: ``{"strike": 30000, "openInterest": 981.6, "notionalOpenInterest": 55800249, "coinPremium": 1.32, "dollarPremium": 75663.21, "netDeltaExposure": 2.3, "coinOi": null}``
-
-        Args:
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.OpenInterestByStrike),
-            variable_values={
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
-    def OpenInterestByPutCall(
-        self,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """Coin OI represents open interest normalized for 1x multiplier.
-        Otherwise raw open interest is not consistent between the various exchanges.
-
-        Deribit: BTC 1x, ETH 1x
-        Bitcom: BTC 1x, ETH 1x
-        Okex: BTC 1/10, ETH 1x
-        LedgerX: BTC 1/100, ETH 1/10
-
-        RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
-
-        Example Response: ``{"putCall": "C", "openInterest": 138186, "notionalOpenInterest": 7850170985, "coinPremium": 8877.73, "dollarPremium": 504368053.53, "netDeltaExposure": 31323.0906, "coinOi": null}``
-
-        Args:
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.OpenInterestByPutCall),
-            variable_values={
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
-    def OpenInterestByExpiration(
-        self,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """Coin OI represents open interest normalized for 1x multiplier.
-        Otherwise raw open interest is not consistent between the various exchanges.
-
-        Deribit: BTC 1x, ETH 1x
-        Bitcom: BTC 1x, ETH 1x
-        Okex: BTC 1/10, ETH 1x
-        LedgerX: BTC 1/100, ETH 1/10
-
-        RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
-
-        Example Response: ``{"expiration": "1637740800000", "openInterest": 1401, "notionalOpenInterest": 79624399, "coinPremium": 6.26, "dollarPremium": 360248.45, "netDeltaExposure": -34.6894, "coinOi": null}``
-
-        Args:
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.OpenInterestByExpiration),
-            variable_values={
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
-    def GlobalOpenInterestByStrikeExpirationPutCall(
-        self, symbol: types.SymbolEnumType
-    ) -> Dict:
-        """All OI is adjusted to reflect a 1 coin multiplier.
-        This is the Deribit standard, other exchanges are adjusted to match it.
-
-        Example Response: ``{"strike": "30000", "putCall": "P", "expiration": "1637884800000", "deribitContractOi": 979.3, "deribitNotionalOi": 55654226.166, "bitcomContractOi": 300, "bitcomNotionalOi": 17049186, "okexContractOi": 34.6, "okexNotionalOi": 1966339.452, "ledgerXContractOi": 8, "ledgerXNotionalOi": 454644.96}``
-
-        Args:
-            symbol: (types.SymbolEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.GlobalOpenInterestByStrikeExpirationPutCall),
-            variable_values={"symbol": symbol},
-        )
-
-    def CurrentOiChangeByStrikeandExpiration(
-        self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> Dict:
-        """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
-
-        Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
-
-        Note, market makers are not necessarily involved, sometimes two participants will meet in the middle and trade together, increasing open interest.
-
-        Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
-
-        Example Response: ``{"expiration": "1637654400000", "strike": 54000, "oiChange": 78.4}``
-
-        Args:
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.CurrentOiChangeByStrikeandExpiration),
-            variable_values={"symbol": symbol, "exchange": exchange},
-        )
-
-    def CurrentVolumebyExpiration(
-        self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> Dict:
-        """Contracts traded reflects the current volume seen today, starting at midnight UTC.
-
-        Contracts traded further breaks down the volume by the various strikes and expirations.
-
-        This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
-
-        Example Response: ``{"date": "1637625600000", "expiration": "1638518400000", "contractsTraded": 748.3, "coin1Volume": null, "premiumTraded": null}``
-
-        Args:
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.CurrentVolumebyExpiration),
-            variable_values={"symbol": symbol, "exchange": exchange},
-        )
-
-    def CurrentVolumebyStrike(
-        self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> Dict:
-        """Contracts traded reflects the current volume seen today, starting at midnight UTC.
-
-        Contracts traded further breaks down the volume by the various strikes and expirations.
-
-        This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
-
-        Args:
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.CurrentVolumebyStrike),
-            variable_values={"symbol": symbol, "exchange": exchange},
-        )
-
-    def CurrentVolumebyPutCall(
-        self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
-    ) -> Dict:
-        """Contracts traded reflects the current volume seen today, starting at midnight UTC.
-
-        Contracts traded further breaks down the volume by the various strikes and expirations.
-
-        This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
-
-
-
-
-        Args:
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.CurrentVolumebyPutCall),
-            variable_values={"symbol": symbol, "exchange": exchange},
-        )
-
-    def HistoricalPutCallRatio(
-        self,
-        date1: types.String,
-        date2: types.String,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        direction1: types.String,
-        direction2: types.String,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """The activity reflects the selected days’ traded options (UTC timezone).
-
-        Trading activity is broken up into four types of activity: calls bought, calls sold, puts bought, puts sold.
-
-        Looking at contracts traded versus premium traded will give a better idea of the trading activity.
-
-        For example, 100 cheap out-of-the money options traded versus one deep in-the-money option, will affect these measures quite differently.
-
-        Example Responses: ``{"date": "1585699200000", "callContracts": 0.49, "putContracts": 0.51, "callPremium": 0.38, "putPremium": 0.62, "callsBlockTraded": 0, "putsBlocktraded": 1, "callPremiumBlockTraded": 0, "putPremiumBlockTraded": 1}``
-
-        Args:
-            date1: (types.String)
-            date2: (types.String)
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            direction1: (types.String)
-            direction2: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HistoricalPutCallRatio),
-            variable_values={
-                "date1": date1,
-                "date2": date2,
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "direction1": direction1,
-                "direction2": direction2,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
-    def HistoricalVolume(
-        self,
-        date1: types.String,
-        date2: types.String,
-        rangeStart: types.Float,
-        rangeEnd: types.Float,
-        direction1: types.String,
-        direction2: types.String,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """Trading activity is broken up into four types of activity: calls bought, calls sold, puts bought, puts sold.
-
-
-        Example Response: ``{"date": "1609459200000", "contractsTraded": 24890.3, "contractsBlockTraded": 1468, "premiumValue": 21488127.95, "premiumBlockTraded": 2587069.25}``
-
-        Args:
-            date1: (types.String)
-            date2: (types.String)
-            rangeStart: (types.Float)
-            rangeEnd: (types.Float)
-            direction1: (types.String)
-            direction2: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HistoricalVolume),
-            variable_values={
-                "date1": date1,
-                "date2": date2,
-                "rangeStart": rangeStart,
-                "rangeEnd": rangeEnd,
-                "direction1": direction1,
-                "direction2": direction2,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
-    def HistoricalChangeinOIbyExpiration(
-        self,
-        dateStart: types.String,
-        dateEnd: types.String,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
-
-        Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
-
-        Note, market makers are not necessarily involved, sometimes two participants will meet in the middle and trade together, increasing open interest.
-
-        Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
-
-        Example Response: ``{"expiration": "1614326400000", "callOiChange": 11911.9, "putOiChange": 9936.7, "totalOiChange": 21848.6}``
-
-        Args:
-            dateStart: (types.String)
-            dateEnd: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HistoricalChangeinOIbyExpiration),
-            variable_values={
-                "dateStart": dateStart,
-                "dateEnd": dateEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
-    def HistoricalChangeinOIbyStrike(
-        self,
-        dateStart: types.String,
-        dateEnd: types.String,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
-
-        Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
-
-        Note, market makers are not necessarily involved, sometimes two participants will meet in the middle and trade together, increasing open interest.
-
-        Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
-
-        Example Response: ``{"strike": 160000, "totalOiChange": 500.3, "callOiChange": 500.3, "putOiChange": 0}``
-
-        Args:
-            dateStart: (types.String)
-            dateEnd: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HistoricalChangeinOIbyStrike),
-            variable_values={
-                "dateStart": dateStart,
-                "dateEnd": dateEnd,
-                "symbol": symbol,
-                "exchange": exchange,
-            },
-        )
-
+  
     def ParadigmBlockSnifferCallSpreadsasPercentageofTradeCount(
         self,
         dateRangeStart: types.String,
@@ -1097,68 +523,6 @@ class GVol:
             },
         )
 
-    def RealizedVolDayofWeek(
-        self,
-        dateStart: types.String,
-        dateEnd: types.String,
-        symbol: types.SymbolEnumType,
-    ) -> Dict:
-        """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
-
-        Intraday Realized Volatility uses hourly data and then annualizes the volatility.
-
-        Hourly volatility averages are calculated horizontally across specific groups, such as hour of the day, or day of the week.
-
-        Example Response: ``{"dowUtc": "Sunday   ", "parkinsonHvPerp": 115.19, "parkinsonHvIndex": 109.85}``
-
-        Args:
-            dateStart: (types.String)
-            dateEnd: (types.String)
-            symbol: (types.SymbolEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.RealizedVolDayofWeek),
-            variable_values={
-                "dateStart": dateStart,
-                "dateEnd": dateEnd,
-                "symbol": symbol,
-            },
-        )
-
-    def RealizedVolHourofDay(
-        self,
-        dateStart: types.String,
-        dateEnd: types.String,
-        symbol: types.SymbolEnumType,
-    ) -> Dict:
-        """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
-
-        Intraday Realized Volatility uses hourly data and then annualizes the volatility.
-
-        Hourly volatility averages are calculated horizontally across specific groups, such as hour of the day, or day of the week.
-
-        Example Response: ``{"hourUtc": "0", "parkinsonHvPerp": 209.69, "parkinsonHvIndex": 198.07}``
-
-        Args:
-            dateStart: (types.String)
-            dateEnd: (types.String)
-            symbol: (types.SymbolEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.RealizedVolHourofDay),
-            variable_values={
-                "dateStart": dateStart,
-                "dateEnd": dateEnd,
-                "symbol": symbol,
-            },
-        )
-
     def RealizedVolHourofDayandDayofWeek(
         self,
         dateStart: types.String,
@@ -1224,33 +588,6 @@ class GVol:
                 "dateEnd": dateEnd,
                 "range1": range1,
                 "range2": range2,
-            },
-        )
-
-    def ClosetoCloseHistoricalVol(
-        self, symbol: types.String, dateStart: types.String, dateEnd: types.String
-    ) -> Dict:
-        """Returns a list of all active options.
-        These are the latest option bids/asks and associated implied volatilities.
-        Mark prices and mark volatilities are provided from the exchanges.
-        If no "mark" is provided midpoints are calculated from the best bid and best ask prices.
-
-        Example Response: ``{"date": "1609804800000", "currency": "BNB", "close": 41.9, "yesterdayClose": 41.1, "vol": 12.27}``
-
-        Args:
-            symbol: (types.String)
-            dateStart: (types.String)
-            dateEnd: (types.String)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.ClosetoCloseHistoricalVol),
-            variable_values={
-                "symbol": symbol,
-                "dateStart": dateStart,
-                "dateEnd": dateEnd,
             },
         )
 
@@ -1415,16 +752,6 @@ class GVol:
         """
         return self._client.execute(
             gql(queries.StraddleRun), variable_values={"symbol": symbol, "exchange": exchange}
-        )
-
-    def GlobalAllOrderBooksOptionPricing(self) -> Dict:
-        """Returns a list of all active option instruments for every exchange.
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.GlobalAllOrderBooksOptionPricing), variable_values={}
         )
 
     def VolatilitySurfaceDelta(
@@ -1787,36 +1114,6 @@ class GVol:
                 "expiration": expiration,
                 "dateStart": dateStart,
                 "dateEnd": dateEnd,
-            },
-        )
-
-    def HifiStrikesVolSurface(
-        self,
-        symbol: types.SymbolEnumType,
-        date: types.String,
-        interval: types.String,
-        exchange: types.ExchangeEnumType,
-    ) -> Dict:
-        """Returns OTM volatility surface based on strikes and actual expirations.
-
-        Currently supports: Deribit
-
-        Args:
-            symbol: (types.SymbolEnumType)
-            date: (types.String)
-            interval: (types.String)
-            exchange: (types.ExchangeEnumType)
-
-        Returns:
-            dict
-        """
-        return self._client.execute(
-            gql(queries.HifiStrikesVolSurface),
-            variable_values={
-                "symbol": symbol,
-                "date": date,
-                "interval": interval,
-                "exchange": exchange,
             },
         )
 
@@ -2587,3 +1884,728 @@ class GVol:
         return self._client.execute(
             gql(queries.DeribitFunding)
         )
+
+
+    def FittedCurves(
+        self,
+        symbol: types.SymbolEnumType,
+    ) -> Dict:
+        """
+        Parameters:
+            "symbol":"BTC"
+        """
+        return self._client.execute(
+            gql(queries.FittedCurves),
+            variable_values={
+                "symbol": symbol,
+            },
+        )
+
+
+    def DailyBasisVwap(
+        self,
+        symbol: types.SymbolEnumType,
+        dateStart: types.String,
+        dateEnd: types.String, 
+
+    ) -> Dict:
+        """
+        Parameters:
+            symbol: BTC / ETH
+            dateStart: "2021-03-15"
+            datetEnd: "2021-04-15"
+        """
+        return self._client.execute(
+            gql(queries.DailyBasisVwap),
+            variable_values={
+                "symbol": symbol,
+                "dateStart": dateStart,
+                "dateEnd": dateEnd,
+            },
+        ) 
+
+    def DovsCharts(
+        self,
+    ) -> Dict:
+        """
+        Parameters:
+        """
+        return self._client.execute(
+            gql(queries.DovsCharts),
+            variable_values={},
+        )
+
+    def Dovs(
+        self,
+    ) -> Dict:
+        """
+        Parameters:
+        """
+        return self._client.execute(
+            gql(queries.Dovs),
+            variable_values={},
+        )
+
+
+    def ParadigmApiTradeTimeSeries(
+        self,
+        dateRangeStart: types.String,
+        dateRangeEnd: types.String,
+        symbol: types.SymbolEnumType,
+    ) -> Dict:
+        """
+        Parameters:
+            "dateRangeStart": "2022-01-01",
+            "dateRangeEnd": "2022-01-10",
+            "symbol": "BTC"
+        """
+        return self._client.execute(
+            gql(queries.ParadigmApiTradeTimeSeries),
+            variable_values={
+                "dateRangeStart": dateRangeStart,
+                "dateRangeEnd": dateRangeEnd,
+                "symbol": symbol,
+            },
+        )
+
+# OLD QUERIES/APIs
+
+ # def CurrentOrderbook1hr3020Skew(
+    #     self,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """This data displays the difference between the call implied volatility and put implied volatility for all options which have delta values between -.30 and -.20 (puts) or between .20 and .30 (calls).
+
+    #     This data is useful to gauge how expensive calls are versus puts.
+
+    #     This displays the symmetry (or asymmetry) of the volatility skews.
+
+    #     RangeStart / rangeEnd, we can view how skew symmetry has changed for options within the given expiration window.
+
+    #     Args:
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentOrderbook1hr3020Skew),
+    #         variable_values={
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def CurrentOrderbook1HrATMVol(
+    #     self,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """This data shows the average ATM volatility for each hour during the given time period.. This gives a good idea regarding how volatility has changed throughout time.
+
+    #     Using rangesStart / rangeEnd , we can view how volatility has changed for options within the given expiration window.
+
+    #     Example Response: ``{"date": "1635084000000", "avgMarkIv": 83.98 }, { "date": "1635087600000", "avgMarkIv": 84.13 }``
+
+    #     Args:
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentOrderbook1HrATMVol),
+    #         variable_values={
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def ConstantMaturityATMIV(self, symbol: types.SymbolEnumType) -> Dict:
+    #     """This returns Constanct Maturity ATM IV for Deribit.
+
+    #     Example Response: ``{"date": "1606089600000", "seven": 76.22, "thirty": 73.69, "sixty": 73.81, "ninty": 73.96, "onehundredeighty": 74.35}``
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.ConstantMaturityATMIV), variable_values={"symbol": symbol}
+    #     )
+
+    # def ConstantMaturity30to20DeltaSkew(self, symbol: types.SymbolEnumType) -> Dict:
+    #     """This returns Constant maturity 20/30 skew for Deribit only.
+
+    #     Example Response: ``{"date": "1606089600000", "seven": 6.66, "thirty": 10.69, "sixty": 12.71, "ninty": 13.45, "onehundredeighty": 14.77}``
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.ConstantMaturity30to20DeltaSkew),
+    #         variable_values={"symbol": symbol},
+    #     )
+
+  # def OrderbookATMDepthPriceandSize(
+    #     self,
+    #     date: types.String,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """This endpoint looks only at ATM options.
+    #     It returns the average Bid/Ask size for the top 5 levels of the orderbook.
+
+    #     The price is calculated as the average price if a trader were to "take" all the size of the top five levels.
+
+    #     The data returns 24 hours of data for the given date passed.
+
+    #     Example Response: ``{"date": "1628726400000", "instrumentName": "BTC-12AUG21-46000-C", "baseCurrency": "BTC", "expiration": "1628755200000", "bidSize5LevelsDeep": 124.57, "avgBidPrice5LevelsDeep": 0, "askSize5LevelsDeep": 125.47, "avgAskPrice5LevelsDeep": 0}``
+
+    #     Args:
+    #         date: (types.String)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.OrderbookATMDepthPriceandSize),
+    #         variable_values={"date": date, "symbol": symbol, "exchange": exchange},
+    #     )
+
+    # def OpenInterestByStrike(
+    #     self,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """Coin OI represents open interest normalized for 1x multiplier.
+    #     Otherwise raw open interest is not consistent between the various exchanges.
+
+    #     Deribit: BTC 1x, ETH 1x
+    #     Bitcom: BTC 1x, ETH 1x
+    #     Okex: BTC 1/10, ETH 1x
+    #     LedgerX: BTC 1/100, ETH 1/10
+
+    #     RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
+
+
+    #     Example Response: ``{"strike": 30000, "openInterest": 981.6, "notionalOpenInterest": 55800249, "coinPremium": 1.32, "dollarPremium": 75663.21, "netDeltaExposure": 2.3, "coinOi": null}``
+
+    #     Args:
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.OpenInterestByStrike),
+    #         variable_values={
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def OpenInterestByPutCall(
+    #     self,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """Coin OI represents open interest normalized for 1x multiplier.
+    #     Otherwise raw open interest is not consistent between the various exchanges.
+
+    #     Deribit: BTC 1x, ETH 1x
+    #     Bitcom: BTC 1x, ETH 1x
+    #     Okex: BTC 1/10, ETH 1x
+    #     LedgerX: BTC 1/100, ETH 1/10
+
+    #     RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
+
+    #     Example Response: ``{"putCall": "C", "openInterest": 138186, "notionalOpenInterest": 7850170985, "coinPremium": 8877.73, "dollarPremium": 504368053.53, "netDeltaExposure": 31323.0906, "coinOi": null}``
+
+    #     Args:
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.OpenInterestByPutCall),
+    #         variable_values={
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def OpenInterestByExpiration(
+    #     self,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """Coin OI represents open interest normalized for 1x multiplier.
+    #     Otherwise raw open interest is not consistent between the various exchanges.
+
+    #     Deribit: BTC 1x, ETH 1x
+    #     Bitcom: BTC 1x, ETH 1x
+    #     Okex: BTC 1/10, ETH 1x
+    #     LedgerX: BTC 1/100, ETH 1/10
+
+    #     RangeStart and RangeEnd will isolate the desired "DTE" (Days To Expiration).
+
+    #     Example Response: ``{"expiration": "1637740800000", "openInterest": 1401, "notionalOpenInterest": 79624399, "coinPremium": 6.26, "dollarPremium": 360248.45, "netDeltaExposure": -34.6894, "coinOi": null}``
+
+    #     Args:
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.OpenInterestByExpiration),
+    #         variable_values={
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def GlobalOpenInterestByStrikeExpirationPutCall(
+    #     self, symbol: types.SymbolEnumType
+    # ) -> Dict:
+    #     """All OI is adjusted to reflect a 1 coin multiplier.
+    #     This is the Deribit standard, other exchanges are adjusted to match it.
+
+    #     Example Response: ``{"strike": "30000", "putCall": "P", "expiration": "1637884800000", "deribitContractOi": 979.3, "deribitNotionalOi": 55654226.166, "bitcomContractOi": 300, "bitcomNotionalOi": 17049186, "okexContractOi": 34.6, "okexNotionalOi": 1966339.452, "ledgerXContractOi": 8, "ledgerXNotionalOi": 454644.96}``
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.GlobalOpenInterestByStrikeExpirationPutCall),
+    #         variable_values={"symbol": symbol},
+    #     )
+
+    # def CurrentOiChangeByStrikeandExpiration(
+    #     self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
+    # ) -> Dict:
+    #     """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
+
+    #     Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
+
+    #     Note, market makers are not necessarily involved, sometimes two participants will meet in the middle and trade together, increasing open interest.
+
+    #     Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
+
+    #     Example Response: ``{"expiration": "1637654400000", "strike": 54000, "oiChange": 78.4}``
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentOiChangeByStrikeandExpiration),
+    #         variable_values={"symbol": symbol, "exchange": exchange},
+    #     )
+
+    # def CurrentVolumebyExpiration(
+    #     self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
+    # ) -> Dict:
+    #     """Contracts traded reflects the current volume seen today, starting at midnight UTC.
+
+    #     Contracts traded further breaks down the volume by the various strikes and expirations.
+
+    #     This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
+
+    #     Example Response: ``{"date": "1637625600000", "expiration": "1638518400000", "contractsTraded": 748.3, "coin1Volume": null, "premiumTraded": null}``
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentVolumebyExpiration),
+    #         variable_values={"symbol": symbol, "exchange": exchange},
+    #     )
+
+    # def CurrentVolumebyStrike(
+    #     self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
+    # ) -> Dict:
+    #     """Contracts traded reflects the current volume seen today, starting at midnight UTC.
+
+    #     Contracts traded further breaks down the volume by the various strikes and expirations.
+
+    #     This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentVolumebyStrike),
+    #         variable_values={"symbol": symbol, "exchange": exchange},
+    #     )
+
+    # def CurrentVolumebyPutCall(
+    #     self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
+    # ) -> Dict:
+    #     """Contracts traded reflects the current volume seen today, starting at midnight UTC.
+
+    #     Contracts traded further breaks down the volume by the various strikes and expirations.
+
+    #     This allows traders to quickly identify which strikes and expirations have been seeing the most activity today.
+
+
+
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.CurrentVolumebyPutCall),
+    #         variable_values={"symbol": symbol, "exchange": exchange},
+    #     )
+
+    # def HistoricalPutCallRatio(
+    #     self,
+    #     date1: types.String,
+    #     date2: types.String,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     direction1: types.String,
+    #     direction2: types.String,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """The activity reflects the selected days’ traded options (UTC timezone).
+
+    #     Trading activity is broken up into four types of activity: calls bought, calls sold, puts bought, puts sold.
+
+    #     Looking at contracts traded versus premium traded will give a better idea of the trading activity.
+
+    #     For example, 100 cheap out-of-the money options traded versus one deep in-the-money option, will affect these measures quite differently.
+
+    #     Example Responses: ``{"date": "1585699200000", "callContracts": 0.49, "putContracts": 0.51, "callPremium": 0.38, "putPremium": 0.62, "callsBlockTraded": 0, "putsBlocktraded": 1, "callPremiumBlockTraded": 0, "putPremiumBlockTraded": 1}``
+
+    #     Args:
+    #         date1: (types.String)
+    #         date2: (types.String)
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         direction1: (types.String)
+    #         direction2: (types.String)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.HistoricalPutCallRatio),
+    #         variable_values={
+    #             "date1": date1,
+    #             "date2": date2,
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "direction1": direction1,
+    #             "direction2": direction2,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def HistoricalVolume(
+    #     self,
+    #     date1: types.String,
+    #     date2: types.String,
+    #     rangeStart: types.Float,
+    #     rangeEnd: types.Float,
+    #     direction1: types.String,
+    #     direction2: types.String,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """Trading activity is broken up into four types of activity: calls bought, calls sold, puts bought, puts sold.
+
+
+    #     Example Response: ``{"date": "1609459200000", "contractsTraded": 24890.3, "contractsBlockTraded": 1468, "premiumValue": 21488127.95, "premiumBlockTraded": 2587069.25}``
+
+    #     Args:
+    #         date1: (types.String)
+    #         date2: (types.String)
+    #         rangeStart: (types.Float)
+    #         rangeEnd: (types.Float)
+    #         direction1: (types.String)
+    #         direction2: (types.String)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.HistoricalVolume),
+    #         variable_values={
+    #             "date1": date1,
+    #             "date2": date2,
+    #             "rangeStart": rangeStart,
+    #             "rangeEnd": rangeEnd,
+    #             "direction1": direction1,
+    #             "direction2": direction2,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def HistoricalChangeinOIbyExpiration(
+    #     self,
+    #     dateStart: types.String,
+    #     dateEnd: types.String,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
+
+    #     Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
+
+    #     Note, market makers are not necessarily involved, sometimes two participants will meet in the middle and trade together, increasing open interest.
+
+    #     Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
+
+    #     Example Response: ``{"expiration": "1614326400000", "callOiChange": 11911.9, "putOiChange": 9936.7, "totalOiChange": 21848.6}``
+
+    #     Args:
+    #         dateStart: (types.String)
+    #         dateEnd: (types.String)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.HistoricalChangeinOIbyExpiration),
+    #         variable_values={
+    #             "dateStart": dateStart,
+    #             "dateEnd": dateEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+
+    # def HistoricalChangeinOIbyStrike(
+    #     self,
+    #     dateStart: types.String,
+    #     dateEnd: types.String,
+    #     symbol: types.SymbolEnumType,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """Open Interest reflects the number of outstanding contracts in the market. Each contract has a buyer and a seller.
+
+    #     Usually market makers post bids and asks for contracts in the marketplace, frequently updating their quotes. Once a market participant trades against one of these quotes a contract comes into existence. This increases both the market maker's inventory as well as the market participant’s inventory.
+
+    #     Note, market makers are not necessarily involved, sometimes two participants will meet in the middle and trade together, increasing open interest.
+
+    #     Trades can also decrease open interest or leave it unaffected, this depends on how the trade affects overall inventory.
+
+    #     Example Response: ``{"strike": 160000, "totalOiChange": 500.3, "callOiChange": 500.3, "putOiChange": 0}``
+
+    #     Args:
+    #         dateStart: (types.String)
+    #         dateEnd: (types.String)
+    #         symbol: (types.SymbolEnumType)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.HistoricalChangeinOIbyStrike),
+    #         variable_values={
+    #             "dateStart": dateStart,
+    #             "dateEnd": dateEnd,
+    #             "symbol": symbol,
+    #             "exchange": exchange,
+    #         },
+    #     )
+ # def RealizedVolDayofWeek(
+    #     self,
+    #     dateStart: types.String,
+    #     dateEnd: types.String,
+    #     symbol: types.SymbolEnumType,
+    # ) -> Dict:
+    #     """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
+
+    #     Intraday Realized Volatility uses hourly data and then annualizes the volatility.
+
+    #     Hourly volatility averages are calculated horizontally across specific groups, such as hour of the day, or day of the week.
+
+    #     Example Response: ``{"dowUtc": "Sunday   ", "parkinsonHvPerp": 115.19, "parkinsonHvIndex": 109.85}``
+
+    #     Args:
+    #         dateStart: (types.String)
+    #         dateEnd: (types.String)
+    #         symbol: (types.SymbolEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.RealizedVolDayofWeek),
+    #         variable_values={
+    #             "dateStart": dateStart,
+    #             "dateEnd": dateEnd,
+    #             "symbol": symbol,
+    #         },
+    #     )
+
+    # def RealizedVolHourofDay(
+    #     self,
+    #     dateStart: types.String,
+    #     dateEnd: types.String,
+    #     symbol: types.SymbolEnumType,
+    # ) -> Dict:
+    #     """Parkinson Volatility is an efficient estimator of volatility since crypto currencies trade continuously.
+
+    #     Intraday Realized Volatility uses hourly data and then annualizes the volatility.
+
+    #     Hourly volatility averages are calculated horizontally across specific groups, such as hour of the day, or day of the week.
+
+    #     Example Response: ``{"hourUtc": "0", "parkinsonHvPerp": 209.69, "parkinsonHvIndex": 198.07}``
+
+    #     Args:
+    #         dateStart: (types.String)
+    #         dateEnd: (types.String)
+    #         symbol: (types.SymbolEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.RealizedVolHourofDay),
+    #         variable_values={
+    #             "dateStart": dateStart,
+    #             "dateEnd": dateEnd,
+    #             "symbol": symbol,
+    #         },
+    #     )
+      # def ClosetoCloseHistoricalVol(
+    #     self, symbol: types.String, dateStart: types.String, dateEnd: types.String
+    # ) -> Dict:
+    #     """Returns a list of all active options.
+    #     These are the latest option bids/asks and associated implied volatilities.
+    #     Mark prices and mark volatilities are provided from the exchanges.
+    #     If no "mark" is provided midpoints are calculated from the best bid and best ask prices.
+
+    #     Example Response: ``{"date": "1609804800000", "currency": "BNB", "close": 41.9, "yesterdayClose": 41.1, "vol": 12.27}``
+
+    #     Args:
+    #         symbol: (types.String)
+    #         dateStart: (types.String)
+    #         dateEnd: (types.String)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.ClosetoCloseHistoricalVol),
+    #         variable_values={
+    #             "symbol": symbol,
+    #             "dateStart": dateStart,
+    #             "dateEnd": dateEnd,
+    #         },
+    #     )
+        # def GlobalAllOrderBooksOptionPricing(self) -> Dict:
+    #     """Returns a list of all active option instruments for every exchange.
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.GlobalAllOrderBooksOptionPricing), variable_values={}
+    #     )
+     # def HifiStrikesVolSurface(
+    #     self,
+    #     symbol: types.SymbolEnumType,
+    #     date: types.String,
+    #     interval: types.String,
+    #     exchange: types.ExchangeEnumType,
+    # ) -> Dict:
+    #     """Returns OTM volatility surface based on strikes and actual expirations.
+
+    #     Currently supports: Deribit
+
+    #     Args:
+    #         symbol: (types.SymbolEnumType)
+    #         date: (types.String)
+    #         interval: (types.String)
+    #         exchange: (types.ExchangeEnumType)
+
+    #     Returns:
+    #         dict
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.HifiStrikesVolSurface),
+    #         variable_values={
+    #             "symbol": symbol,
+    #             "date": date,
+    #             "interval": interval,
+    #             "exchange": exchange,
+    #         },
+    #     )
