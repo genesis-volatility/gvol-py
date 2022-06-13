@@ -53,7 +53,6 @@ ShadowTermStructure = """
     }
 """
 
-
 ShadowTermStructureComparison = """
     query ShadowTermStructureComparison($dateTimeOne: String, $dateTimeTwo: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
       ShadowTermStructureComparison: genericShadowTermStructureCompare(symbol: $symbol, dateTimeOne: $dateTimeOne, dateTimeTwo: $dateTimeTwo, exchange: $exchange) {
@@ -77,7 +76,6 @@ HistoricalSkew = """
       }
     }
 """
-
 
 HistoricalTermStructure = """
     query HistoricalTermStructure($date: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
@@ -118,119 +116,119 @@ LiveOiGlobalApi = """
 """
 
 LiveOiByPutCallApi = """
-query LiveOiByPutCallApi($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-		LiveOiByPutCallApi: LiveOiGlobalApi(symbol: $symbol, exchange: $exchange) {
-      currency
-      putCall
-      openInterest1xMult
-      notionalOpenInterest
-    }
-}
+  query LiveOiByPutCallApi($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      LiveOiByPutCallApi: LiveOiGlobalApi(symbol: $symbol, exchange: $exchange) {
+        currency
+        putCall
+        openInterest1xMult
+        notionalOpenInterest
+      }
+  }
 """
 
 LiveOiByStrikeApi = """
-query LiveOiByStrikeApi($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-		LiveOiByStrikeApi: LiveOiByStrikeApi(symbol: $symbol, exchange: $exchange) {
-      currency
-      putCall
-      openInterest1xMult
-      notionalOpenInterest
-      strike		
-    }
-}
+  query LiveOiByStrikeApi($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      LiveOiByStrikeApi: LiveOiByStrikeApi(symbol: $symbol, exchange: $exchange) {
+        currency
+        putCall
+        openInterest1xMult
+        notionalOpenInterest
+        strike		
+      }
+  }
 """
 
 LiveOiByExpirationApi = """
-query LiveOiByExpirationApi($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-		LiveOiByExpirationApi: LiveOiByExpirationApi(symbol: $symbol, exchange: $exchange) {
-      currency
-      putCall
-      openInterest1xMult
-      notionalOpenInterest
-      expiration
-		}
-	}
+  query LiveOiByExpirationApi($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+      LiveOiByExpirationApi: LiveOiByExpirationApi(symbol: $symbol, exchange: $exchange) {
+        currency
+        putCall
+        openInterest1xMult
+        notionalOpenInterest
+        expiration
+      }
+    }
 """
 
 TableTurnoverLite = """
-query TableTurnoverLite($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-	    TableTurnoverLite: TableTurnoverLite(symbol: $symbol, exchange: $exchange) {
-			  date
-        instrumentName
-        currency
-        expiration
-        putCall
-        strike
-        openInterest
-        volume
-        notional
-        turnover
-		}
-	}
+  query TableTurnoverLite($symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
+        TableTurnoverLite: TableTurnoverLite(symbol: $symbol, exchange: $exchange) {
+          date
+          instrumentName
+          currency
+          expiration
+          putCall
+          strike
+          openInterest
+          volume
+          notional
+          turnover
+        }
+    }
 """
 
 TableTurnoverCurrencyWithPc7DayLite = """
-query TableTurnoverCurrencyWithPc7DayLite( $symbol: SymbolEnumType, $exchange: ExchangeEnumType ) {
-	    TableTurnoverCurrencyWithPc7DayLite: TableTurnoverCurrencyWithPc7DayLite(symbol: $symbol, exchange: $exchange) {
-        currency
-        putCall
-        openInterest
-        openInterest7DayAverage
-        oiRatio
-        volume24h
-        volumeRatio
-        volume7DayAverage
-        notionalRatio 
-        notional7DayAverage
-        notional24h
-        turnover
-        turnover7DayAverage
-		}
-	}
+  query TableTurnoverCurrencyWithPc7DayLite( $symbol: SymbolEnumType, $exchange: ExchangeEnumType ) {
+        TableTurnoverCurrencyWithPc7DayLite: TableTurnoverCurrencyWithPc7DayLite(symbol: $symbol, exchange: $exchange) {
+          currency
+          putCall
+          openInterest
+          openInterest7DayAverage
+          oiRatio
+          volume24h
+          volumeRatio
+          volume7DayAverage
+          notionalRatio 
+          notional7DayAverage
+          notional24h
+          turnover
+          turnover7DayAverage
+        }
+    }
 """
 
 
 ChangeOiPutCallAggApi = """
-query ChangeOiPutCallAggApi($symbol: SymbolEnumType, $startDate: String, $endDate: String, $exchange: ExchangeEnumType){
-      ChangeOiPutCallAggApi: ChangeOiPutCallAggApi(symbol:$symbol, startDate:$startDate, endDate:$endDate, exchange: $exchange){
-        endDate
-        putCall
-        startOpenInterest
-        endOpenInterest
-        openInterestChange
-        expired
-        totalGrowth
+  query ChangeOiPutCallAggApi($symbol: SymbolEnumType, $startDate: String, $endDate: String, $exchange: ExchangeEnumType){
+        ChangeOiPutCallAggApi: ChangeOiPutCallAggApi(symbol:$symbol, startDate:$startDate, endDate:$endDate, exchange: $exchange){
+          endDate
+          putCall
+          startOpenInterest
+          endOpenInterest
+          openInterestChange
+          expired
+          totalGrowth
+        }
   }
-}
 """
 
 ChangeOiStrikeAggApi = """
-query ChangeOiStrikeAggApi($symbol: SymbolEnumType, $startDate: String, $endDate: String, $exchange: ExchangeEnumType){
-      ChangeOiStrikeAggApi: ChangeOiStrikeAggApi(symbol:$symbol, startDate:$startDate, endDate:$endDate, exchange: $exchange){
-        endDate
-        putCall
-        strike
-        startOpenInterest
-        endOpenInterest
-        openInterestChange
-        expired
-        totalGrowth
-  }
-}
+  query ChangeOiStrikeAggApi($symbol: SymbolEnumType, $startDate: String, $endDate: String, $exchange: ExchangeEnumType){
+        ChangeOiStrikeAggApi: ChangeOiStrikeAggApi(symbol:$symbol, startDate:$startDate, endDate:$endDate, exchange: $exchange){
+          endDate
+          putCall
+          strike
+          startOpenInterest
+          endOpenInterest
+          openInterestChange
+          expired
+          totalGrowth
+       }
+    }
 """
 
 ChangeOiStrikePricePcExpApi = """
-query ChangeOiStrikePricePcExpApi($symbol: SymbolEnumType, $startDate: String, $endDate: String, $exchange: ExchangeEnumType){
-      ChangeOiStrikePricePcExpApi: ChangeOiStrikePricePcExpApi(symbol:$symbol, startDate:$startDate, endDate:$endDate, exchange: $exchange){
-        endDate
-        putCall
-        strike
-        startOpenInterest
-        endOpenInterest
-        openInterestChange
-        expiration
-  }
-}
+  query ChangeOiStrikePricePcExpApi($symbol: SymbolEnumType, $startDate: String, $endDate: String, $exchange: ExchangeEnumType){
+        ChangeOiStrikePricePcExpApi: ChangeOiStrikePricePcExpApi(symbol:$symbol, startDate:$startDate, endDate:$endDate, exchange: $exchange){
+          endDate
+          putCall
+          strike
+          startOpenInterest
+          endOpenInterest
+          openInterestChange
+          expiration
+        }
+    }
 """
 
 TurnoverTimeSeriesLite = """
@@ -1436,77 +1434,77 @@ PremiaLiveOptionOiStrikePutCall = """
 """
 
 GreeksPricingTable = """
-query GreeksPricingTable {
-				GreeksPricingTable: GreeksPricingTable {
-					instrumentName
-					contractType
-					expiration
-					last
-					change1h
-					change24h
-					volume
-					iv
-					markPrice
-					openInterest
-					indexPrice
-					strikePrice
-					delta
-					gamma
-					theta
-					vega
-				}
-			}
+  query GreeksPricingTable {
+          GreeksPricingTable: GreeksPricingTable {
+            instrumentName
+            contractType
+            expiration
+            last
+            change1h
+            change24h
+            volume
+            iv
+            markPrice
+            openInterest
+            indexPrice
+            strikePrice
+            delta
+            gamma
+            theta
+            vega
+          }
+        }
 """
 
 TimeSeriesOfGreeks = """
-query TimeSeriesOfGreeks($instrumentName: String) {
-				TimeSeriesOfGreeks: TimeSeriesOfGreeks(instrumentName: $instrumentName) {
-					date
-					iv
-					markPrice
-					delta
-					gamma
-					theta
-					vega
-				}
-			}
+  query TimeSeriesOfGreeks($instrumentName: String) {
+          TimeSeriesOfGreeks: TimeSeriesOfGreeks(instrumentName: $instrumentName) {
+            date
+            iv
+            markPrice
+            delta
+            gamma
+            theta
+            vega
+          }
+        }
 """
 
 LiveSqueethStats = """
-query LiveSqueethStats {
-				LiveSqueethStats: LiveSqueethStats {
-					date
-          iv
-          markPrice
-          delta
-          gamma
-          theta
-          vega
-          eth2Index
-          ethUsd
-          nextFunding
-          normFactor
-          nextNormFactor
-          oSqueeth
-          oSqueethOi
-          volumeUsd
-          volume
-				}
-			}
+  query LiveSqueethStats {
+          LiveSqueethStats: LiveSqueethStats {
+            date
+            iv
+            markPrice
+            delta
+            gamma
+            theta
+            vega
+            eth2Index
+            ethUsd
+            nextFunding
+            normFactor
+            nextNormFactor
+            oSqueeth
+            oSqueethOi
+            volumeUsd
+            volume
+          }
+        }
 """
 
 HistoricalOsqthIvFundingIndexMark = """
-query HistoricalOsqthIvFundingIndexMark($dateStart: String, $dateEnd: String) {
-				HistoricalOsqthIvFundingIndexMark: HistoricalOsqthIvFundingIndexMark(dateStart: $dateStart, dateEnd: $dateEnd) {
-					date
-					iv
-					markPrice
-					eth2Index
-					ethUsd
-					oSqueeth
-					dailyFunding
-				}
-			}
+  query HistoricalOsqthIvFundingIndexMark($dateStart: String, $dateEnd: String) {
+          HistoricalOsqthIvFundingIndexMark: HistoricalOsqthIvFundingIndexMark(dateStart: $dateStart, dateEnd: $dateEnd) {
+            date
+            iv
+            markPrice
+            eth2Index
+            ethUsd
+            oSqueeth
+            dailyFunding
+          }
+        }
 """
 
 RibbonTimeAndSales = """
@@ -1529,16 +1527,16 @@ RibbonTimeAndSales = """
 # API LITE SPECIFIC APIs
 
 SpotPricesLite = """
-query SpotPricesLite( $symbol:SymbolEnumType){
-      SpotPricesLite: SpotPricesLite(symbol: $symbol) {
-        date
-        currency
-        open
-        high
-        low
-        close
-  } 
-}
+  query SpotPricesLite( $symbol:SymbolEnumType){
+        SpotPricesLite: SpotPricesLite(symbol: $symbol) {
+          date
+          currency
+          open
+          high
+          low
+          close
+    } 
+  }
 """
 
 
