@@ -33,21 +33,24 @@ class GVol:
     def options_orderbook(
         self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType
     ) -> Dict:
-        """The volatility skew, also known as the smile, represents an option’s implied volatility given different strike prices or delta.
+        """
+        Returns the current orderbook of options
 
-        The Black-Scholes model assumes a constant volatility throughout the life of the option, yet, the underlying may behave differently depending on where it’s trading.
-
-        Hence, if crypto were to drop 50% tomorrow (or double in value), the volatility would probably increase, therefore, out-of-money strikes and deltas are typically priced with richer volatilities.
-
-        A good way of measuring skew is by calculating the ratio of an out-of-money option versus an at-the-money option. This relationship typically changes in low volatility environments versus high volatility environments.
-
-        Example Response: ``{"ts": "1637677441586", "instrumentName": "BTC-24NOV21-59000-C", "strike": 59000, "expiration": "1637712000000", "bidIv": 59.4, "markIv": 66.33, "askIv": 71.68, "delta": 0.10811}``
         Args:
             symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
             exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
-            dict
+            {
+            "ts": "1637677441586",
+            "instrumentName": "BTC-24NOV21-59000-C",
+            "strike": 59000,
+            "expiration": "1637712000000",
+            "bidIv": 59.4,
+            "markIv": 66.33,
+            "askIv": 71.68,
+            "delta": 0.10811
+            }
 
         """
         return self._client.execute(
@@ -61,14 +64,16 @@ class GVol:
     ) -> Dict:
         """The volatility term structure represents the implied volatility given different expiration dates.
 
-        Example Response: ``{"expiration": "1637740800000", "markIv": 72.305, "forwardVolatility": 72.3 }``
-
         Args:
             symbol: BTC / ETH / SOL (deribit) / BCH (bitcom)
             exchange: deribit / bitcom / okex / ledgerx
 
         Returns:
-            dict
+            {
+            "expiration": "1656489600000",
+            "markIv": 61.91,
+            "forwardVolatility": 61.91
+            }
         """
         return self._client.execute(
             gql(queries.options_termstructure),
@@ -86,15 +91,22 @@ class GVol:
 
         This is different from historical trade data. Quotes represent a complete picture of potential trades, as opposed to actual trades, and therefore are more indicative of where the market was priced at a given point in time.
 
-        Example Response: ``{"sequenceDays2Exp": 0, "tsHourShadow": "1609502400000", "tsHourCurrent": null, "daysUntilExpiration": "0", "markIvCurrent": 73.02, "markIvShadow": 66.9 }``
-
         Args:
-            dateTime: (types.String)
-            symbol: (types.SymbolEnumType)
-            exchange: (types.ExchangeEnumType)
+            {
+            "symbol": "BTC",
+            "exchange": "deribit",
+            "dateTime": "2021-01-01 12:00:00"
+            }
 
         Returns:
-            dict
+            {
+            "sequenceDays2Exp": 0,
+            "tsHourShadow": "1609502400000",
+            "tsHourCurrent": null,
+            "daysUntilExpiration": "0",
+            "markIvCurrent": 61.9,
+            "markIvShadow": 66.9
+            }
         """
         return self._client.execute(
             gql(queries.options_termstructure_hist),
@@ -113,19 +125,33 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
     ) -> Dict:
-        """DVolIndex query
+        """
+        The DVol index is a VIX like volatility index built and maintained by Deribit.com
+        The 30-day volatility index supports both BTC and ETH.
 
-        Example Response: ``{"timerange": "1635084000000", "instrument": "BTC", "open": 88.33, "high": 88.6, "low": 88.07, "close": 88.54}``
+        The methodology for the index can be found here: https://insights.deribit.com/exchange-updates/dvol-deribit-implied-volatility-index/
+
+        An instructional video explaining DVol in further detail can also be found here:
+        https://insights.deribit.com/exchange-updates/dvol-deribit-volatility-index-vix-index-for-comparison/
 
         Args:
+            {
             "exchange": "deribit", 
             "symbol":  "BTC", 
             "interval": "1 minute",
             "dateStart": "2022-04-11", 
             "dateEnd": "2022-04-12"
+            }
 
         Returns:
-            dict
+            {
+            "timerange": "1649635200000",
+            "instrument": "BTC",
+            "open": 61.08,
+            "high": 61.11,
+            "low": 61.08,
+            "close": 61.11
+            }
         """
         return self._client.execute(
             gql(queries.options_dvol_index),
@@ -143,14 +169,30 @@ class GVol:
     ) -> Dict:
         """This query will return all the options times and sales data for a given exchange on a given day.
 
-        Example Response: ``{"exchange": "deribit", "date": "1631750359238", "instrumentName": "ETH-17SEP21-3900-C", "baseCurrency": "ETH", "expiration": "ETH", "strike": 3900, "putCall": "C", "direction": "buy", "blockTrade": "no", "liquidation": "no", "amount": 7, "price": 0.002, "priceUsd": 7.22, "iv": "89.79"}``
-
         Args:
-            date: (types.String)
-            exchange: (types.ExchangeEnumType)
+            {
+            "exchange": "deribit",
+            "date": "2022-03-03"
+            }
 
         Returns:
-            dict
+            {
+            "exchange": "deribit",
+            "date": "1646351966998",
+            "instrumentName": "BTC-11MAR22-40000-P",
+            "baseCurrency": "BTC",
+            "expiration": "BTC",
+            "strike": 40000,
+            "putCall": "P",
+            "direction": "buy",
+            "blockTrade": "no",
+            "liquidation": "no",
+            "amount": 25,
+            "price": 0.0165,
+            "priceUsd": 700.65,
+            "indexPrice": 42464.16,
+            "iv": "70.52"
+            }
         """
         return self._client.execute(
             gql(queries.options_trades),
@@ -162,17 +204,68 @@ class GVol:
     ) -> Dict:
         """This query will return the trades with useful information about the orderbook at the time of the trade.
 
-        Example Response: ``{"exchange": "deribit", "date": "1631750359238", "instrumentName": "ETH-17SEP21-3900-C", "baseCurrency": "ETH", "expiration": "ETH", "strike": 3900, "putCall": "C", "direction": "buy", "blockTrade": "no", "liquidation": "no", "amount": 7, "price": 0.002, "priceUsd": 7.22, "iv": "89.79"}``
-
         Args:
-            exchange: (types.ExchangeEnumType)
-            symbol: BTC/ETH/SOL
-            dateStart: '2022-12-31'
-            dateEnd: '2022-12-31'
+            {
+            "exchange": "deribit",
+            "symbol": "BTC", 
+            "dateStart": "2022-05-17", 
+            "dateEnd": "2022-05-18"
+            }
             
-
         Returns:
-            dict
+            {
+            "preTxObTs": "1652831827818",
+            "txTs": "1652831832293",
+            "postTxObTs": "1652831832485",
+            "tradeSeq": 210,
+            "tradeId": "214787006",
+            "instrumentName": "BTC-3JUN22-45000-C",
+            "currency": "BTC",
+            "expiration": "1654243200000",
+            "strike": 45000,
+            "putcall": "C",
+            "blockTradeId": null,
+            "liquidation": null,
+            "direction": "sell",
+            "tickDirection": "ZeroMinus",
+            "txAmount": 16.8,
+            "txIv": 83.29,
+            "price": 0.001,
+            "priceUsd": 30.41,
+            "indexPrice": 30417.44,
+            "underlyingPrice": 30459.1475,
+            "volume24h": 27.1,
+            "high24h": 0.002,
+            "low24h": 0.0015,
+            "preTxBbSize": 86.5,
+            "preTxBbPrice": 0.001,
+            "preTxBbIv": 83.34,
+            "preTxMidIv": 85.81,
+            "preTxMidPrice": 0.00125,
+            "preTxMarkIv": 85.71,
+            "preTxMarkPrice": 0.0012,
+            "preTxBaIv": 88.29,
+            "preTxBaPrice": 0.0015,
+            "preTxBaSize": 8.6,
+            "postTxBbSize": 44.3,
+            "postTxBbPrice": 0.001,
+            "postTxBbIv": 83.29,
+            "postTxMidIv": 85.76,
+            "postTxMidPrice": 0.00125,
+            "postTxMarkIv": 85.72,
+            "postTxMarkPrice": 0.0012,
+            "postTxBaIv": 88.23,
+            "postTxBaPrice": 0.0015,
+            "postTxBaSize": 8.6,
+            "delta": 0.019,
+            "gamma": 0.00001,
+            "theta": -8,
+            "vega": 3,
+            "rho": 0.2,
+            "preTxOi": 86.3,
+            "postTxOi": 84.1,
+            "oiChange": -2.2
+            }
         """
         return self._client.execute(
             gql(queries.options_trades_orderbook_details),
@@ -192,14 +285,33 @@ class GVol:
 
         Users can use this high granularity endpoint to measure changes in the volatility surface with respect to changes in the underlying spot prices.
 
-        Example Response: ``{"date": "1630454400000", "timeLeft": "08:00:00", "currency": "ETH", "expiration": "1630483200000", "underlyingPrice": 3431.38, "spot": 3431.24, "putD05": 104.11, "putD15": 100.33, "putD25": 94.6, "putD35": 90.61, "callD05": 86.85, "callD15": 85.78, "callD25": 84.85, "callD35": 83.97, "atmMarkIV": 86.75, "atmMidIV": 89.23, "atmBidIV": 84.86, "atmAskIV": 93.6}``
-
         Args:
-            symbol: (types.BTCOrETHEnumType)
-            date: (types.String)
+            {
+            "symbol": "ETH",
+            "date": "2021-09-01"
+            }
 
         Returns:
-            dict
+            {
+            "date": "1630454400000",
+            "timeLeft": "08:00:00",
+            "currency": "ETH",
+            "expiration": "1630483200000",
+            "underlyingPrice": 3431.21,
+            "spot": 3430.78,
+            "putD05": 104.11,
+            "putD15": 100.33,
+            "putD25": 94.6,
+            "putD35": 90.61,
+            "callD05": 86.85,
+            "callD15": 85.78,
+            "callD25": 84.85,
+            "callD35": 83.97,
+            "atmMarkIV": 85.9,
+            "atmMidIV": 89.07,
+            "atmBidIV": 85.26,
+            "atmAskIV": 92.88
+            }
         """
         return self._client.execute(
             gql(queries.options_volatility_surface),
@@ -210,15 +322,24 @@ class GVol:
     def spot_prices(
         self, symbol: types.String, dateStart: types.String, dateEnd: types.String
     ) -> Dict:
-        """This query returns spot price daily open, high, low, close
+        """This query returns spot price daily open, high, low, close (for all symbols)
 
         Args:
-            symbol: (types.String)
-            dateStart: (types.String)
-            dateEnd: (types.String)
+            {
+            "symbol": "ZRX", 
+            "dateStart": "2021-01-01",
+            "dateEnd": "2021-04-05"
+            }
 
         Returns:
-            dict
+            {
+            "date": "1609545600000",
+            "currency": "ZRX",
+            "open": 0.3758,
+            "high": 0.3986,
+            "low": 0.3582,
+            "close": 0.3607
+            }
         """
         return self._client.execute(
             gql(queries.spot_prices),
@@ -247,16 +368,38 @@ class GVol:
 
         Exchange: Deribit
 
-        Example Response: ``{"date": "1633219200000", "thirtyFiveDelta7DayExp": -2.16, "twentyFiveDelta7DayExp": -4.14, "fifteenDelta7DayExp": -6.91, "fiveDelta7DayExp": -15.62, "thirtyFiveDelta30DayExp": -0.31, "twentyFiveDelta30DayExp": -1.29, "fifteenDelta30DayExp": -2.28, "fiveDelta30DayExp": -6.53, "thirtyFiveDelta60DayExp": 1.24, "twentyFiveDelta60DayExp": 2.39, "fifteenDelta60DayExp": 3.63, "fiveDelta60DayExp": 8.26, "thirtyFiveDelta90DayExp": 2.46, "twentyFiveDelta90DayExp": 4.66, "fifteenDelta90DayExp": 8.16, "fiveDelta90DayExp": 16.06, "thirtyFiveDelta180DayExp": 4.26, "twentyFiveDelta180DayExp": 7.35, "fifteenDelta180DayExp": 10.27, "fiveDelta180DayExp": 15.27}``
-
         Args:
-            symbol: (types.BTCOrETHEnumType)
-            dateStart: (types.String)
-            dateEnd: (types.String)
-            interval: (types.String)
+            {
+            "symbol": "BTC", 
+            "dateStart": "2021-10-01", 
+            "dateEnd": "2021-10-03",
+            "interval": "1 minute"
+            }
 
         Returns:
-            dict
+            {
+            "date": "1633219200000",
+            "thirtyFiveDelta7DayExp": -2.16,
+            "twentyFiveDelta7DayExp": -4.14,
+            "fifteenDelta7DayExp": -6.91,
+            "fiveDelta7DayExp": -15.62,
+            "thirtyFiveDelta30DayExp": -0.31,
+            "twentyFiveDelta30DayExp": -1.29,
+            "fifteenDelta30DayExp": -2.28,
+            "fiveDelta30DayExp": -6.53,
+            "thirtyFiveDelta60DayExp": 1.24,
+            "twentyFiveDelta60DayExp": 2.39,
+            "fifteenDelta60DayExp": 3.63,
+            "fiveDelta60DayExp": 8.26,
+            "thirtyFiveDelta90DayExp": 2.46,
+            "twentyFiveDelta90DayExp": 4.66,
+            "fifteenDelta90DayExp": 8.16,
+            "fiveDelta90DayExp": 16.06,
+            "thirtyFiveDelta180DayExp": 4.26,
+            "twentyFiveDelta180DayExp": 7.35,
+            "fifteenDelta180DayExp": 10.27,
+            "fiveDelta180DayExp": 15.27
+            }
         """
         return self._client.execute(
             gql(queries.options_skew_constant),
@@ -276,22 +419,27 @@ class GVol:
         interval: types.String,
     ) -> Dict:
         """This query will return the option at-the-money implied volatility for constant maturities (7-day, 30-day, 60-day, 90-day, 180-day).
-
         Users can pass the desired coin, time interval and date of interest.
-
 
         Exchange: Deribit
 
-        Example Response: ``{"date": "1633219200000", "atm7": null, "atm30": 77.5, "atm60": 83.63, "atm90": 86.41, "atm180": 87.79}``
-
         Args:
-            symbol: (types.BTCOrETHEnumType)
-            dateStart: (types.String)
-            dateEnd: (types.String)
-            interval: (types.String)
+            {
+            "symbol": "BTC", 
+            "dateStart": "2021-10-01", 
+            "dateEnd": "2021-10-03",
+            "interval": "1 day"
+            }
 
         Returns:
-            dict
+            {
+            "date": "1633219200000",
+            "atm7": 68.4,
+            "atm30": 77.41,
+            "atm60": 83.55,
+            "atm90": 86.41,
+            "atm180": 87.62
+            }
         """
         return self._client.execute(
             gql(queries.options_atm_constant),
@@ -311,17 +459,27 @@ class GVol:
         dateStart: types.String,
         dateEnd: types.String,
     ) -> Dict:
-        """HistoricalIntradayTradedWeightedBasis query
+        """Historical intraday traded weighted basis
 
         Args:
-            exchange: (types.ExchangeEnumType)
-            symbol: (types.SymbolEnumType)
-            expiration:  "2022-12-30 08:00:00"  (YYYY-MM-DD hh:mm:ss)
-            dateStart: (types.String)
-            dateEnd: (types.String)
-
+            {
+            "exchange": "deribit",
+            "symbol": "BTC",
+            "expiration": "2022-12-30 08:00:00",
+            "dateStart": "2022-06-15",
+            "dateEnd": "2022-06-16"
+            }
         Returns:
-            dict
+            {
+            "date": "1655251200000",
+            "expiration": "1672387200000",
+            "amount": 215260,
+            "basis": 1.77,
+            "open": 22296.5,
+            "high": 22296.5,
+            "low": 21936.5,
+            "close": 21958.5
+            }
         """
         return self._client.execute(
             gql(queries.futures_basis_hist),
@@ -346,9 +504,28 @@ class GVol:
         Supported exchanges are |Deribit|Bitcom|Okex|Delta|
 
         Args:
-             exchange: (types.ExchangeEnumType)
+            {
+            "exchange": "deribit"
+            }
         Returns:
-            dict
+            {
+            "date": "1656410576378",
+            "instrumentName": "BTC-29JUN22-25000-C",
+            "currency": "BTC",
+            "expiration": "1656489600000",
+            "strike": 25000,
+            "putCall": "C",
+            "isAtm": false,
+            "oi": 10,
+            "bestBidPrice": 0,
+            "bestAskPrice": 0.0005,
+            "usdBid": 0,
+            "bidIV": 0,
+            "markIv": 103.1,
+            "askIv": 160.87,
+            "indexPrice": 21033.14,
+            "underlyingPrice": 21033.0751
+            }
         """
         return self._client.execute(
             gql(queries.options_orderbook_details),
@@ -368,12 +545,29 @@ class GVol:
         This endpoint will create a scenario simulation (underlying/iv/dte) of current portfolio book (DERIBIT)
         or a simulated new one
         Args:
-            portfolio: [{ "instrument": "BTC-30DEC22-40000-C", "size": 15 }, { "instrument": "BTC-30DEC22-55000-C", "size": -15}],
-            deltaFutures: deltas to add/remove to portfolio
-            ivShift: 0 (simulation of a shift in vol termstructure)
-            symbol: BTC
-      Returns:
-            dict
+            {
+            "portfolio": [{ "instrument": "BTC-30DEC22-40000-C", "size": 10 },{ "instrument": "BTC-30DEC22-50000-C", "size": -15 }],
+            "deltaFutures":0, 
+            "ivShift":0, 
+            "symbol":"BTC"
+            }
+        Returns:
+            {
+            "indexChange": 0.5,
+            "PnL": -0.0531857386,
+            "PnLUSD": -559.4770054957,
+            "deltaBSM": 0.1176642065,
+            "deltaCash": 0.0912782592,
+            "deltaSkew": 0.1238167367,
+            "gamma": 0.0000312283,
+            "vega": 15.2639768164,
+            "wVega": 6.1493598491,
+            "theta": -3.5517627101,
+            "index": 10519.3,
+            "equity": -0.0531857386,
+            "equityUSD": -559.4767395671,
+            "days": 0
+            }
         """
         return self._client.execute(
             gql(queries.portfolio_analyzer),
@@ -408,11 +602,35 @@ class GVol:
         Supported Exchange: Deribit
         New data appendage rate: 1-min (new data is added every 1-min)
         Args:
-             exchange: (types.ExchangeEnumType),
-             symbol: (types.SymbolEnumType),
-             date: (types.String)
+            {
+            "symbol": "BTC", 
+            "dateTime": "2021-01-01 01:00:00", 
+            "exchange": "deribit"
+            }
         Returns:
-            dict
+            {
+            "date": "1609462800000",
+            "currency": "BTC",
+            "expiration": "1609488000000",
+            "strike": 36000,
+            "putCall": "C",
+            "spot": 29060.9,
+            "underlyingPrice": 29064.57,
+            "openInterest": 1941.2,
+            "bidIv": 0,
+            "markIv": 93.05,
+            "askIv": 341.5,
+            "bestBidAmount": null,
+            "bestBidPrice": 0,
+            "markPrice": 0,
+            "bestAskPrice": 0.0005,
+            "bestAskAmount": null,
+            "delta": 0,
+            "gamma": 0,
+            "theta": 0,
+            "vega": 0,
+            "rho": 0
+            }
         """
         return self._client.execute(
             gql(queries.options_greeks_minute),
@@ -446,12 +664,38 @@ class GVol:
         Supported date intervals: 1-hour, 2-hour, etc. up to 'daily'
         Supported Exchange: Deribit
         New data appendage rate: 1-min (new data is added every 1-min)
+        
         Args:
-             exchange: (types.ExchangeEnumType),
-             symbol: (types.SymbolEnumType),
-             dateTime: (types.String)
+            {
+            "symbol": "BTC", 
+            "date": "2021-01-01", 
+            "interval": "1 hour",
+            "exchange": "deribit"
+            }
         Returns:
-            dict
+            {
+            "date": "1609459200000",
+            "currency": "BTC",
+            "expiration": "1609488000000",
+            "strike": 36000,
+            "putCall": "C",
+            "spot": 28978.23,
+            "underlyingPrice": 28980.11,
+            "openInterest": 1941.2,
+            "bidIv": 0,
+            "markIv": 97.48,
+            "askIv": 357.49,
+            "bestBidAmount": null,
+            "bestBidPrice": 0,
+            "markPrice": 0,
+            "bestAskPrice": 0.001,
+            "bestAskAmount": null,
+            "delta": 0,
+            "gamma": 0,
+            "theta": 0,
+            "vega": 0,
+            "rho": 0
+            }
         """
         return self._client.execute(
             gql(queries.options_greeks_hour),
@@ -485,10 +729,18 @@ class GVol:
         Date: Unix Format
 
         Args:
-             symbol: (types.SymbolEnumType),
-
+            {
+            "symbol": "SOL"
+            }
         Returns:
-            dict
+            {
+            "date": "1656288000000",
+            "currency": "SOL",
+            "open": 39.38,
+            "high": 41.22,
+            "low": 37.96,
+            "close": 38.46
+            }
         """
         return self._client.execute(
             gql(queries.spot_prices_lite),
@@ -520,19 +772,27 @@ class GVol:
         Dataset: 30-days of hourly data points with 7-day, 30-day, 60-day, 90-day, 180-day fixed maturities.
         Exchange: Deribit
         Date: Unix Format
+
         Need More? info@genesisvolatility.io
         API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-
         GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
 
         Args:
-             exchange: (types.ExchangeEnumType)
-             symbol: (types.SymbolEnumType),
-
+            {
+            "exchange": "deribit",
+            "symbol": "BTC"
+            }
         Returns:
-            dict
+            {
+            "date": "1656414000000",
+            "atm7": 72.32,
+            "atm30": 76.84,
+            "atm60": 75.96,
+            "atm90": 74.95,
+            "atm180": 74.31,
+            "currency": "BTC"
+            }
         """
         return self._client.execute(
             gql(queries.options_atm_constant_lite),
@@ -572,11 +832,36 @@ class GVol:
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
 
         Args:
-             exchange: (types.ExchangeEnumType)
-             symbol: (types.SymbolEnumType),
+            {
+            "exchange": "deribit",
+            "symbol": "BTC"
+            }
 
         Returns:
-            dict
+            {
+            "date": "1656414000000",
+            "currency": "BTC",
+            "thirtyFiveDelta7DayExp": -4.43,
+            "twentyFiveDelta7DayExp": -8.3,
+            "fifteenDelta7DayExp": -13.41,
+            "fiveDelta7DayExp": -23.41,
+            "thirtyFiveDelta30DayExp": -7.39,
+            "twentyFiveDelta30DayExp": -12.59,
+            "fifteenDelta30DayExp": -19.49,
+            "fiveDelta30DayExp": -33.63,
+            "thirtyFiveDelta60DayExp": -6.87,
+            "twentyFiveDelta60DayExp": -11.85,
+            "fifteenDelta60DayExp": -17.39,
+            "fiveDelta60DayExp": -27.89,
+            "thirtyFiveDelta90DayExp": -5.87,
+            "twentyFiveDelta90DayExp": -9.97,
+            "fifteenDelta90DayExp": -15.02,
+            "fiveDelta90DayExp": -23.83,
+            "thirtyFiveDelta180DayExp": -4.14,
+            "twentyFiveDelta180DayExp": -7.09,
+            "fifteenDelta180DayExp": -10.61,
+            "fiveDelta180DayExp": -19.7
+            }
         """
         return self._client.execute(
             gql(queries.options_skew_constant_lite),
@@ -620,10 +905,24 @@ class GVol:
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/yea
 
         Args:
-             symbol: (types.SymbolEnumType),
-
+            {
+            "exchange": "dydx"
+            }
         Returns:
-            dict
+            {
+            "date": "1656418050139",
+            "instrumentName": "1inch-usd",
+            "expiration": null,
+            "openInterest": 5779057,
+            "volume24Hr": 2289284.149,
+            "bestBidAmount": 17555,
+            "bestBidPrice": 0.796,
+            "markPrice": 0.79,
+            "indexPrice": 0.7982,
+            "bestAskPrice": 0.799,
+            "bestAskAmount": 13637,
+            "currentFunding": null
+            }
         """
         return self._client.execute(
             gql(queries.futures_orderbook),
@@ -638,14 +937,44 @@ class GVol:
         exchange: types.ExchangeEnumType,
     ) -> Dict:
         """
+        Dataset: Returns the futures perpetual "table" information
+
+        Date: Unix Format
         Granularity: 100ms
 
-        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
-        Date: Unix Format
         Need More? info@genesisvolatility.io
         API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
         GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+        
+        Args:
+            {
+            "exchange": "deribit"
+            }
+        Returns:
+            {
+            "mcapMils": "16604.7",
+            "instrumentName": "ADA_USDC-PERPETUAL",
+            "currency": "ADA",
+            "margin": "USD",
+            "expiration": null,
+            "price": 0.4915,
+            "indexPrice": 0.4914,
+            "priceChange24": -2.31,
+            "apy": -3.15,
+            "funding": 0,
+            "oiUsdMillions": 0.35,
+            "volume24UsdMillions": 0.49,
+            "volumer2Oi": 1.4,
+            "lsRatio": null,
+            "hv5": 71.49,
+            "hv10": 101.97,
+            "hv14": 132.23,
+            "hv30": 133.61,
+            "hv60": 149.57,
+            "hv90": 129.11,
+            "hv180": 115.71
+            }
         """
         return self._client.execute(
             gql(queries.futures_perps_table),
@@ -660,14 +989,44 @@ class GVol:
         exchange: types.ExchangeEnumType,
     ) -> Dict:
         """
+        Dataset: Returns the futures "table" information
+
+        Date: Unix Format
         Granularity: 100ms
 
-        Dataset: Returns the perpetual prices, index price, current funding and funding 8h.
-        Date: Unix Format
         Need More? info@genesisvolatility.io
         API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
         GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+        
+        Args:
+            {
+            "exchange": "deribit"
+            }
+        Returns:
+            {
+            "mcapMils": "401344.6",
+            "instrumentName": "BTC-1JUL22",
+            "currency": "BTC",
+            "margin": "COIN",
+            "expiration": "1656662400000",
+            "price": 21029.43,
+            "indexPrice": 21018.08,
+            "priceChange24": -1.12,
+            "apy": 6.97,
+            "funding": null,
+            "oiUsdMillions": 17.78,
+            "volume24UsdMillions": 4.35,
+            "volumer2Oi": 0.2,
+            "lsRatio": null,
+            "hv5": 54.72,
+            "hv10": 96.96,
+            "hv14": 120.84,
+            "hv30": 93.79,
+            "hv60": 86.67,
+            "hv90": 76.53,
+            "hv180": 71.71
+            }
         """
         return self._client.execute(
             gql(queries.futures_futs_table),
@@ -681,9 +1040,6 @@ class GVol:
         self
     ) -> Dict:
         """
-      Explanation:
-        Inputs: None
-
         Why do traders like this endpoint?
         This endpoint is real-time and will return live prices when requested.
         This endpoint will return the option order-book, oracle prices, order depth and implied volatility.
@@ -700,9 +1056,31 @@ class GVol:
         GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
 
-
+        Args:
+            {
+            }
         Returns:
-            dict
+            {
+            "instrumentName": "21iZtRQWqBCBmq5oSCScpgU9JNEFLyEfWxdvpJxZuA8N",
+            "date": "1656418441215",
+            "currency": "SOL",
+            "expiration": "1656662400000",
+            "strike": 36,
+            "putcall": "C",
+            "distinctBidWallets": 1,
+            "bidDepth": "{$2.2800000000000002x182.793}",
+            "bestAskAmount": null,
+            "bestBidPrice": 2.2800000000000002,
+            "bidIv": null,
+            "markPrice": null,
+            "markIv": null,
+            "askIv": null,
+            "bestAskPrice": null,
+            "askDepth": null,
+            "distinctAskWallets": null,
+            "isATM": "false",
+            "oraclePrice": 39.41
+            }
         """
         return self._client.execute(
             gql(queries.defi_zeta_orderbook),
@@ -713,9 +1091,6 @@ class GVol:
         self
     ) -> Dict:
         """
-      Explanation:
-        Inputs: None
-
         Why do traders like this endpoint?
         This endpoint returns the option contract specs and notional size for Ribbon DOV (DeFi Option Vault) auctions, along with the given blockchain.
 
@@ -728,9 +1103,22 @@ class GVol:
         GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
         GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
 
-
+        Args:
+            {
+            }
         Returns:
-            dict
+            {
+            "date": "1656151185000",
+            "expiration": "1656662400000",
+            "defi": "ribbon",
+            "underlying": "APE",
+            "strike": 90,
+            "putCall": "C",
+            "direction": "sell",
+            "volume": 8686.88,
+            "coinPremium": 0.86,
+            "notional": 39586
+            }
         """
         return self._client.execute(
             gql(queries.defi_ribbon_trades),
@@ -743,8 +1131,19 @@ class GVol:
         symbol: types.SymbolEnumType,
     ) -> Dict:
         """
-        Parameters:
+        Returns fitted implied volatility with spline for expiration/strike
+
+        Args:
+            {
             "symbol":"BTC"
+            }
+        Returns:
+            {
+            "expiration": "1656460800000",
+            "strike": 20000,
+            "markIv": 72.07,
+            "putCall": "C"
+            }
         """
         return self._client.execute(
             gql(queries.options_fitted_curves),
@@ -758,7 +1157,28 @@ class GVol:
         self,
     ) -> Dict:
         """
-        Parameters:
+        Returns dovs (defi options vaults) "table" information
+        Args:
+            {
+            }
+        Returns:
+            {
+            "defi": "thetanuts",
+            "instrumentName": "NEAR-01JUL22-5-C",
+            "currency": "NEAR",
+            "expiration": "1656662400000",
+            "strike": 5,
+            "putCall": "C",
+            "usdOptionPremium": 0,
+            "auctionWindowAveragePrice": 3.3,
+            "volume": 30836.65,
+            "notional": 103611.14,
+            "deposits": 30836.6,
+            "coinPremium": 616.73313739748,
+            "absReturn": 0.02,
+            "apy": 67.3,
+            "iv": null
+            }
         """
         return self._client.execute(
             gql(queries.defi_dovs_table),
