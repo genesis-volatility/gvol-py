@@ -695,7 +695,7 @@ defi_dovs_table = """
 
 futures_basis_hist = """
     query HistoricalIntradayTradedWeightedBasis($exchange: ExchangeEnumType, $symbol: SymbolEnumType, $expiration: String, $dateStart: String, $dateEnd: String) {
-      HistoricalIntradayTradedWeightedBasis: HistoricalIntraDayTradedBasis: genericHistoricalIntraDayTradedBasis(exchange: $exchange, symbol: $symbol, expiration: $expiration, dateStart: $dateStart, dateEnd: $dateEnd) {
+      HistoricalIntradayTradedWeightedBasis: genericHistoricalIntraDayTradedBasis(exchange: $exchange, symbol: $symbol, expiration: $expiration, dateStart: $dateStart, dateEnd: $dateEnd) {
         date
         expiration
         amount
