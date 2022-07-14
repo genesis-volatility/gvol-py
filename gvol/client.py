@@ -1207,10 +1207,22 @@ class GVol:
             dateEnd: (types.String)
             strike: (types.String)
             putCall: (types.PutCallEnumType)
-            expiration:  "2022-12-30"  (YYYY-MM-DD)
+            expiration: "2022-12-30"  (YYYY-MM-DD)
         Returns:
             dict
         """
+        return self._client.execute(
+            gql(queries.HourlyInstrumentImpliedVolandOI),
+            variable_values={
+                "symbol": symbol,
+                "dateStart": dateStart,
+                "dateEnd": dateEnd,
+                "strike": strike,
+                "putCall": putCall,
+                "expiration": expiration,
+            },
+        )
+
 
     def CustomMaturityDeltaSurface(
         self, symbol: types.BTCOrETHEnumType, date: types.String, days: types.Float
