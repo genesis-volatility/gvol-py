@@ -1169,3 +1169,37 @@ defi_zeta_orderbook = """
        }
     }
 """
+
+
+##ADDED AGAIN ON CUSTOMER'S REQUESTS
+
+CustomMaturityDeltaSurface = """
+    query CustomMaturityDeltaSurface($symbol: BTCOrETHEnumType, $date: String, $days: Float) {
+      CustomMaturityDeltaSurface: CustomMaturityAtmDelta(symbol: $symbol, date: $date, days: $days) {
+        date
+        p05
+        p15
+        p25
+        p35
+        atm
+        c05
+        c15
+        c25
+        c35
+      }
+    }
+"""
+
+HourlyInstrumentImpliedVolandOI = """
+    query HourlyInstrumentImpliedVolandOI($symbol: BTCOrETHEnumType, $dateStart: String, $dateEnd: String, $strike: String, $putCall: PutCallEnumType, $expiration: String) {
+      HourlyInstrumentImpliedVolandOI: InstrumentOiIv1Hr(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd, strike: $strike, putCall: $putCall, expiration: $expiration) {
+        date
+        instrumentName
+        oi
+        bidIV
+        markIV
+        askIV
+      }
+    }
+"""
+

@@ -1184,3 +1184,51 @@ class GVol:
             gql(queries.defi_dovs_table),
             variable_values={},
         )
+
+
+    ##ADDED AGAIN ON CUSTOMER'S REQUESTS
+
+    def HourlyInstrumentImpliedVolandOI(
+        self,
+        symbol: types.BTCOrETHEnumType,
+        dateStart: types.String,
+        dateEnd: types.String,
+        strike: types.String,
+        putCall: types.PutCallEnumType,
+        expiration: types.String,
+    ) -> Dict:
+        """This query returns the open interest, bid iv, mark iv and ask iv for a specific instrument input.
+        This data reflects option quotes found on Deribit for the given date range of interest.
+        Mark IV is provided by the exchange.
+        Example Response: ``{"date": "1630972800000", "instrumentName": "BTC-31DEC21-100000-C", "oi": 3354.3, "bidIV": 95.64, "markIV": 96.39, "askIV": 97.22}``
+        Args:
+            symbol: (types.BTCOrETHEnumType)
+            dateStart: (types.String)
+            dateEnd: (types.String)
+            strike: (types.String)
+            putCall: (types.PutCallEnumType)
+            expiration:  "2022-12-30"  (YYYY-MM-DD)
+        Returns:
+            dict
+        """
+
+    def CustomMaturityDeltaSurface(
+        self, symbol: types.BTCOrETHEnumType, date: types.String, days: types.Float
+    ) -> Dict:
+        """This endpoint returns hourly intervals for desired "Constant Maturity Input".
+        Users can input desired maturity for both BTC or ETH.
+        Available data starts on 3/01/2020.
+        Args:
+            symbol: (types.BTCOrETHEnumType)
+            date: (types.String)
+            days: (types.Float)
+        Returns:
+            dict
+        """
+        return self._client.execute(
+            gql(queries.CustomMaturityDeltaSurface),
+            variable_values={"symbol": symbol, "date": date, "days": days},
+        )
+    
+
+
