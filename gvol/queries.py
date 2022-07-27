@@ -1229,6 +1229,27 @@ options_gvol_direction = """
 }
 """
 
+options_gvol_gex = """
+  query GammaLevelsExpiration($symbol:BTCOrETHEnumType){
+        GammaLevelsExpiration: GammaLevelsExpiration(symbol:$symbol) {
+          currency
+          date
+          expiration
+          strike
+          gammaLevel
+        }
+}
+"""
+
+
+
+
+
+
+
+
+
+
 
 ##ADDED AGAIN ON CUSTOMER'S REQUESTS
 
