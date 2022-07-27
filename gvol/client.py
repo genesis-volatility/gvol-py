@@ -1243,9 +1243,12 @@ class GVol:
         )
     
 
+   ##ADDED AGAIN ON CUSTOMER'S REQUESTS --FIN--
+
+
      def options_gvol_direction(
-        self, dateStart: types.String, dateEnd: types.String 
-    ) -> Dict:
+         self, dateStart: types.String, dateEnd: types.String 
+     ) -> Dict:
         """This query will return the Deribit trades with useful information about the orderbook at the time of the trade with the
         gvol feature gvol_direction that asses the real initiator of the trade.
         
