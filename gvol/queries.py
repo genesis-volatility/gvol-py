@@ -1170,6 +1170,65 @@ defi_zeta_orderbook = """
     }
 """
 
+options_gvol_direction = """
+  query GvolDirection($dateStart: String, $dateEnd:String){
+        GvolDirection: GvolDirection(dateStart:$dateStart, dateEnd: $dateEnd) {
+          preTxOrderbookTimestamp
+          txTimestamp
+          postTxOrderbookTimestamp
+          tradeSeq
+          tradeId
+          instrumentName
+          currency
+          expiration
+          strike
+          putCall
+          blockTradeId
+          nrLegs
+          liquidation
+          tickDirection
+          txAmount
+          txIv
+          price
+          priceUsd
+          indexPrice
+          underlyingPrice
+          volume24h
+          high24h
+          low24h
+          preTxBbSize
+          preTxBbIv
+          preTxMidIv
+          preTxMidPrice
+          preTxMarkIv
+          preTxMarkPrice
+          preTxBaIv
+          preTxBaPrice
+          preTxBaSize
+          postTxBbSize
+          postTxBbPrice
+          postTxBbIv
+          postTxMidIv
+          postTxMidPrice
+          postTxMarkIv
+          postTxMarkPrice
+          postTxBaIv
+          postTxBaPrice
+          postTxBaSize
+          delta
+          gamma
+          theta
+          vega
+          rho
+          preTxOi
+          postTxOi
+          oiChange
+          deribitDirection
+          gvolDirection
+        }
+}
+"""
+
 
 ##ADDED AGAIN ON CUSTOMER'S REQUESTS
 

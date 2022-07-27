@@ -1243,4 +1243,78 @@ class GVol:
         )
     
 
+     def options_gvol_direction(
+        self, dateStart: types.String, dateEnd: types.String 
+    ) -> Dict:
+        """This query will return the Deribit trades with useful information about the orderbook at the time of the trade with the
+        gvol feature gvol_direction that asses the real initiator of the trade.
+        
+
+        Args:
+            {
+            "dateStart": "2022-05-17", 
+            "dateEnd": "2022-05-18"
+            }
+            
+        Returns:
+            {
+            "preTxObTs": "1652831827818",
+            "txTs": "1652831832293",
+            "postTxObTs": "1652831832485",
+            "tradeSeq": 210,
+            "tradeId": "214787006",
+            "instrumentName": "BTC-3JUN22-45000-C",
+            "currency": "BTC",
+            "expiration": "1654243200000",
+            "strike": 45000,
+            "putcall": "C",
+            "blockTradeId": null,
+            "liquidation": null,
+            "direction": "sell",
+            "tickDirection": "ZeroMinus",
+            "txAmount": 16.8,
+            "txIv": 83.29,
+            "price": 0.001,
+            "priceUsd": 30.41,
+            "indexPrice": 30417.44,
+            "underlyingPrice": 30459.1475,
+            "volume24h": 27.1,
+            "high24h": 0.002,
+            "low24h": 0.0015,
+            "preTxBbSize": 86.5,
+            "preTxBbPrice": 0.001,
+            "preTxBbIv": 83.34,
+            "preTxMidIv": 85.81,
+            "preTxMidPrice": 0.00125,
+            "preTxMarkIv": 85.71,
+            "preTxMarkPrice": 0.0012,
+            "preTxBaIv": 88.29,
+            "preTxBaPrice": 0.0015,
+            "preTxBaSize": 8.6,
+            "postTxBbSize": 44.3,
+            "postTxBbPrice": 0.001,
+            "postTxBbIv": 83.29,
+            "postTxMidIv": 85.76,
+            "postTxMidPrice": 0.00125,
+            "postTxMarkIv": 85.72,
+            "postTxMarkPrice": 0.0012,
+            "postTxBaIv": 88.23,
+            "postTxBaPrice": 0.0015,
+            "postTxBaSize": 8.6,
+            "delta": 0.019,
+            "gamma": 0.00001,
+            "theta": -8,
+            "vega": 3,
+            "rho": 0.2,
+            "preTxOi": 86.3,
+            "postTxOi": 84.1,
+            "oiChange": -2.2
+            "deribitDirection": "sell",
+            "gvolDirection": "buy"
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_gvol_direction),
+            variable_values={"dateStart":dateStart, "dateEnd":dateEnd},
+        )
 
