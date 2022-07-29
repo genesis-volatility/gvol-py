@@ -5,7 +5,7 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-BTCOrETHEnumType = Literal["BCH", "BTC", "ETH"]
+BTCOrETHEnumType = Literal["BTC", "ETH", "SOL"]
 BlockEnumType = Literal["any", "block", "nonBlock"]
 Boolean = bool
 DaysBackEnumType = Literal["NINETY", "ONE_EIGHTY", "ONE_YEAR", "SIXTY", "THIRTY"]

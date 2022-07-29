@@ -1171,8 +1171,8 @@ defi_zeta_orderbook = """
 """
 
 options_gvol_direction = """
-  query GvolDirection($dateStart: String, $dateEnd:String){
-        GvolDirection: GvolDirection(dateStart:$dateStart, dateEnd: $dateEnd) {
+  query GvolDirection($dateStart: String, $dateEnd:String, $symbol:SymbolEnumType){
+        GvolDirection: GvolDirection(dateStart:$dateStart, dateEnd: $dateEnd, symbol: $symbol) {
           preTxOrderbookTimestamp
           txTimestamp
           postTxOrderbookTimestamp
@@ -1240,9 +1240,6 @@ options_gvol_gex = """
         }
 }
 """
-
-
-
 
 
 
