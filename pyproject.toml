@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gvol"
-version = "0.4.4"
+version = "0.4.5"
 description = "GVol is a Python library to access the GVol API"
 authors = ["Denys Halenok <denys.halenok@gmail.com>"]
 
