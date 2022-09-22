@@ -23,7 +23,7 @@ copyright = "2022, Denys Halenok"
 author = "Denys Halenok"
 
 # The full version, including alpha/beta/rc tags
-release = "0.4.6"
+release = "0.4.7"
 
 # -- General configuration ---------------------------------------------------
 
