@@ -1257,6 +1257,7 @@ class GVol:
             {
             "dateStart": "2022-07-26", 
             "dateEnd": "2022-07-27"
+            "symbol": "BTC"
             }
             
         Returns:
@@ -1341,4 +1342,35 @@ class GVol:
         return self._client.execute(
             gql(queries.options_gvol_gex),
             variable_values={"symbol": symbol},
+        )
+
+def futures_constant_basis(
+        self, symbol: types.BTCOrETHEnumType, dateStart: types.String, dateEnd: types.String, 
+    ) -> Dict:
+        """This query will return the Deribit futures basis annualized constant maturity in days.
+
+        Args:
+            {
+            "symbol": "ETH",
+            "dateStart": "2022-07-26", 
+            "dateEnd": "2022-07-27"
+            }
+            
+        Returns:
+            {
+            "ts": "1663804800000",
+            "currency": "ETH",
+            "open": 1245.97,
+            "high": 1242.76,
+            "low": 1251.71,
+            "close": 1237.61,
+            "thirty": -5.1,
+            "sixty": -2.7,
+            "ninety": -1.8,
+            "oneHundredTwenty": -1.2
+            }
+        """
+        return self._client.execute(
+            gql(queries.futures_constant_basis),
+            variable_values={"symbol":symbol, "dateRangeStart":dateStart, "dateRangeEnd":dateEnd},
         )

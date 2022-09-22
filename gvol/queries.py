@@ -1241,10 +1241,22 @@ options_gvol_gex = """
 }
 """
 
-
-
-
-
+futures_constant_basis = """
+  query BasisFixed($symbol: SymbolEnumType, $dateRangeStart: String,$dateRangeEnd: String) {  
+        BasisFixed: BasisFixed(symbol: $symbol, dateRangeStart:$dateRangeStart,dateRangeEnd:$dateRangeEnd) {
+          ts 
+          currency
+          open
+          high
+          low
+          close
+          thirty
+          sixty
+          ninety
+          oneHundredTwenty
+        }
+}
+"""
 
 
 
