@@ -1344,7 +1344,7 @@ class GVol:
             variable_values={"symbol": symbol},
         )
 
-def futures_constant_basis(
+    def futures_constant_basis(
         self, symbol: types.BTCOrETHEnumType, dateStart: types.String, dateEnd: types.String, 
     ) -> Dict:
         """This query will return the Deribit futures basis annualized constant maturity in days.
