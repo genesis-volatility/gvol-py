@@ -24,8 +24,8 @@ pip install gvol
 
 ```python
 from gvol import GVol
-#Valid Headers: "x-oracle", "gvol-lite", "gvol-lite-plus"
-gvol_client = GVol(header="gvol-lite", gvol_api_key="ENTER YOUR API KEY HERE")
+
+gvol_client = GVol(header='x-oracle', gvol_api_key="ENTER YOUR API KEY HERE")
 
 options_orderbook = gvol_client.options_orderbook(
     symbol="BTC", exchange="deribit"
