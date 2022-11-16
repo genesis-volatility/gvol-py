@@ -1323,25 +1323,27 @@ class GVol:
         )
 
     def options_gvol_gex(
-        self, symbol: types.BTCOrETHEnumType
+        self, symbol: types.BTCOrETHEnumType, date: types.String
     ) -> Dict:
         """This endpoint returns the gamma levels (in nr of contracts for 1$ move in the underlying) of Market Makers according to a proprietary gvol algorithm.
         Inventory of dealers are estimated using the gvol_direction of each trade and analyzing the live orderbook
-        at millisecond level.
+        at millisecond level. Data available as of 1st August 2022. "DealerTotInventory" as of 8th Novemnber 2022
         Args:
             {
-            "symbol": "BTC"
+             "symbol": "BTC", 
+             "date": "2022-11-11 14:00"
             }
         Returns:
                 "currency": "BTC",
-                "date": "1658908800000",
-                "expiration": "1658995200000",
-                "strike": 18000,
-                "gammaLevel": 0
+                "date": "1668175200000",
+                "expiration": "1680249600000",
+                "strike": 26000,
+                "gammaLevel": -0.04,
+                "dealerTotInventory": -1193.3
         """
         return self._client.execute(
             gql(queries.options_gvol_gex),
-            variable_values={"symbol": symbol},
+            variable_values={"symbol": symbol, "date":date},
         )
 
     def futures_constant_basis(

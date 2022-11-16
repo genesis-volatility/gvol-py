@@ -1230,13 +1230,14 @@ options_gvol_direction = """
 """
 
 options_gvol_gex = """
-  query GammaLevelsExpiration($symbol:BTCOrETHEnumType){
-        GammaLevelsExpiration: GammaLevelsExpiration(symbol:$symbol) {
+  query GammaLevelsExpiration($symbol:BTCOrETHEnumType, $date:String){
+        GammaLevelsExpiration: GammaLevelsExpiration(symbol:$symbol, date:$date) {
           currency
           date
           expiration
           strike
           gammaLevel
+          dealerTotInventory
         }
 }
 """
