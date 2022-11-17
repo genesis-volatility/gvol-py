@@ -1,4 +1,4 @@
 __all__ = ("__version__", "GVol")
-__version__ = "0.4.9"
+__version__ = "0.5.0"
 
 from gvol.client import GVol
