@@ -1242,27 +1242,6 @@ options_gvol_gex = """
 }
 """
 
-futures_constant_basis = """
-  query BasisFixed($symbol: SymbolEnumType, $dateRangeStart: String,$dateRangeEnd: String) {  
-        BasisFixed: BasisFixed(symbol: $symbol, dateRangeStart:$dateRangeStart,dateRangeEnd:$dateRangeEnd) {
-          ts 
-          currency
-          open
-          high
-          low
-          close
-          thirty
-          sixty
-          ninety
-          oneHundredTwenty
-        }
-}
-"""
-
-
-
-##ADDED AGAIN ON CUSTOMER'S REQUESTS
-
 CustomMaturityDeltaSurface = """
     query CustomMaturityDeltaSurface($symbol: BTCOrETHEnumType, $date: String, $days: Float) {
       CustomMaturityDeltaSurface: CustomMaturityAtmDelta(symbol: $symbol, date: $date, days: $days) {
@@ -1291,4 +1270,73 @@ HourlyInstrumentImpliedVolandOI = """
         askIV
       }
     }
+"""
+
+futures_constant_basis = """
+	query BasisFixedRevised($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {  
+    BasisFixedRevised: BasisFixedRevised(symbol: $symbol, dateStart:$dateStart,dateEnd:$dateEnd) {
+      ts
+      currency
+      indexPrice
+      b30
+      b60
+      b90
+      b120        
+    }
+  }
+  """
+
+
+options_atm_skew_spot = """
+query HourlyFixedDeltaSurface($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {  
+  HourlyFixedDeltaSurface: HourlyFixedDeltaSurface(symbol: $symbol, dateStart:$dateStart,dateEnd:$dateEnd) {
+      ts
+      currency
+      atm7
+      atm30
+      atm60
+      atm90
+      atm180
+      ThirtyFiveDelta7Put
+      ThirtyFiveDelta7Call
+      TwentyFiveDelta7Put
+      TwentyFiveDelta7Call
+      FifteenDelta7Put
+      FifteenDelta7Call
+      FiveDelta7Put
+      FiveDelta7Call
+      ThirtyFiveDelta30Put
+      ThirtyFiveDelta30Call
+      TwentyFiveDelta30Put
+      TwentyFiveDelta30Call
+      FifteenDelta30Put
+      FifteenDelta30Call
+      FiveDelta30Put
+      FiveDelta30Call
+      ThirtyFiveDelta60Put
+      ThirtyFiveDelta60Call
+      TwentyFiveDelta60Put
+      TwentyFiveDelta60Call
+      FifteenDelta60Put
+      FifteenDelta60Call
+      FiveDelta60Put
+      FiveDelta60Call
+      ThirtyFiveDelta90Put
+      ThirtyFiveDelta90Call
+      TwentyFiveDelta90Put
+      TwentyFiveDelta90Call
+      FifteenDelta90Put
+      FifteenDelta90Call
+      FiveDelta90Put
+      FiveDelta90Call
+      ThirtyFiveDelta180Put
+      ThirtyFiveDelta180Call
+      TwentyFiveDelta180Put
+      TwentyFiveDelta180Call
+      FifteenDelta180Put
+      FifteenDelta180Call
+      FiveDelta180Put
+      FiveDelta180Call
+    }
+  }
 """

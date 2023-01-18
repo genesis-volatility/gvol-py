@@ -1353,26 +1353,91 @@ class GVol:
 
         Args:
             {
-            "symbol": "ETH",
-            "dateStart": "2022-07-26", 
-            "dateEnd": "2022-07-27"
+            "symbol": "BTC",
+            "dateStart": "2023-01-01",
+            "dateEnd": "2023-01-09"
             }
             
         Returns:
             {
-            "ts": "1663804800000",
-            "currency": "ETH",
-            "open": 1245.97,
-            "high": 1242.76,
-            "low": 1251.71,
-            "close": 1237.61,
-            "thirty": -5.1,
-            "sixty": -2.7,
-            "ninety": -1.8,
-            "oneHundredTwenty": -1.2
+            "ts": "1673218800000",
+            "currency": "BTC",
+            "indexPrice": 16965.67,
+            "b30": 0.1,
+            "b60": 0.1,
+            "b90": 0.1,
+            "b120": 0.1
             }
         """
         return self._client.execute(
             gql(queries.futures_constant_basis),
+            variable_values={"symbol":symbol, "dateRangeStart":dateStart, "dateRangeEnd":dateEnd},
+        )
+
+    def options_atm_skew_spot(
+        self, symbol: types.BTCOrETHEnumType, dateStart: types.String, dateEnd: types.String, 
+    ) -> Dict:
+        """This query will return hourly data of: atm constant maturities, skew constant maturities with each components (puts and calls details) and index price. 
+
+        Args:
+            {
+            "symbol": "BTC",
+            "dateStart": "2023-01-01",
+            "dateEnd": "2023-01-09"
+            }
+            
+        Returns:
+            {
+                "ts": "1673222400000",
+                "currency": "BTC",
+                "atm7": 33.46,
+                "atm30": 37.25,
+                "atm60": 43.97,
+                "atm90": 48.26,
+                "atm180": 53.03,
+                "ThirtyFiveDelta7Put": 33.76,
+                "ThirtyFiveDelta7Call": 33.95,
+                "TwentyFiveDelta7Put": 34.57,
+                "TwentyFiveDelta7Call": 35.49,
+                "FifteenDelta7Put": 36.37,
+                "FifteenDelta7Call": 38.44,
+                "FiveDelta7Put": 43.77,
+                "FiveDelta7Call": 45.46,
+                "ThirtyFiveDelta30Put": 38.43,
+                "ThirtyFiveDelta30Call": 36.66,
+                "TwentyFiveDelta30Put": 40.55,
+                "TwentyFiveDelta30Call": 37.16,
+                "FifteenDelta30Put": 44.65,
+                "FifteenDelta30Call": 39.23,
+                "FiveDelta30Put": 56.14,
+                "FiveDelta30Call": 47.39,
+                "ThirtyFiveDelta60Put": 45.67,
+                "ThirtyFiveDelta60Call": 42.82,
+                "TwentyFiveDelta60Put": 48.22,
+                "TwentyFiveDelta60Call": 43,
+                "FifteenDelta60Put": 53.26,
+                "FifteenDelta60Call": 44.87,
+                "FiveDelta60Put": 66.84,
+                "FiveDelta60Call": 54.38,
+                "ThirtyFiveDelta90Put": 49.98,
+                "ThirtyFiveDelta90Call": 47.19,
+                "TwentyFiveDelta90Put": 52.47,
+                "TwentyFiveDelta90Call": 47.45,
+                "FifteenDelta90Put": 57.55,
+                "FifteenDelta90Call": 49.44,
+                "FiveDelta90Put": 72.25,
+                "FiveDelta90Call": 61,
+                "ThirtyFiveDelta180Put": 54.22,
+                "ThirtyFiveDelta180Call": 51.96,
+                "TwentyFiveDelta180Put": 56.48,
+                "TwentyFiveDelta180Call": 52.56,
+                "FifteenDelta180Put": 60.52,
+                "FifteenDelta180Call": 55.08,
+                "FiveDelta180Put": 73.02,
+                "FiveDelta180Call": 66.21
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_atm_skew_spot),
             variable_values={"symbol":symbol, "dateRangeStart":dateStart, "dateRangeEnd":dateEnd},
         )
