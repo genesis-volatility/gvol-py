@@ -1292,6 +1292,7 @@ query HourlyFixedDeltaSurface($symbol: SymbolEnumType, $dateStart: String, $date
   HourlyFixedDeltaSurface: HourlyFixedDeltaSurface(symbol: $symbol, dateStart:$dateStart,dateEnd:$dateEnd) {
       ts
       currency
+      indexPrice
       atm7
       atm30
       atm60
