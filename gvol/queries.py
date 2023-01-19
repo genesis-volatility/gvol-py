@@ -1288,8 +1288,8 @@ futures_constant_basis = """
 
 
 options_atm_skew_spot = """
-query HourlyFixedDeltaSurface($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {  
-  HourlyFixedDeltaSurface: HourlyFixedDeltaSurface(symbol: $symbol, dateStart:$dateStart,dateEnd:$dateEnd) {
+  query HourlyFixedDeltaSurface($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {  
+    HourlyFixedDeltaSurface: HourlyFixedDeltaSurface(symbol: $symbol, dateStart:$dateStart,dateEnd:$dateEnd) {
       ts
       currency
       indexPrice
@@ -1338,6 +1338,30 @@ query HourlyFixedDeltaSurface($symbol: SymbolEnumType, $dateStart: String, $date
       FifteenDelta180Call
       FiveDelta180Put
       FiveDelta180Call
+    }
+  }
+"""
+
+
+options_deribit_volume_detailed_daily = """
+  query DeribitDetailedDaily($exchange: ExchangeEnumType, $dateStart: String,$dateEnd: String) {  
+    DeribitDetailedDaily: DeribitDetailedDaily(exchange: $exchange, dateStart: $dateStart, dateEnd: $dateEnd) {
+      date
+      year
+      month
+      blockTrade
+      currency
+      typeOfTrade
+      putCall
+      volume
+      premium
+      notional
+      premiumDollar
+      avgIv
+      avgIndexPrice
+      countTrades
+      oiNotional
+      oiPcRatio
     }
   }
 """

@@ -1441,3 +1441,40 @@ class GVol:
             gql(queries.options_atm_skew_spot),
             variable_values={"symbol":symbol, "dateStart":dateStart, "dateEnd":dateEnd},
         )
+
+    def options_deribit_volume_detailed_daily(
+        self, exchange: types.ExchangeEnumType, dateStart: types.String, dateEnd: types.String, 
+    ) -> Dict:
+        """This query will return the Deribit daily volumes detailed and open interest with putcall ratio.
+
+        Args:
+            {
+            "exchange": "deribit",
+            "dateStart": "2016-01-01",
+            "dateEnd": "2023-01-19"
+            }
+            
+        Returns:
+            {
+            "date": "1673395200000",
+            "year": "2023",
+            "month": "1",
+            "blockTrade": "Block",
+            "currency": "BTC",
+            "typeOfTrade": "trade",
+            "putCall": "C",
+            "volume": 8670,
+            "premium": 223,
+            "notional": 151547850,
+            "premiumDollar": 3902913,
+            "avgIv": 48.3,
+            "avgIndexPrice": 17480.4,
+            "countTrades": 117,
+            "oiNotional": 3404269477,
+            "oiPcRatio": 0.47
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_deribit_volume_detailed_daily),
+            variable_values={"exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd},
+        )
