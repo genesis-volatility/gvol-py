@@ -1371,7 +1371,7 @@ class GVol:
         """
         return self._client.execute(
             gql(queries.futures_constant_basis),
-            variable_values={"symbol":symbol, "dateRangeStart":dateStart, "dateRangeEnd":dateEnd},
+            variable_values={"symbol":symbol, "dateStart":dateStart, "dateEnd":dateEnd},
         )
 
     def options_atm_skew_spot(
@@ -1439,5 +1439,5 @@ class GVol:
         """
         return self._client.execute(
             gql(queries.options_atm_skew_spot),
-            variable_values={"symbol":symbol, "dateRangeStart":dateStart, "dateRangeEnd":dateEnd},
+            variable_values={"symbol":symbol, "dateStart":dateStart, "dateEnd":dateEnd},
         )
