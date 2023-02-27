@@ -1347,15 +1347,16 @@ class GVol:
         )
 
     def futures_constant_basis(
-        self, symbol: types.BTCOrETHEnumType, dateStart: types.String, dateEnd: types.String, 
+        self, symbol: types.BTCOrETHEnumType, dateStart: types.String, dateEnd: types.String, exchange: ExchangeEnumType
     ) -> Dict:
-        """This query will return the Deribit futures basis annualized constant maturity in days.
+        """This query will return futures basis annualized constant maturity in days.
 
         Args:
             {
             "symbol": "BTC",
             "dateStart": "2023-01-01",
             "dateEnd": "2023-01-09"
+            "exchange": "deribit"
             }
             
         Returns:
@@ -1371,7 +1372,7 @@ class GVol:
         """
         return self._client.execute(
             gql(queries.futures_constant_basis),
-            variable_values={"symbol":symbol, "dateStart":dateStart, "dateEnd":dateEnd},
+            variable_values={"symbol":symbol, "dateStart":dateStart, "dateEnd":dateEnd, "exchange":exchange},
         )
 
     def options_atm_skew_spot(

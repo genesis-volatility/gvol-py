@@ -1273,8 +1273,8 @@ HourlyInstrumentImpliedVolandOI = """
 """
 
 futures_constant_basis = """
-	query BasisFixedRevised($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String) {  
-    BasisFixedRevised: BasisFixedRevised(symbol: $symbol, dateStart:$dateStart,dateEnd:$dateEnd) {
+	query BasisFixedRevised($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String, $exchange: ExchangeEnumType) {  
+    BasisFixedRevised: BasisFixedRevised(symbol: $symbol, dateStart:$dateStart,dateEnd:$dateEnd, exchange: $exchange) {
       ts
       currency
       indexPrice
