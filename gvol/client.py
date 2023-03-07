@@ -1125,33 +1125,6 @@ class GVol:
 
         )
 
-
-    def options_fitted_curves(
-        self,
-        symbol: types.SymbolEnumType,
-    ) -> Dict:
-        """
-        Returns fitted implied volatility with spline for expiration/strike
-
-        Args:
-            {
-            "symbol":"BTC"
-            }
-        Returns:
-            {
-            "expiration": "1656460800000",
-            "strike": 20000,
-            "markIv": 72.07,
-            "putCall": "C"
-            }
-        """
-        return self._client.execute(
-            gql(queries.options_fitted_curves),
-            variable_values={
-                "symbol": symbol,
-            },
-        )
-
     
     def defi_dovs_table(
         self,
