@@ -1365,3 +1365,18 @@ options_deribit_volume_detailed_daily = """
     }
   }
 """
+
+options_cumulative_net_volumes = """
+query NetVolumeGvolDirection($tradeType: TradeTypeEnum, $days: Float, $symbol: SymbolEnumType, $exchange: ExchangeEnumType, $showActiveExpirations: Boolean)
+ {genericNetVolumeGvolDirection(symbol: $symbol, tradeType: $tradeType, days: $days, exchange: $exchange, showActiveExpirations: $showActiveExpirations) 
+ {date strike cumulative indexPrice}}
+"""
+
+options_cumulative_net_positioning = """
+query NetPositioning( $symbol: SymbolEnumType, $exchange: ExchangeEnumType, $dateStart: String) 
+{genericNetPositioningGvolDirection(symbol: $symbol, exchange: $exchange, dateStart: $dateStart) 
+{ date
+   strike
+   netInv
+   indexPrice}}
+"""

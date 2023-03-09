@@ -8,9 +8,10 @@ else:
 BTCOrETHEnumType = Literal["BTC", "ETH", "SOL"]
 BlockEnumType = Literal["any", "block", "nonBlock"]
 Boolean = bool
+Deribit = Literal['deribit']
 DaysBackEnumType = Literal["NINETY", "ONE_EIGHTY", "ONE_YEAR", "SIXTY", "THIRTY"]
 ExchangeEnumType = Literal[
-    "binance", "bitcom", "cme", "delta", "deribit", "ftx", "ledgerx", "okex"
+    "binance", "bitcom", "cme", "delta", "deribit", "ledgerx", "okex"
 ]
 Float = float
 Int = int
@@ -110,3 +111,5 @@ SymbolEnumType = Literal[
     "ZRX",
 ]
 YesNoAllType = Literal["all", "no", "yes"]
+TradeTypeEnum = Literal["ALL", "block", "onScreen"]
+Prova = float

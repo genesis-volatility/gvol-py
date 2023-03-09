@@ -1452,3 +1452,68 @@ class GVol:
             gql(queries.options_deribit_volume_detailed_daily),
             variable_values={"exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd},
         )
+    
+
+    def options_cumulative_net_volumes(
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.Deribit, days: types.Float, showActiveExpirations: types.Boolean, tradeType: types.TradeTypeEnum
+    ) -> Dict:
+        """
+        This endpoint returns the cumulative net volumes of trades for the last "n" days selected.
+        For calculating the "net" volume (aka the volume traded with the sign of the initiator) we use our proprietary algorithm composed from several heuristics which use the orderbook previous of the trade at millisecond granularity. You can read more about this here Gvol Direction.
+
+        The endpoint is completed with some useful filters, such as:
+            tradeType = ALL/block/onScreen
+            showActiveExpirations:
+                true = endpoint returns only trades for active expirations
+                false = endpoint returns all the trades even for expired expirations
+
+        Args:
+            {
+            "symbol": "BTC",
+            "days": 1,
+            "tradeType": "onScreen",
+            "showActiveExpirations": false,
+            "exchange": "deribit"
+            }
+            
+        Returns:
+            {
+                "date": "1678262400000",
+                "strike": 70000,
+                "cumulative": 0,
+                "indexPrice": 21970.26
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_cumulative_net_volumes),
+            variable_values={"symbol":symbol, "exchange":exchange, "days":days, "showActiveExpirations":showActiveExpirations, "tradeType":tradeType}
+        )
+
+
+    def options_cumulative_net_positioning(
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.Deribit, dateStart: types.String
+    ) -> Dict:
+        """
+        This endpoint returns the cumulative net positioning of traders for the period from the dateStart parameter. It means that positioning is assumed "zero" at the dateStart.
+        This endpoint starts from 7th November 2022.
+        This endpoint could be seen as the other side of the gamma exposure of dealers (Gvol Gex).
+
+        Args:
+        {
+        "symbol": "BTC",
+        "exchange": "deribit",
+        "dateStart": "2023-03-01"
+        }
+            
+        Returns:
+            {
+                "date": "1677628800000",
+                "strike": 5000,
+                "netInv": 0,
+                "indexPrice": 23134
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_cumulative_net_positioning),
+            variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart}   
+        )
