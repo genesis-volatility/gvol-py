@@ -1238,6 +1238,7 @@ options_gvol_gex = """
           strike
           gammaLevel
           dealerTotInventory
+          dealerNetInventory
         }
 }
 """
