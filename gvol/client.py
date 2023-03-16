@@ -136,11 +136,14 @@ class GVol:
 
         Returns:
             {
-            "currency": "BTC",
-            "date": "1678785840000",
-            "expiration": "1678867200000",
-            "dte": "0",
-            "markIv": 84.96
+            "days1": 0,
+            "date1": "1676366640000",
+            "expiration1": "1676448000000",
+            "markIv1": 65.68,
+            "days2": 0,
+            "date2": "1678872240000",
+            "expiration2": "1678953600000",
+            "markIv2": 71.6
             }
         """
         return self._client.execute(
