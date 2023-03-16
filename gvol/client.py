@@ -87,25 +87,22 @@ class GVol:
         symbol: types.SymbolEnumType,
         exchange: types.ExchangeEnumType,
     ) -> Dict:
-        """Using our shadow features allows traders to compare current skew and term structure quotes to past market quotes.
-
-        This is different from historical trade data. Quotes represent a complete picture of potential trades, as opposed to actual trades, and therefore are more indicative of where the market was priced at a given point in time.
+        """This endpoint returns a specific term structure for the datetime (till the minute) selected from the user.
 
         Args:
             {
             "symbol": "BTC",
             "exchange": "deribit",
-            "dateTime": "2021-01-01 12:00:00"
+            "dateTime": "2023-3-14 9:24"
             }
 
         Returns:
             {
-            "sequenceDays2Exp": 0,
-            "tsHourShadow": "1609502400000",
-            "tsHourCurrent": null,
-            "daysUntilExpiration": "0",
-            "markIvCurrent": 61.9,
-            "markIvShadow": 66.9
+            "currency": "BTC",
+            "date": "1678785840000",
+            "expiration": "1678867200000",
+            "dte": "0",
+            "markIv": 84.96
             }
         """
         return self._client.execute(
@@ -117,6 +114,45 @@ class GVol:
             },
         )
    
+    def options_termstructure_comparison(
+        self,
+        dateTimeOne: types.String,
+        dateTimeTwo: types.String,
+        symbol: types.SymbolEnumType,
+        exchange: types.ExchangeEnumType,
+    ) -> Dict:
+        """This endpoint returns a specific two term structure for the datetimes (till the minute) selected from the user.
+
+            Comparing two different termstructure is not an easy task since expiration needs to be "matched" by the days-to-expiration.
+
+            This endpoint could as seens as a way to compare different term structure in constant days-to-expiry.
+
+        Args:
+            {
+            "symbol": "BTC",
+            "exchange": "deribit",
+            "dateTime": "2023-3-14 9:24"
+            }
+
+        Returns:
+            {
+            "currency": "BTC",
+            "date": "1678785840000",
+            "expiration": "1678867200000",
+            "dte": "0",
+            "markIv": 84.96
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_termstructure_comparison),
+            variable_values={
+                "dateTimeOne": dateTimeOne,
+                "dateTimeTwo": dateTimeTwo,
+                "symbol": symbol,
+                "exchange": exchange,
+            },
+        )
+
     def options_dvol_index(
         self,
         exchange: types.ExchangeEnumType,
@@ -1300,7 +1336,7 @@ class GVol:
     ) -> Dict:
         """This endpoint returns the gamma levels (in nr of contracts for 1$ move in the underlying) of Market Makers according to a proprietary gvol algorithm.
         Inventory of dealers are estimated using the gvol_direction of each trade and analyzing the live orderbook
-        at millisecond level. Data available as of 1st August 2022. "DealerTotInventory" as of 8th Novemnber 2022
+        at millisecond level. Data available as of 1st August 2022. "dealerInventories" as of 8th Novemnber 2022
         Args:
             {
              "symbol": "BTC", 
@@ -1309,10 +1345,11 @@ class GVol:
         Returns:
                 "currency": "BTC",
                 "date": "1668175200000",
-                "expiration": "1680249600000",
-                "strike": 26000,
-                "gammaLevel": -0.04,
-                "dealerTotInventory": -1193.3
+                "expiration": "1668240000000",
+                "strike": 13000,
+                "gammaLevel": 0,
+                "dealerTotInventory": -66.4,
+                "dealerNetInventory": -23.4
         """
         return self._client.execute(
             gql(queries.options_gvol_gex),

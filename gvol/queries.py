@@ -24,15 +24,29 @@ options_termstructure = """
 """
 
 options_termstructure_hist = """
-    query ShadowTermStructure($dateTime: String, $symbol: SymbolEnumType, $exchange: ExchangeEnumType) {
-      ShadowTermStructure: genericShadowTermStructure(symbol: $symbol, dateTime: $dateTime, exchange: $exchange) {
-        sequenceDays2Exp
-        tsHourShadow
-        tsHourCurrent
-        daysUntilExpiration
-        markIvCurrent
-        markIvShadow
-      }
+    query TermStructureShadowQuery($symbol: SymbolEnumType, $dateTime: String, $exchange: ExchangeEnumType) {
+          genericShadowTermStructureV2(exchange: $exchange, symbol: $symbol, dateTime: $dateTime) {
+          currency
+          date
+          expiration
+          dte
+          markIv
+        } 
+    }
+"""
+
+options_termstructure_comparison = """
+    query TermStructureShadowQuery($symbol: SymbolEnumType, $dateTimeOne: String, $dateTimeTwo: String, $exchange: ExchangeEnumType) {
+          genericShadowTermStructureCompareV2(exchange: $exchange, symbol: $symbol, dateTimeOne: $dateTimeOne, dateTimeTwo: $dateTimeTwo) {
+          days1
+          date1
+          expiration1
+          markIv1
+          days2
+          date2
+          expiration2
+          markIv2
+        } 
     }
 """
 
