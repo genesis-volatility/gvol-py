@@ -84,8 +84,8 @@ class GVol:
     def options_termstructure_hist(
         self,
         dateTime: types.String,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
+        symbol: types.BTCOrETHEnumType,
+        exchange: types.ExchangeDeribit,
     ) -> Dict:
         """This endpoint returns a specific term structure for the datetime (till the minute) selected from the user.
 
@@ -118,8 +118,8 @@ class GVol:
         self,
         dateTimeOne: types.String,
         dateTimeTwo: types.String,
-        symbol: types.SymbolEnumType,
-        exchange: types.ExchangeEnumType,
+        symbol: types.BTCOrETHEnumType,
+        exchange: types.ExchangeDeribit,
     ) -> Dict:
         """This endpoint returns a specific two term structure for the datetimes (till the minute) selected from the user.
 

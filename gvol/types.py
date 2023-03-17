@@ -5,7 +5,7 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal
 
-BTCOrETHEnumType = Literal["BTC", "ETH", "SOL"]
+BTCOrETHEnumType = Literal["BTC", "ETH"]
 BlockEnumType = Literal["any", "block", "nonBlock"]
 Boolean = bool
 Deribit = Literal['deribit']
@@ -13,6 +13,7 @@ DaysBackEnumType = Literal["NINETY", "ONE_EIGHTY", "ONE_YEAR", "SIXTY", "THIRTY"
 ExchangeEnumType = Literal[
     "binance", "bitcom", "cme", "delta", "deribit", "ledgerx", "okex"
 ]
+ExchangeDeribit = Literal["deribit"]
 Float = float
 Int = int
 LiquidationEnumType = Literal["any", "liquidation", "nonLiquidation"]
