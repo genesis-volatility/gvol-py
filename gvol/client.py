@@ -159,8 +159,8 @@ class GVol:
 
     def options_dvol_index(
         self,
-        exchange: types.ExchangeEnumType,
-        symbol: types.SymbolEnumType,
+        exchange: types.ExchangeDeribit,
+        symbol: types.BTCOrETHEnumType,
         interval: types.String,
         dateStart: types.String,
         dateEnd: types.String,
@@ -240,7 +240,7 @@ class GVol:
         )
 
     def options_trades_orderbook_details(
-        self, exchange: types.ExchangeEnumType, symbol: types.SymbolEnumType, dateStart: types.String, dateEnd: types.String 
+        self, exchange: types.ExchangeDeribit, symbol: types.BTCOrETHEnumType, dateStart: types.String, dateEnd: types.String 
     ) -> Dict:
         """This query will return the trades with useful information about the orderbook at the time of the trade.
 
@@ -493,8 +493,8 @@ class GVol:
 
     def futures_basis_hist(
         self,
-        exchange: types.ExchangeEnumType,
-        symbol: types.SymbolEnumType,
+        exchange: types.ExchangeDeribit,
+        symbol: types.BTCOrETHEnumType,
         expiration: types.String,
         dateStart: types.String,
         dateEnd: types.String,
@@ -621,9 +621,9 @@ class GVol:
 
     def options_greeks_minute(
         self,
-        exchange: types.ExchangeEnumType,
+        exchange: types.ExchangeDeribit,
         dateTime: types.String,
-        symbol: types.SymbolEnumType
+        symbol: types.BTCOrETHEnumType
     ) -> Dict:
         """
       Explanation:
@@ -683,9 +683,9 @@ class GVol:
 
     def options_greeks_hour(
         self,
-        exchange: types.ExchangeEnumType,
+        exchange: types.ExchangeDeribit,
         date: types.String,
-        symbol: types.SymbolEnumType,
+        symbol: types.BTCOrETHEnumType,
         interval: types.String
     ) -> Dict:
         """
@@ -747,52 +747,52 @@ class GVol:
             },
         )
 
-    def spot_prices_lite(
-        self,
-        symbol: types.SymbolEnumType,
-    ) -> Dict:
-        """
-      Explanation:
-       Inputs:
-        Currency Symbol: Top 100 coins
+    # def spot_prices_lite(
+    #     self,
+    #     symbol: types.SymbolEnumType,
+    # ) -> Dict:
+    #     """
+    #   Explanation:
+    #    Inputs:
+    #     Currency Symbol: Top 100 coins
 
-        Why do traders like this endpoint?
-        This endpoint is a building block for spot and vol. traders alike.
-        Use this endpoint to compare multiple coin prices.
+    #     Why do traders like this endpoint?
+    #     This endpoint is a building block for spot and vol. traders alike.
+    #     Use this endpoint to compare multiple coin prices.
 
-        Calculation:
-        OHLC: are calculated at midnight UTC.
+    #     Calculation:
+    #     OHLC: are calculated at midnight UTC.
 
-        Endpoint Output Details:
-        Granularity: Daily
-        Dataset: 1-year of OHLC for various crypto-currencies.
-        Date: Unix Format
+    #     Endpoint Output Details:
+    #     Granularity: Daily
+    #     Dataset: 1-year of OHLC for various crypto-currencies.
+    #     Date: Unix Format
 
-        Args:
-            {
-            "symbol": "SOL"
-            }
-        Returns:
-            {
-            "date": "1656288000000",
-            "currency": "SOL",
-            "open": 39.38,
-            "high": 41.22,
-            "low": 37.96,
-            "close": 38.46
-            }
-        """
-        return self._client.execute(
-            gql(queries.spot_prices_lite),
-            variable_values={
-                "symbol": symbol,
-            },
-        )
+    #     Args:
+    #         {
+    #         "symbol": "SOL"
+    #         }
+    #     Returns:
+    #         {
+    #         "date": "1656288000000",
+    #         "currency": "SOL",
+    #         "open": 39.38,
+    #         "high": 41.22,
+    #         "low": 37.96,
+    #         "close": 38.46
+    #         }
+    #     """
+    #     return self._client.execute(
+    #         gql(queries.spot_prices_lite),
+    #         variable_values={
+    #             "symbol": symbol,
+    #         },
+    #     )
 
     def options_atm_constant_lite(
         self,
-        exchange: types.ExchangeEnumType,
-        symbol: types.SymbolEnumType,
+        exchange: types.ExchangeDeribit,
+        symbol: types.BTCOrETHEnumType,
     ) -> Dict:
         """
       Explanation:
@@ -844,8 +844,8 @@ class GVol:
 
     def options_skew_constant_lite(
         self,
-        exchange: types.ExchangeEnumType,
-        symbol: types.SymbolEnumType,
+        exchange: types.ExchangeDeribit,
+        symbol: types.BTCOrETHEnumType,
     ) -> Dict:
         """
       Explanation:
@@ -914,7 +914,7 @@ class GVol:
 
     def futures_orderbook(
         self,
-        exchange: types.ExchangeEnumType,
+        exchange: types.String,
     ) -> Dict:
         """
       Explanation:
@@ -938,11 +938,6 @@ class GVol:
         Endpoint Output Details:
         Granularity: 100ms (1-minute for dydx)
         Date: Unix Format
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/yea
 
         Args:
             {
@@ -974,18 +969,15 @@ class GVol:
 
     def futures_perps_table(
         self, 
-        exchange: types.ExchangeEnumType,
+        exchange: types.String,
     ) -> Dict:
         """
         Dataset: Returns the futures perpetual "table" information
 
+        Exchanges: deribit, dydx
+
         Date: Unix Format
         Granularity: 100ms
-
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
         
         Args:
             {
@@ -1034,10 +1026,7 @@ class GVol:
         Date: Unix Format
         Granularity: 100ms
 
-        Need More? info@genesisvolatility.io
-        API LITE Plus: Rate limit increase (10 per SECOND) $178/mo
-        GVol API Pro: 30/SEC rate, fitted + model-free surfaces, intraday granularity extended histories $11,000/year
-        GVol Enterprise API: GVol API Pro + Daily Raw data S3 bucket downloads $14,999/year
+
         
         Args:
             {
@@ -1458,7 +1447,7 @@ class GVol:
         )
 
     def options_deribit_volume_detailed_daily(
-        self, exchange: types.ExchangeEnumType, dateStart: types.String, dateEnd: types.String, 
+        self, exchange: types.ExchangeDeribit, dateStart: types.String, dateEnd: types.String, 
     ) -> Dict:
         """This query will return the Deribit daily volumes detailed and open interest with putcall ratio.
 
@@ -1496,7 +1485,7 @@ class GVol:
     
 
     def options_cumulative_net_volumes(
-        self,  symbol: types.BTCOrETHEnumType, exchange: types.Deribit, days: types.Float, showActiveExpirations: types.Boolean, tradeType: types.TradeTypeEnum
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.ExchangeDeribit, days: types.Float, showActiveExpirations: types.Boolean, tradeType: types.TradeTypeEnum
     ) -> Dict:
         """
         This endpoint returns the cumulative net volumes of trades for the last "n" days selected.
@@ -1532,7 +1521,7 @@ class GVol:
 
 
     def options_cumulative_net_positioning(
-        self,  symbol: types.BTCOrETHEnumType, exchange: types.Deribit, dateStart: types.String
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.ExchangeDeribit, dateStart: types.String
     ) -> Dict:
         """
         This endpoint returns the cumulative net positioning of traders for the period from the dateStart parameter. It means that positioning is assumed "zero" at the dateStart.

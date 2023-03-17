@@ -11,7 +11,7 @@ Boolean = bool
 Deribit = Literal['deribit']
 DaysBackEnumType = Literal["NINETY", "ONE_EIGHTY", "ONE_YEAR", "SIXTY", "THIRTY"]
 ExchangeEnumType = Literal[
-    "binance", "bitcom", "cme", "delta", "deribit", "ledgerx", "okex"
+    "deribit", "bitcom", "delta","ledgerx", "okex"
 ]
 ExchangeDeribit = Literal["deribit"]
 Float = float
