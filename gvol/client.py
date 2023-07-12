@@ -1519,7 +1519,46 @@ class GVol:
             variable_values={"symbol":symbol, "exchange":exchange, "days":days, "showActiveExpirations":showActiveExpirations, "tradeType":tradeType}
         )
 
+    def options_cumulative_net_volumes_hist(
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.ExchangeDeribit, dateStart: types.String, dateEnd: types.String, showActiveExpirations: types.Boolean, tradeType: types.TradeTypeEnum
+    ) -> Dict:
+        """
+        This endpoint returns the cumulative net volumes of trades for the date range selected (dateStart/dateEnd).
 
+        For calculating the "net" volume (aka the volume traded with the sign of the initiator) we use our proprietary algorithm composed from several heuristics which use the orderbook previous of the trade at millisecond granularity. You can read more about this here Gvol Direction.
+
+        The endpoint is completed with some useful filters, such as:
+        - tradeType = ALL/block/onScreen
+        - showActiveExpirations:
+        - true = endpoint returns only trades for active expirations
+        - false = endpoint returns all the trades even for expired expirations.
+
+        Args:
+            {
+            "symbol": "BTC",
+            "dateStart": "2023-06-01",
+            "dateEnd": "2023-06-04",
+            "exchange": "deribit",
+            "trade": "all",
+            "showActiveExpirations": true
+            }
+            
+        Returns:
+            {
+            "date": "1685923200000",
+            "strike": 48000,
+            "cumulative": 1.9,
+            "cumulativeGamma": 0,
+            "cumulativeVega": 7.92,
+            "cumulativeDelta": 0.03,
+            "indexPrice": 27125.03
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_cumulative_net_volumes_hist),
+            variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd, "showActiveExpirations":showActiveExpirations, "tradeType":tradeType}
+        )
+    
     def options_cumulative_net_positioning(
         self,  symbol: types.BTCOrETHEnumType, exchange: types.ExchangeDeribit, dateStart: types.String
     ) -> Dict:
@@ -1547,3 +1586,37 @@ class GVol:
             gql(queries.options_cumulative_net_positioning),
             variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart}   
         )
+    
+    def options_cumulative_net_positioning_hist(
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.ExchangeDeribit, dateStart: types.String, dateEnd: types.String
+    ) -> Dict:
+        """
+        This endpoint returns the cumulative net oi for the date range selected (dateStart/dateEnd)
+
+        The cumulative net oi is the incremental change in the open interest according to the trades flow using our proprietary "taker detection".
+
+        When a strike is positive means that has been bought from traders, when is negative has been sold.
+
+        To the other side of positioning, there are the dealers with their inventory.
+
+        For not losing information cutting some open interest forming process it's strongly adviced to start from 1st November 2022.
+
+        Args:
+        {
+        "symbol": "BTC",
+        "exchange": "deribit",
+        "dateStart": "2023-03-01"
+        "dateEnd": "2023-04-01"
+        }
+            
+        Returns:
+            {
+                "date": "1677628800000",
+                "strike": 5000,
+                "netInv": 0,
+                "indexPrice": 23134
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_cumulative_net_positioning_hist),
+            variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd}      
