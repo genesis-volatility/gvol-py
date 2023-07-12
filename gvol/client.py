@@ -1619,4 +1619,5 @@ class GVol:
         """
         return self._client.execute(
             gql(queries.options_cumulative_net_positioning_hist),
-            variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd}      
+            variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd}    
+        )  
