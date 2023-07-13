@@ -1388,9 +1388,9 @@ query NetVolumeGvolDirection($tradeType: TradeTypeEnum, $days: Float, $symbol: S
 """
 
 options_cumulative_net_volumes_hist = """
-query HistoricalNetVolumeApi($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String $exchange: ExchangeEnumType, $trade: TradeEnumType, $showActiveExpirations: Boolean)
-{HistoricalNetVolumeApi(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd exchange: $exchange, trade: $trade, showActiveExpirations: $showActiveExpirations) 
-{date strike cumulative cumulativeGamma cumulativeVega cumulativeDelta indexPrice} }
+query HistoricalNetVolumeApi($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String $exchange: ExchangeEnumType, $tradeType: TradeEnumType, $showActiveExpirations: Boolean)
+{ HistoricalNetVolumeApi(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd exchange: $exchange, tradeType: $tradeType, showActiveExpirations: $showActiveExpirations)
+{date strike cumulative cumulativeGamma cumulativeVega cumulativeDelta indexPrice } }
 """
 
 options_cumulative_net_positioning = """
