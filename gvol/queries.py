@@ -1407,3 +1407,35 @@ query HistoricalNetPositioningApi($symbol: SymbolEnumType, $dateStart: String, $
 {HistoricalNetPositioningApi(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd exchange: $exchange) 
 {date strike netInv indexPrice } }
 """
+
+options_iv_rv_comparison = """
+query IvRvComparison($symbol: SymbolEnumType, $exchange: ExchangeEnumType, $dateStart: String, $dateEnd: String) 
+{IvRvComparison(symbol: $symbol, exchange: $exchange dateStart: $dateStart dateEnd: $dateEnd) 
+{ date parkinsonRvIndex atm7 atm30 atm60 atm90 atm180 } }
+"""
+
+options_butterfly_constant_maturities = """
+query HistoricalConstantMaturitiesApi($symbol: SymbolEnumType, $dateStart: String, $dateEnd: String $exchange: ExchangeEnumType){ HistoricalConstantMaturitiesApi(symbol: $symbol, dateStart: $dateStart, dateEnd: $dateEnd exchange: $exchange) {  
+        date
+        fly05D7Day
+        fly05D30Day
+        fly05D60Day
+        fly05D90Day
+        fly05D180Day
+        fly15D7Day
+        fly15D30Day
+        fly15D60Day
+        fly15D90Day
+        fly15D180Day
+        fly25D7Day
+        fly25D30Day
+        fly25D60Day
+        fly25D90Day
+        fly25D180Day
+        fly35D7Day
+        fly35D30Day
+        fly35D60Day
+        fly35D90Day
+        fly35D180Day
+ } }
+"""

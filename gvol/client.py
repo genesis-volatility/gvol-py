@@ -1621,3 +1621,76 @@ class GVol:
             gql(queries.options_cumulative_net_positioning_hist),
             variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd}    
         )  
+
+    def options_iv_rv_comparison(
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.ExchangeDeribit, dateStart: types.String, dateEnd: types.String
+    ) -> Dict:
+        """
+        Exchange: Deribit Only
+        Parameters: BTC/ETH, Date Range, Realized Volatility Calculation Window (days)
+        Available date range: April 1, 2019 to present
+        This endpoint looks at the hourly realized volatility of cash market (AKA "spot price", AKA "Index Price") compared to the hourly ATM implied volatility.
+        These values are congruent in time, some traders like to "shift back" implied volatility, since it's an estimate of future realized volatility, to compared the actual VRP (Variance Risk Premium) realized from the market.
+        Columns:
+        ts: timestamp
+        Parkinson_rv_index: This is the realized volatility using the "Parkinson Method"
+        atm7: 7-day ATM volatility
+        atm30: 30-day ATM volatility
+        atm60: 60-day ATM volatility
+        atm90: 90-day ATM volatility
+        atm180: 180-day ATM volatility
+
+        Returns:
+            {
+                "date": "1685577600000",
+                "parkinsonRvIndex": "30.01",
+                "atm7": 39.84,
+                "atm30": 38.89,
+                "atm60": 39.84,
+                "atm90": 40.97,
+                "atm180": 43.79
+           }
+        
+        """
+        return self._client.execute(
+            gql(queries.options_iv_rv_comparison),
+            variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd}    
+        )  
+
+    def options_butterfly_constant_maturities(
+        self,  symbol: types.BTCOrETHEnumType, exchange: types.ExchangeDeribit, dateStart: types.String, dateEnd: types.String
+    ) -> Dict:
+        """
+        This endpoint returns butterflies of different delta with 1 minute granularity.
+        Max date range of 30 days
+        
+        Returns:
+              {
+                "date": "1688342400000",
+                "fly05D7Day": 21.83,
+                "fly05D30Day": 25.13,
+                "fly05D60Day": 28.55,
+                "fly05D90Day": 30.54,
+                "fly05D180Day": 31.29,
+                "fly15D7Day": 8.96,
+                "fly15D30Day": 11.56,
+                "fly15D60Day": 11.88,
+                "fly15D90Day": 12.65,
+                "fly15D180Day": 12.75,
+                "fly25D7Day": 4.09,
+                "fly25D30Day": 5.65,
+                "fly25D60Day": 5.58,
+                "fly25D90Day": 5.84,
+                "fly25D180Day": 6.31,
+                "fly35D7Day": 1.58,
+                "fly35D30Day": 2.47,
+                "fly35D60Day": 2.45,
+                "fly35D90Day": 2.5,
+                "fly35D180Day": 2.96
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_butterfly_constant_maturities),
+            variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd}    
+        )
+    
