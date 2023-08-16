@@ -250,7 +250,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "mccabe"
-version = "0.6.2"
+version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
 category = "dev"
 optional = false
