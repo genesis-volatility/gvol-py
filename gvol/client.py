@@ -1694,3 +1694,39 @@ class GVol:
             variable_values={"symbol":symbol, "exchange":exchange, "dateStart":dateStart, "dateEnd":dateEnd}    
         )
     
+    def options_term_structure_richness(self, symbol: types.SymbolEnumType, exchange: types.ExchangeEnumType, dateStart: str, dateEnd: str) -> Dict:
+        """
+        This endpoint retrieves the term structure richness data for a specific symbol and exchange. It encompasses various
+        time buckets and at-the-money (ATM) implied volatility data, allowing for analysis and understanding of the
+        term structure and its potential implications.
+
+        Args:
+            {
+                "symbol": "BTC",
+                "exchange": "deribit",
+                "dateStart": "2023-01-01",
+                "dateEnd": "2023-06-01"
+            }
+
+        Returns:
+            {
+                "timeBucket": "1685664000000",
+                "atm7": 35.53,
+                "atm30": 36.76,
+                "atm60": 37.08,
+                "atm90": 37.89,
+                "atm180": 41.55,
+                "ratio": 9.346785467843016,
+                "counter": 10,
+                "termStructureRichness": 0.9346785467843016
+            }
+        """
+        return self._client.execute(
+            gql(queries.options_term_structure_richness),
+            variable_values={
+                "symbol": symbol,
+                "exchange": exchange,
+                "dateStart": dateStart,
+                "dateEnd": dateEnd
+            }
+        )
