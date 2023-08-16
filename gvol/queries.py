@@ -1439,3 +1439,19 @@ query HistoricalConstantMaturitiesApi($symbol: SymbolEnumType, $dateStart: Strin
         fly35D180Day
  } }
 """
+
+options_term_structure_richness = """
+query genericTermStructureRichness($symbol: SymbolEnumType, $exchange: ExchangeEnumType, $dateStart: String, $dateEnd: String) {
+  genericTermStructureRichness: genericTermStructureRichness(symbol: $symbol, exchange: $exchange, dateStart: $dateStart, dateEnd: $dateEnd) {
+    timeBucket
+    atm7
+    atm30
+    atm60
+    atm90
+    atm180
+    ratio
+    counter
+    termStructureRichness
+  }
+}
+"""
