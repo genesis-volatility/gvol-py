@@ -34,7 +34,7 @@ options_orderbook = gvol_client.options_orderbook(
 
 print(options_orderbook)
 
-amberdata_client = AMBERDATA(api_key="ENTER YOUR AD API KEY HERE")
+amberdata_client = Amberdata(api_key="ENTER YOUR AD API KEY HERE")
 amberdata_client.get_term_structure(currency='BTC', exchange='deribit')
 
 
