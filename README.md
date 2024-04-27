@@ -24,7 +24,7 @@ pip install gvol
 
 ```python
 from gvol import GVol
-from gvol import AMBERDATA
+from gvol import Amberdata
 
 gvol_client = GVol(header='x-oracle', gvol_api_key="ENTER YOUR API KEY HERE")
 

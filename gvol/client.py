@@ -8,7 +8,7 @@ from gvol import queries, types
 import requests
 import pandas as pd
 
-class AMBERDATA:
+class Amberdata:
     def __init__(self, api_key: str):
         self.base_url = "https://api.amberdata.com"
         self.headers = {
