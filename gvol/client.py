@@ -5,6 +5,35 @@ from gql.transport.requests import RequestsHTTPTransport
 
 from gvol import queries, types
 
+import requests
+import pandas as pd
+
+class AMBERDATA:
+    def __init__(self, api_key: str):
+        self.base_url = "https://api.amberdata.com"
+        self.headers = {
+            "accept": "application/json",
+            "Accept-Encoding": "gzip",
+            "x-api-key": api_key
+        }
+
+    def get_instrument_information(self) -> pd.DataFrame:
+        url = f"{self.base_url}/markets/derivatives/analytics/instruments/information"
+        return self._make_request(url)
+
+    def get_term_structure(self, currency: str, exchange: str) -> pd.DataFrame:
+        url = f"{self.base_url}/markets/derivatives/analytics/forward-volatility/term-structure?currency={currency}&exchange={exchange}"
+        return self._make_request(url)
+
+    def _make_request(self, url: str) -> pd.DataFrame:
+        """Helper method to make HTTP GET requests and parse the JSON response into a DataFrame."""
+        response = requests.get(url, headers=self.headers)
+        if response.status_code == 200:
+            print(response.text[0:500])  # Optionally print part of the response
+            data = response.json()
+            return pd.json_normalize(data['payload']['data'])
+        else:
+            response.raise_for_status()
 
 class GVol:
     """GVol API client.
