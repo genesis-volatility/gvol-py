@@ -24,6 +24,7 @@ pip install gvol
 
 ```python
 from gvol import GVol
+from gvol import Amberdata
 
 gvol_client = GVol(header='x-oracle', gvol_api_key="ENTER YOUR API KEY HERE")
 
@@ -32,4 +33,8 @@ options_orderbook = gvol_client.options_orderbook(
 )
 
 print(options_orderbook)
+
+amberdata_client = Amberdata(api_key="ENTER YOUR AD API KEY HERE")
+amberdata_client.get_term_structure(currency='BTC', exchange='deribit')
+
 ```
