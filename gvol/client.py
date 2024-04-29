@@ -10,30 +10,94 @@ import pandas as pd
 
 class Amberdata:
     def __init__(self, api_key: str):
-        self.base_url = "https://api.amberdata.com"
-        self.headers = {
+        self._base_url = "https://api.amberdata.com"
+        self._headers = {
             "accept": "application/json",
             "Accept-Encoding": "gzip",
             "x-api-key": api_key
         }
 
-    def get_instrument_information(self) -> pd.DataFrame:
-        url = f"{self.base_url}/markets/derivatives/analytics/instruments/information"
+    def get_instrument_information(self, **kwargs) -> pd.DataFrame:
+        """
+        Given an exchange parameter and underlying currency (ex: deribit, BTC) this endpoint retrieves a list of all available active option.
+        Users can pass a “timestamp” parameter to view the available active instruments at some point in the past.
+        Users can also pass additional parameters to filter to a more narrow subset of tradable instruments.
+        
+        QUERY PARAMS:
+        - exchange (string) [Optional] [Examples] deribit | okex | bybit
+        - currency (string) [Optional] [Examples] BTC | SOL_USDC
+        - putCall (string) [Optional] [Examples] C | P
+        - strike (int32) [Optional] [Examples] 100000 | 3500
+        - timestamp (string) [Optional] [Examples] 2024-04-03T08:00:00.000Z
+        """
+
+        query_params = {
+        **kwargs 
+        }
+        
+        query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
+        url = f"{self._base_url}/markets/derivatives/analytics/instruments/information?{query_string}"
         return self._make_request(url)
 
-    def get_term_structure(self, currency: str, exchange: str) -> pd.DataFrame:
-        url = f"{self.base_url}/markets/derivatives/analytics/forward-volatility/term-structure?currency={currency}&exchange={exchange}"
+    # def get_term_structure(self, exchange: str, currency: str, **kwargs) -> pd.DataFrame:
+    #     """
+    #     This endpoint returns the term structure (for exchange listed expirations) with forward volatility calculations.
+        
+    #     QUERY PARAMS:
+    #     - exchange (string) [Required] [Examples] deribit | okex | bybit
+    #     - currency (string) [Required] [Examples] BTC | SOL_USDC
+    #     - startDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+    #     - endDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+    #     - timeFormat (string) [Optional] [Defaults] milliseconds | ms* | iso | iso8601 | hr |
+    #     """
+
+    #     query_params = {
+    #     'exchange': exchange,
+    #     'currency': currency,
+    #     **kwargs 
+    #     }
+
+    #     query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
+    #     url = f"{self.base_url}/markets/derivatives/analytics/forward-volatility/term-structure?{query_string}"
+    #     return self._make_request(url)
+
+    def get_tickers(self, exchange: str, currency: str, **kwargs) -> pd.DataFrame:
+        """
+        This endpoint returns the “Level 1” option chain with associated volatilities, greeks and underlying prices. This is the core underlying options data for many analytics.
+        Although this data streams to Amberdata every 100ms this endpoint returns the first observation for each instrument in 1-minute, 1-hour or 1-day intervals.
+        Note: Due to the density of data historical date ranges are limited to 60x 1-minute or 24x 1 hour intervals, per call. If no date range is passed, the most recent option chain will be returned.
+
+        QUERY PARAMS:
+        - exchange (string) [Required] [Examples] deribit | okex | bybit
+        - currency (string) [Required] [Examples] BTC | SOL_USDC
+        - instrument (string) [Optional] [Examples] BTC-26APR24-100000-C
+        - isAtm (boolean) [Optional] [Examples] TRUE | FALSE
+        - putCall (string) [Optional] [Examples] C | P
+        - startDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - endDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - strike (int32) [Optional] [Examples] 100000 | 3500
+        - timeInterval (string) [Optional] [Examples] minute | hour | day
+        - timeFormat (string) [Optional] [Defaults] milliseconds | ms* | iso | iso8601 | hr |
+        """
+        
+        query_params = {
+        'exchange': exchange,
+        'currency': currency,
+        **kwargs 
+        }
+    
+        query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
+        url = f"{self._base_url}/markets/derivatives/analytics/tickers_1m?{query_string}"
         return self._make_request(url)
 
     def _make_request(self, url: str) -> pd.DataFrame:
         """Helper method to make HTTP GET requests and parse the JSON response into a DataFrame."""
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=self._headers)
         if response.status_code == 200:
-            print(response.text[0:500])  # Optionally print part of the response
             data = response.json()
             return pd.json_normalize(data['payload']['data'])
         else:
-            response.raise_for_status()
+            print(response.text)
 
 class GVol:
     """GVol API client.
