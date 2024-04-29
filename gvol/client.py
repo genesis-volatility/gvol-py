@@ -39,27 +39,27 @@ class Amberdata:
         url = f"{self._base_url}/markets/derivatives/analytics/instruments/information?{query_string}"
         return self._make_request(url)
 
-    # def get_term_structure(self, exchange: str, currency: str, **kwargs) -> pd.DataFrame:
-    #     """
-    #     This endpoint returns the term structure (for exchange listed expirations) with forward volatility calculations.
+    def get_term_structure_floating(self, exchange: str, currency: str, **kwargs) -> pd.DataFrame:
+        """
+        This endpoint returns the term structure (for exchange listed expirations) with forward volatility calculations.
         
-    #     QUERY PARAMS:
-    #     - exchange (string) [Required] [Examples] deribit | okex | bybit
-    #     - currency (string) [Required] [Examples] BTC | SOL_USDC
-    #     - startDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
-    #     - endDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
-    #     - timeFormat (string) [Optional] [Defaults] milliseconds | ms* | iso | iso8601 | hr |
-    #     """
+        QUERY PARAMS:
+        - exchange (string) [Required] [Examples] deribit | okex | bybit
+        - currency (string) [Required] [Examples] BTC | SOL_USDC
+        - startDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - endDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - timeFormat (string) [Optional] [Defaults] milliseconds | ms* | iso | iso8601 | hr |
+        """
 
-    #     query_params = {
-    #     'exchange': exchange,
-    #     'currency': currency,
-    #     **kwargs 
-    #     }
+        query_params = {
+        'exchange': exchange,
+        'currency': currency,
+        **kwargs 
+        }
 
-    #     query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
-    #     url = f"{self.base_url}/markets/derivatives/analytics/forward-volatility/term-structure?{query_string}"
-    #     return self._make_request(url)
+        query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
+        url = f"{self._base_url}/markets/derivatives/analytics/term-structure/forward-volatility?{query_string}"
+        return self._make_request(url)
 
     def get_tickers(self, exchange: str, currency: str, **kwargs) -> pd.DataFrame:
         """
@@ -89,6 +89,73 @@ class Amberdata:
         query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
         url = f"{self._base_url}/markets/derivatives/analytics/tickers_1m?{query_string}"
         return self._make_request(url)
+
+    def get_delta_surfaces_constant(self, exchange: str, currency: str, **kwargs) -> pd.DataFrame:
+        """
+        This endpoint returns the option delta surface with constant maturities.
+
+        Time Range Limit:
+        The timeInterval supports minute, hour, day.
+        Due to the density of data, historical time ranges (difference between startDate and endDate) are limited to the following call sizes:
+        1 year of daily data
+        90 days of hourly data
+        1 hour of minutely data
+        In order to get more than the maximum allowed, you can use the startDate & endDate parameters to move the time frame window to get the next n days/hours/minutes of data.
+
+        QUERY PARAMS:
+        - exchange (string) [Required] [Examples] deribit | okex | bybit
+        - currency (string) [Required] [Examples] BTC | SOL_USDC
+        - startDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - endDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - daysToExpirationStart (int32) [Optional] [Examples] 0 | 7 | 60
+        - daysToExpirationEnd (int32) [Optional] [Examples] 1 | 30 | 180
+        - timeInterval (string) [Optional] [Examples] minute | hour | day
+        - timeFormat (string) [Optional] [Defaults] milliseconds | ms* | iso | iso8601 | hr |
+        """
+
+        query_params = {
+        'exchange': exchange,
+        'currency': currency,
+        **kwargs 
+        }
+    
+        query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
+        url = f"{self._base_url}/markets/derivatives/analytics/delta-surfaces/constant?{query_string}"
+        return self._make_request(url)
+
+    def get_delta_surfaces_floating(self, exchange: str, currency: str, **kwargs) -> pd.DataFrame:
+        """
+        This endpoint returns the option delta surface with floating maturities (exchange listed expirations).
+
+        Time Range Limit:
+        The timeInterval supports minute, hour, day.
+        Due to the density of data, historical time ranges (difference between startDate and endDate) are limited to the following call sizes:
+        1 year of daily data
+        90 days of hourly data
+        1 hour of minutely data
+        In order to get more than the maximum allowed, you can use the startDate & endDate parameters to move the time frame window to get the next n days/hours/minutes of data.
+
+        QUERY PARAMS:
+        - exchange (string) [Required] [Examples] deribit | okex | bybit
+        - currency (string) [Required] [Examples] BTC | SOL_USDC
+        - startDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - endDate (date-time) [Optional] [Examples] 1578531600 | 1578531600000 | 2024-04-03T08:00:00
+        - daysToExpirationStart (int32) [Optional] [Examples] 0 | 7 | 60
+        - daysToExpirationEnd (int32) [Optional] [Examples] 1 | 30 | 180
+        - timeInterval (string) [Optional] [Examples] minute | hour | day
+        - timeFormat (string) [Optional] [Defaults] milliseconds | ms* | iso | iso8601 | hr |
+        """
+
+        query_params = {
+        'exchange': exchange,
+        'currency': currency,
+        **kwargs 
+        }
+    
+        query_string = '&'.join([f"{key}={value}" for key, value in query_params.items()])
+        url = f"{self._base_url}/markets/derivatives/analytics/delta-surfaces/floating?{query_string}"
+        return self._make_request(url)
+
 
     def _make_request(self, url: str) -> pd.DataFrame:
         """Helper method to make HTTP GET requests and parse the JSON response into a DataFrame."""
