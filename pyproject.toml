@@ -8,7 +8,6 @@ readme = "README.md"
 
 homepage = "https://github.com/genesis-volatility/gvol-py"
 repository = "https://github.com/genesis-volatility/gvol-py"
-documentation = "https://gvol.readthedocs.io/"
 
 classifiers = [
     "Intended Audience :: Developers",
