@@ -10,10 +10,6 @@ GVol is a Python library to access the [GVol API](https://docs.gvol.io/).
 
 ---
 
-**Documentation**: [https://gvol.readthedocs.io/en/latest/index.html](https://gvol.readthedocs.io/en/latest/index.html)
-
----
-
 ## Install
 
 ```bash
